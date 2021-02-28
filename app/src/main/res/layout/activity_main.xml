@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue"
+    tools:context=".UI.MainActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="239dp"
+        android:layout_height="72dp"
+        android:layout_marginStart="86dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="87dp"
+        android:fontFamily="@font/amarante"
+        android:gravity="center"
+        android:text="Login"
+        android:textColor="@color/orange"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="305dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="65dp"
+        android:ems="10"
+        android:fontFamily="@font/amarante"
+        android:hint="Email"
+        android:inputType="text"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="305dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:fontFamily="@font/amarante"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/username" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="156dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="140dp"
+        android:background="@color/orange"
+        android:fontFamily="@font/amarante"
+        android:text="Login"
+        android:textColor="@color/blue"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/forgetPwd"
+        app:strokeWidth="5dp" />
+
+    <TextView
+        android:id="@+id/forgetPwd"
+        android:layout_width="193dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="6dp"
+        android:fontFamily="@font/amarante"
+        android:gravity="fill_vertical"
+        android:text="Forgot Password?"
+        android:textColor="@color/orange"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
+
+    <TextView
+        android:id="@+id/signUp"
+        android:layout_width="106dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="6dp"
+        android:cursorVisible="false"
+        android:fontFamily="@font/amarante"
+        android:gravity="center|fill_vertical"
+        android:text="Register"
+        android:textColor="@color/orange"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/forgetPwd"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
+
+    <ImageButton
+        android:id="@+id/showPassword"
+        android:layout_width="55dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="250dp"
+        android:background="@color/blue"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toEndOf="@+id/password"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
