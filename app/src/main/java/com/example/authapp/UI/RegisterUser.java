@@ -55,6 +55,7 @@ public class RegisterUser extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Register();
+
             }
         });
 
@@ -129,6 +130,7 @@ public class RegisterUser extends AppCompatActivity {
                                                         "User has been registered successfully!",
                                                         Toast.LENGTH_LONG).show();
                                                 progressB.setVisibility(View.VISIBLE);
+                                                startActivity(new Intent(RegisterUser.this, MainActivity.class));
                                             }else{
                                                 Toast.makeText(RegisterUser.this,
                                                         "Fail to register! Try Again!",
@@ -149,4 +151,6 @@ public class RegisterUser extends AppCompatActivity {
                 });
 
     }
+
+
 }

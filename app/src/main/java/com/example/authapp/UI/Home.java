@@ -48,7 +48,12 @@ public class Home extends AppCompatActivity implements MovieItemClickListener {
 
        ComingSoonMoviesInfor();
 
+        hideActionBar();
 
+    }
+
+    private void hideActionBar() {
+        getSupportActionBar().hide();
 
     }
 

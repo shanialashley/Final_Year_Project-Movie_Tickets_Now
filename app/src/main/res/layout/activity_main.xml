@@ -14,7 +14,7 @@
         android:layout_marginStart="86dp"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="87dp"
-        android:fontFamily="@font/amarante"
+        android:fontFamily="@font/amaranth"
         android:gravity="center"
         android:text="Login"
         android:textColor="@color/orange"

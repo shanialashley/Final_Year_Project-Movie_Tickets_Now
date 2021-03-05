@@ -2,22 +2,25 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.authapp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AuthApp">
-        <activity android:name=".UI.MoviePlayerActivity"/>
+        android:theme="@style/Theme.AuthApp"
+        android:usesCleartextTraffic="true">
 
+<!--        <activity android:name=".UI.Logo"></activity>-->
+        <activity android:name=".UI.MoviePlayerActivity" />
         <activity android:name=".UI.MovieDetailsActivity" />
         <activity android:name=".UI.ForgotPassword" />
-        <activity android:name=".UI.Home" />
         <activity android:name=".UI.RegisterUser" />
-        <activity android:name=".UI.MainActivity">
-<!--        <activity android:name=".UI.MoviePlayerActivity" >-->
+        <activity android:name=".UI.MainActivity" />
+        <activity android:name=".UI.Home"/>
+        <activity android:name=".UI.Logo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,7 +32,5 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest>
