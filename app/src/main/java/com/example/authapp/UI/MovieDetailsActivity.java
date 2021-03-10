@@ -10,6 +10,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.example.authapp.R;
@@ -20,11 +21,15 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private ImageView movieDThumbnail, movieDCover;
     private TextView movieDTitle, movieDDescription, movieDRating, movieDlength, movieDStarring, movieDDirectors, movieDGenre;
     private FloatingActionButton play_fab;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
+
+
+
 
         iniViews();
 
@@ -57,7 +62,10 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         movieDTitle = findViewById(R.id.detail_movie_title);
         movieDTitle.setText(movieTitle);
-        this.getSupportActionBar().setTitle(movieTitle);
+
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(movieTitle);
 
         movieDDescription = findViewById(R.id.detail_movie_description);
         movieDDescription.setText(descrip);

@@ -1,6 +1,12 @@
 package com.example.authapp.UI;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.graphics.drawable.DrawerArrowDrawable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -9,6 +15,8 @@ import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 
 import com.example.authapp.Model.Movie;
@@ -17,6 +25,7 @@ import com.example.authapp.adapters.MovieItemClickListener;
 import com.example.authapp.R;
 import com.example.authapp.Model.Slide;
 import com.example.authapp.adapters.SliderPagerAdapter;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -24,13 +33,19 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Home extends AppCompatActivity implements MovieItemClickListener {
+import static com.example.authapp.R.id.slider_pager;
+
+public class Home extends AppCompatActivity implements MovieItemClickListener, NavigationView.OnNavigationItemSelectedListener {
 
     private List<Slide> Slides_list;
     private ViewPager slider_pager;
     private SliderPagerAdapter adp;
     private TabLayout indicator;
     private RecyclerView MovieRV, ComingSoonRV;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,19 +57,89 @@ public class Home extends AppCompatActivity implements MovieItemClickListener {
         MovieRV = findViewById(R.id.RV_movies);
         ComingSoonRV = findViewById(R.id.RV_Coming_Soon);
 
+
+        NavInfo();
+
         SlidesInfor();
 
         CurrentMoviesInfor();
 
        ComingSoonMoviesInfor();
 
-        hideActionBar();
+//        hideActionBar();
 
     }
 
     private void hideActionBar() {
         getSupportActionBar().hide();
 
+    }
+
+    public void NavInfo(){
+
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+        toolbar = findViewById(R.id.toolbar);
+
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Movie Tickets Now");
+
+        Menu menu = navigationView.getMenu();
+        menu.findItem(R.id.nav_login).setVisible(false);
+
+        navigationView.bringToFront();
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.nav_open, R.string.nav_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        DrawerArrowDrawable arrow = toggle.getDrawerArrowDrawable();
+        arrow.setColor(getResources().getColor(R.color.orange));
+
+        navigationView.setNavigationItemSelectedListener(this);
+
+        navigationView.setCheckedItem(R.id.nav_home);
+
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+        else {
+            super.onBackPressed();
+        }
+    }
+
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.nav_home:
+                break;
+
+            case R.id.nav_theaters:
+                startActivity(new Intent(Home.this, Theaters.class));
+                break;
+
+            case R.id.nav_upcoming_movies:
+                startActivity(new Intent(Home.this, UpcomingMovies.class));
+                break;
+
+            case R.id.nav_search:
+                startActivity(new Intent(Home.this, Search.class));
+                break;
+
+
+        }
+
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     public void SlidesInfor(){
@@ -186,6 +271,7 @@ public class Home extends AppCompatActivity implements MovieItemClickListener {
 
 
     }
+
 
 
     class SliderTimer extends TimerTask{

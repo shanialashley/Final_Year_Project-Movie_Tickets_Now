@@ -7,9 +7,15 @@
     android:background="@color/blue"
     tools:context=".UI.MovieDetailsActivity">
 
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar"/>
 
         <ImageView
             android:id="@+id/detail_movie_cover"
@@ -23,15 +29,15 @@
 
         <ImageView
             android:id="@+id/detail_movie_gradient_bg"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="415dp"
+            android:layout_height="287dp"
             android:src="@drawable/gradient_bg"
             app:layout_constraintBottom_toBottomOf="@+id/detail_movie_cover"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/play_fab"

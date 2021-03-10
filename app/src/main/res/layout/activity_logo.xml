@@ -13,10 +13,9 @@
         android:id="@+id/imageView"
         android:layout_width="291dp"
         android:layout_height="438dp"
-        android:layout_marginBottom="248dp"
+        android:layout_marginBottom="164dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.633"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/movie_tickets_now__1_" />
 
@@ -24,7 +23,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="80dp"
         android:fontFamily="@font/bangers"
         android:includeFontPadding="true"
         android:text="A few clicks is all it takes!"
@@ -32,7 +31,6 @@
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.673"
         app:layout_constraintStart_toStartOf="parent" />
 
 

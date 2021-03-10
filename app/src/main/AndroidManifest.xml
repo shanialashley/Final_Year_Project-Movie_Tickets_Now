@@ -6,21 +6,22 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:icon="@drawable/movie_tickets_now__1_"
+        android:label="Movie Tickets Now"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AuthApp"
         android:usesCleartextTraffic="true">
-
-<!--        <activity android:name=".UI.Logo"></activity>-->
+        <activity android:name=".UI.Search"></activity>
+        <activity android:name=".UI.Theaters" /> <!-- <activity android:name=".UI.UpcomingMovies" android:theme="@style/NoActionBar"></activity> -->
         <activity android:name=".UI.MoviePlayerActivity" />
         <activity android:name=".UI.MovieDetailsActivity" />
         <activity android:name=".UI.ForgotPassword" />
         <activity android:name=".UI.RegisterUser" />
         <activity android:name=".UI.MainActivity" />
-        <activity android:name=".UI.Home"/>
-        <activity android:name=".UI.Logo">
+        <activity android:name=".UI.Logo" /> <!-- <activity android:name=".UI.Home"/> -->
+        <activity android:name=".UI.UpcomingMovies" />
+        <activity android:name=".UI.Home">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

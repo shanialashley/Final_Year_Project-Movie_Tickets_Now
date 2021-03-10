@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.example.authapp.R;
 
+import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
+
 public class Logo extends AppCompatActivity {
 
     Animation topA, bottomA;
@@ -24,7 +26,8 @@ public class Logo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //noinspection deprecation
+        getWindow().setFlags(FLAG_FULLSCREEN, FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_logo);
 
@@ -39,6 +42,7 @@ public class Logo extends AppCompatActivity {
         image.setAnimation(topA);
         logo.setAnimation(bottomA);
 
+        //noinspection deprecation
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
