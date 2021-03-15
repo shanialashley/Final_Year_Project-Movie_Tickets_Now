@@ -27,6 +27,7 @@ import com.example.authapp.Model.Slide;
 import com.example.authapp.adapters.SliderPagerAdapter;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,12 +46,14 @@ public class Home extends AppCompatActivity implements MovieItemClickListener, N
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
-
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        mAuth = FirebaseAuth.getInstance();
 
         slider_pager = findViewById(R.id.slider_pager);
         indicator = findViewById(R.id.indicator);
@@ -85,8 +88,10 @@ public class Home extends AppCompatActivity implements MovieItemClickListener, N
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Movie Tickets Now");
 
+        //Hide or show item in Menu
         Menu menu = navigationView.getMenu();
-        menu.findItem(R.id.nav_login).setVisible(false);
+//        menu.findItem(R.id.nav_login).setVisible(false);
+
 
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.nav_open, R.string.nav_close);
@@ -133,6 +138,12 @@ public class Home extends AppCompatActivity implements MovieItemClickListener, N
 
             case R.id.nav_search:
                 startActivity(new Intent(Home.this, Search.class));
+                break;
+
+            case R.id.nav_logout:
+                mAuth.getInstance().signOut();
+                finish();
+                startActivity(new Intent(Home.this, MainActivity.class));
                 break;
 
 

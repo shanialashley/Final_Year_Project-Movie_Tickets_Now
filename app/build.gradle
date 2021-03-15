@@ -1,5 +1,7 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.secrets_gradle_plugin' version '0.5'
+
 }
 apply plugin: 'com.google.gms.google-services'
 
@@ -22,6 +24,7 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -62,18 +65,29 @@ dependencies {
     implementation 'com.google.android.exoplayer:exoplayer-dash:2.7.3'
     implementation 'com.google.android.exoplayer:exoplayer-ui:2.7.3'
 
-
+    //icon
     implementation "androidx.vectordrawable:vectordrawable:1.1.0"
     implementation "androidx.vectordrawable:vectordrawable-animated:1.1.0"
     implementation "androidx.vectordrawable:vectordrawable-seekable:1.0.0-alpha02"
 
 
-    //Menu
+    //Tooltip
+    implementation 'com.github.vihtarb:tooltip:0.1.9'
 
     //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:26.1.0'
     //noinspection GradleCompatible
     implementation 'com.android.support:design:26.1.0'
+
+    //Google Map
+     implementation 'com.google.android.gms:play-services-maps:16.0.0'
+    implementation 'com.karumi:dexter:4.2.0'
+
+
+
+    implementation 'androidx.multidex:multidex:2.0.1'
+
+
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

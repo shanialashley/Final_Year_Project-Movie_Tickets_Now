@@ -7,7 +7,8 @@
     android:background="@color/blue"
     android:id="@+id/drawer_layout"
     android:fitsSystemWindows="true"
-    tools:context=".UI.Theaters">
+    tools:context=".UI.Theaters"
+    tools:openDrawer="start">
 
 
     <com.google.android.material.navigation.NavigationView
@@ -32,8 +33,8 @@
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/Scroll"
-            android:layout_width="402dp"
-            android:layout_height="597dp"
+            android:layout_width="394dp"
+            android:layout_height="662dp"
             android:fillViewport="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -47,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/theater_cabcin_img"
                     android:layout_width="170dp"
                     android:layout_height="100dp"
@@ -71,7 +72,7 @@
                     android:id="@+id/theaters_cabcin_tv_location"
                     android:layout_width="103dp"
                     android:layout_height="41dp"
-                    android:layout_marginStart="19dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="70dp"
                     android:fontFamily="@font/amaranth"
                     android:gravity="center|center_vertical"
@@ -90,7 +91,7 @@
                     android:layout_marginTop="61dp"
                     android:layout_marginEnd="20dp"
                     android:contentDescription="TODO"
-                    android:onClick="ShowPopUp"
+                    android:onClick="Carib_Cin_ShowPopUp"
                     android:src="@drawable/ic_baseline_location_on_24"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/theaters_cabcin_tv_location"
@@ -134,7 +135,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/img3" />
 
                 <ImageView
-                    android:id="@+id/imageView5"
+                    android:id="@+id/theaters_mt_img"
                     android:layout_width="147dp"
                     android:layout_height="133dp"
                     android:layout_marginStart="20dp"
@@ -150,9 +151,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:layout_marginEnd="20dp"
+                    android:src="@drawable/ic_baseline_location_on_24"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/theater_cabcin_title"
-                    android:src="@drawable/ic_baseline_location_on_24" />
+                    app:layout_constraintTop_toBottomOf="@+id/theater_cabcin_title" />
 
                 <TextView
                     android:id="@+id/theater_cabcin_loc_addr"
@@ -195,9 +196,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:layout_marginEnd="20dp"
+                    android:src="@drawable/ic_baseline_call_24"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/theater_cabcin_map"
-                    android:src="@drawable/ic_baseline_call_24" />
+                    app:tint="@color/green" />
 
                 <ImageView
                     android:id="@+id/img1"
@@ -205,6 +207,7 @@
                     android:layout_height="40dp"
                     android:layout_marginStart="35dp"
                     android:layout_marginTop="15dp"
+                    android:background="#00FFFFFF"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/theater_cabcin_loc_num"
                     app:srcCompat="@drawable/cxcetra" />
@@ -215,19 +218,20 @@
                     android:layout_height="40dp"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="15dp"
+                    android:src="@drawable/game_room"
                     app:layout_constraintStart_toEndOf="@+id/img1"
-                    app:layout_constraintTop_toBottomOf="@+id/theater_cabcin_loc_num"
-                    android:src="@drawable/game_room" />
+                    app:layout_constraintTop_toBottomOf="@+id/theater_cabcin_loc_num" />
 
                 <ImageView
                     android:id="@+id/img3"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="12dp"
+                    android:background="#3C3F41"
+                    android:src="@drawable/accessible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/theater_cabcin_loc_num"
-                    android:src="@drawable/accessible" />
+                    app:layout_constraintTop_toBottomOf="@+id/theater_cabcin_loc_num" />
 
                 <ImageView
                     android:id="@+id/img4"
@@ -235,9 +239,9 @@
                     android:layout_height="40dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginEnd="15dp"
+                    android:src="@drawable/party_room"
                     app:layout_constraintEnd_toStartOf="@+id/img5"
-                    app:layout_constraintTop_toBottomOf="@+id/theater_cabcin_loc_num"
-                    android:src="@drawable/party_room" />
+                    app:layout_constraintTop_toBottomOf="@+id/theater_cabcin_loc_num" />
 
                 <ImageView
                     android:id="@+id/img5"
@@ -245,31 +249,264 @@
                     android:layout_height="40dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginEnd="36dp"
+                    android:src="@drawable/sala_tipo_stadium"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/theater_cabcin_call"
-                    android:src="@drawable/sala_tipo_stadium" />
+                    app:layout_constraintTop_toBottomOf="@+id/theater_cabcin_call" />
+
+                <TextView
+                    android:id="@+id/theaters_mt_locations"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="124dp"
+                    android:fontFamily="@font/amaranth"
+                    android:text="Locations"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/theaters_mt_img"
+                    app:layout_constraintTop_toBottomOf="@+id/divider3" />
+
+                <ImageView
+                    android:id="@+id/theater_mt_locations_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="102dp"
+                    android:layout_marginEnd="20dp"
+                    android:onClick="MT_ShowPopUp"
+                    android:src="@drawable/ic_baseline_location_on_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/theaters_mt_locations"
+                    app:layout_constraintTop_toBottomOf="@+id/divider3"
+                    app:tint="@color/yellow" />
+
+                <View
+                    android:id="@+id/divider4"
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:layout_marginTop="24dp"
+                    android:background="@color/orange"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/theaters_mt_img" />
+
+                <TextView
+                    android:id="@+id/theater_mt_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/yellow"
+                    android:fontFamily="@font/amaranth"
+                    android:gravity="center"
+                    android:text="Port of Spain"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/divider4" />
+
+                <TextView
+                    android:id="@+id/theaters_mt_loc_addr"
+                    android:layout_width="300dp"
+                    android:layout_height="70dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="12dp"
+                    android:fontFamily="@font/amaranth"
+                    android:gravity="center_vertical"
+                    android:text="TextView"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/theater_mt_map"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/theater_mt_title" />
+
+                <TextView
+                    android:id="@+id/theater_mt_loc_num"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/amaranth"
+                    android:gravity="center"
+                    android:text="TextView"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/divider5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/theaters_mt_loc_addr" />
+
+                <View
+                    android:id="@+id/divider5"
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/orange"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/theater_mt_loc_num" />
+
+                <ImageView
+                    android:id="@+id/theaters_imax_img"
+                    android:layout_width="170dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/divider5"
+                    app:srcCompat="@drawable/imax_logo" />
+
+                <View
+                    android:id="@+id/divider6"
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/orange"
+                    app:layout_constraintTop_toBottomOf="@+id/theaters_imax_img"
+                    tools:layout_editor_absoluteX="0dp" />
+
+                <View
+                    android:id="@+id/divider7"
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/orange"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/theaters_imax_loc_num" />
+
+                <ImageView
+                    android:id="@+id/theater_mt_map"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/theater_mt_title"
+                    android:src="@drawable/ic_baseline_location_on_24"
+                    app:tint="@color/yellow" />
+
+                <ImageView
+                    android:id="@+id/theater_mt_call"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="15dp"
+                    android:src="@drawable/ic_baseline_call_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/theater_mt_map"
+                    app:tint="@color/green" />
+
+                <TextView
+                    android:id="@+id/theaters_imax_locations"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="92dp"
+                    android:layout_marginEnd="24dp"
+                    android:fontFamily="@font/amaranth"
+                    android:text="Locations"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/theaters_imax_locations_icon"
+                    app:layout_constraintStart_toEndOf="@+id/theaters_imax_img"
+                    app:layout_constraintTop_toBottomOf="@+id/divider5" />
+
+                <TextView
+                    android:id="@+id/theaters_imax_loc_addr"
+                    android:layout_width="300dp"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/amaranth"
+                    android:text="TextView"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/theaters_imax_title" />
+
+                <TextView
+                    android:id="@+id/theaters_imax_title"
+                    android:layout_width="0dp"
+                    android:layout_height="27dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/light_blue"
+                    android:fontFamily="@font/amaranth"
+                    android:gravity="center"
+                    android:text="Port of Spain"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/divider6"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/divider6" />
+
+                <TextView
+                    android:id="@+id/theaters_imax_loc_num"
+                    android:layout_width="300dp"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/amaranth"
+                    android:gravity="center"
+                    android:text="TextView"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/theaters_imax_loc_addr" />
+
+                <ImageView
+                    android:id="@+id/theaters_imax_locations_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="64dp"
+                    android:layout_marginEnd="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/divider5"
+                    android:src="@drawable/ic_baseline_location_on_24"
+                    app:tint="@color/light_blue" />
+
+                <ImageView
+                    android:id="@+id/theater_imax_map"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/theaters_imax_loc_addr"
+                    app:layout_constraintTop_toBottomOf="@+id/theaters_imax_title"
+                    android:src="@drawable/ic_baseline_location_on_24"
+                    app:tint="@color/light_blue" />
+
+                <ImageView
+                    android:id="@+id/theater_imax_call"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/theaters_imax_loc_num"
+                    app:layout_constraintTop_toBottomOf="@+id/theater_imax_map"
+                    android:src="@drawable/ic_baseline_call_24"
+                    app:tint="@color/green" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
-
-        <TextView
-            android:id="@+id/theater_title"
-            android:layout_width="match_parent"
-            android:layout_height="42dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="20dp"
-            android:fontFamily="@font/amaranth"
-            android:gravity="center"
-            android:text="Theaters"
-            android:textColor="@color/orange"
-            android:textSize="36sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/Scroll"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
