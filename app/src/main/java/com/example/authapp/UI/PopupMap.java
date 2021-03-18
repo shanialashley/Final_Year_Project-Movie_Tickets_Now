@@ -62,6 +62,8 @@ public class PopupMap extends AppCompatActivity {
 
             double v1 = getIntent().getDoubleExtra("v1", 0);
             double v2 = getIntent().getDoubleExtra("v2", 0);
+            String name = getIntent().getStringExtra("location");
+
 
             LatLng location = new LatLng(v1, v2);
 
@@ -72,9 +74,9 @@ public class PopupMap extends AppCompatActivity {
                 public void onMapReady(GoogleMap googleMap) {
 
                     map = googleMap;
-
-                    map.addMarker(new MarkerOptions().position(location));
-                    map.moveCamera(CameraUpdateFactory.newLatLng(location));
+                    float zoomLevel = 16.0f;
+                    map.addMarker(new MarkerOptions().position(location).title(name));
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(location, zoomLevel));
 
                 }
             });

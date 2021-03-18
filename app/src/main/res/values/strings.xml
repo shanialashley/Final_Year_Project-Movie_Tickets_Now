@@ -7,4 +7,19 @@
     <string name="nav_open">Open Navigation Draw</string>
     <string name="nav_close">Close Navigation Draw</string>
     <string name="location">location</string>
+    <string name="upload">Upload</string>
+    <string-array name="rating">
+        <item>G</item>
+        <item>PG</item>
+        <item>PG-13</item>
+        <item>R</item>
+        <item>NC-17</item>
+        <item>No Rating</item>
+    </string-array>
+
+    <string-array name="category">
+        <item>Current</item>
+        <item>Upcoming</item>
+    </string-array>
+
 </resources>

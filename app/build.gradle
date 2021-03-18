@@ -80,14 +80,13 @@ dependencies {
     implementation 'com.android.support:design:26.1.0'
 
     //Google Map
-     implementation 'com.google.android.gms:play-services-maps:16.0.0'
+    implementation 'com.google.android.gms:play-services-maps:16.0.0'
     implementation 'com.karumi:dexter:4.2.0'
-
-
 
     implementation 'androidx.multidex:multidex:2.0.1'
 
-
+    //Custom Toast
+    implementation 'com.muddzdev:styleabletoast:2.0.1'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

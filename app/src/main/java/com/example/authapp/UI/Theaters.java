@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.example.authapp.R;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.navigation.NavigationView;
+import com.muddzdev.styleabletoastlibrary.StyleableToast;
 
 import java.net.Inet4Address;
 
@@ -83,30 +84,16 @@ public class Theaters extends AppCompatActivity {
 
 
         CaribCin_ViewGone();
+
         Mt_ViewGone();
+
         Imax_ViewGone();
 
+        Imax_ShowPopUp();
 
         NavInfo();
 
-        imax_icon.setOnClickListener(new View.OnClickListener() {
 
-            Boolean select = true;
-
-            @Override
-            public void onClick(View v) {
-
-                if(select==true){
-
-                    Imax_Show();
-                    select=false;
-                }else{
-                    Imax_ViewGone();
-                    select=true;
-                }
-
-            }
-        });
 
 
 
@@ -187,7 +174,7 @@ public class Theaters extends AppCompatActivity {
 
     }
 
-    private void Mt_ViewGone() {
+    public void Mt_ViewGone() {
 
         mt_title.setVisibility(View.GONE);
         mt_address.setVisibility(View.GONE);
@@ -198,7 +185,7 @@ public class Theaters extends AppCompatActivity {
 
     }
 
-    private void Mt_View() {
+    public void Mt_View() {
 
         mt_title.setVisibility(View.VISIBLE);
         mt_address.setVisibility(View.VISIBLE);
@@ -209,7 +196,7 @@ public class Theaters extends AppCompatActivity {
 
     }
 
-    private void Imax_ViewGone() {
+    public void Imax_ViewGone() {
 
         imax_title.setVisibility(View.GONE);
         imax_address.setVisibility(View.GONE);
@@ -217,6 +204,11 @@ public class Theaters extends AppCompatActivity {
         imax_map.setVisibility(View.GONE);
         imax_call.setVisibility(View.GONE);
         divider7.setVisibility(View.GONE);
+
+    }
+
+    public void showToast(View v, String s){
+        StyleableToast.makeText(this,s, R.style.customToast).show();
 
     }
 
@@ -240,7 +232,7 @@ public class Theaters extends AppCompatActivity {
                         img3.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-
+                                    showToast(v, "Accessible");
 
                             }
                         });
@@ -250,12 +242,13 @@ public class Theaters extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
 
-                                double v1 = 10.62783278487164;
-                                double v2 = -61.352172796533786;
+                                double v1 = 10.627516433365702;
+                                double v2 = -61.35230154504384;
 
                                 Intent intent = new Intent(Theaters.this, PopupMap.class);
                                 intent.putExtra("v1", v1);
                                 intent.putExtra("v2", v2);
+                                intent.putExtra("location", "Trincity Mall");
                                 startActivity(intent);
 
                             }
@@ -285,6 +278,56 @@ public class Theaters extends AppCompatActivity {
                         cabcin_title.setText("SouthPark");
                         cabcin_address.setText("Tarouba Link Road, San Fernando, Trinidad & Tobago");
                         cabcin_num.setText("18682818907");
+                        img1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                showToast(v, "Caribbean Cinema Extreme");
+                            }
+                        });
+
+                        img2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                showToast(v, "Game Room");
+                            }
+                        });
+
+                        img3.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                showToast(v, "Accessible");
+                            }
+                        });
+
+                        img4.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                showToast(v, "Party Room");
+                            }
+                        });
+
+                        img5.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                showToast(v, "Sala Tipo Stadium");
+                            }
+                        });
+
+                        cabcin_map.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                double v1 = 10.289918814363192;
+                                double v2 = -61.44491608465729;
+
+                                Intent intent = new Intent(Theaters.this, PopupMap.class);
+                                intent.putExtra("v1", v1);
+                                intent.putExtra("v2", v2);
+                                intent.putExtra("location", "SouthPark Mall");
+                                startActivity(intent);
+                            }
+                        });
+
                         cabcin_phone_call.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -339,6 +382,14 @@ public class Theaters extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
 
+                                double v1 = 10.665178570504835;
+                                double v2 = -61.53032269639846;
+
+                                Intent intent = new Intent(Theaters.this, PopupMap.class);
+                                intent.putExtra("v1", v1);
+                                intent.putExtra("v2", v2);
+                                intent.putExtra("location", "Trincity Mall");
+                                startActivity(intent);
                             }
                         });
                         mt_call.setOnClickListener(new View.OnClickListener() {
@@ -361,6 +412,14 @@ public class Theaters extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
 
+                                double v1 = 10.531096615688952;
+                                double v2 = -61.40767756686947;
+
+                                Intent intent = new Intent(Theaters.this, PopupMap.class);
+                                intent.putExtra("v1", v1);
+                                intent.putExtra("v2", v2);
+                                intent.putExtra("location", "Trincity Mall");
+                                startActivity(intent);
                             }
                         });
                         mt_call.setOnClickListener(new View.OnClickListener() {
@@ -383,6 +442,14 @@ public class Theaters extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
 
+                                double v1 = 10.282421975516769;
+                                double v2 = -61.43710923730376;
+
+                                Intent intent = new Intent(Theaters.this, PopupMap.class);
+                                intent.putExtra("v1", v1);
+                                intent.putExtra("v2", v2);
+                                intent.putExtra("location", "Trincity Mall");
+                                startActivity(intent);
                             }
                         });
                         mt_call.setOnClickListener(new View.OnClickListener() {
@@ -406,6 +473,14 @@ public class Theaters extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
 
+                                double v1 = 11.168306256399358;
+                                double v2 = -60.77883910548481;
+
+                                Intent intent = new Intent(Theaters.this, PopupMap.class);
+                                intent.putExtra("v1", v1);
+                                intent.putExtra("v2", v2);
+                                intent.putExtra("location", "Trincity Mall");
+                                startActivity(intent);
                             }
                         });
                         mt_call.setOnClickListener(new View.OnClickListener() {
@@ -429,6 +504,27 @@ public class Theaters extends AppCompatActivity {
 
     }
 
+    public void Imax_ShowPopUp(){
+        imax_icon.setOnClickListener(new View.OnClickListener() {
+
+            Boolean select = true;
+
+            @Override
+            public void onClick(View v) {
+
+                if(select==true){
+
+                    Imax_Show();
+                    select=false;
+                }else{
+                    Imax_ViewGone();
+                    select=true;
+                }
+
+            }
+        });
+    }
+
     public void Imax_Show(){
         imax_title.setText("Port of Spain");
         imax_address.setText("One Woodbrook Place, Port of Spain.");
@@ -437,6 +533,14 @@ public class Theaters extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                double v1 = 10.668737823359455;
+                double v2 = -61.5275396742442;
+
+                Intent intent = new Intent(Theaters.this, PopupMap.class);
+                intent.putExtra("v1", v1);
+                intent.putExtra("v2", v2);
+                intent.putExtra("location", "Trincity Mall");
+                startActivity(intent);
             }
         });
 
@@ -470,6 +574,8 @@ public class Theaters extends AppCompatActivity {
 
     }
 
+
+// Permissions for Making a Call
 //    @Override
 //    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 //        if(requestCode == REQUEST_CALL){

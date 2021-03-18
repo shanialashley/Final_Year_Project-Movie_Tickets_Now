@@ -3,20 +3,20 @@
     package="com.example.authapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <permission
         android:name="com.example.permission.MAPS_RECEIVE"
-        android:protectionLevel="signature"/>
-    <uses-permission android:name="com.example.permission.MAPS_RECEIVE"/>
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.example.permission.MAPS_RECEIVE" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
-        android:required="true"/>
-
-
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -26,16 +26,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AuthApp"
         android:usesCleartextTraffic="true">
-        <activity android:name=".UI.Search"></activity>
+        <activity android:name=".Admin.MovieUpload"></activity>
+        <activity android:name=".UI.Search" />
         <activity android:name=".UI.Theaters" /> <!-- <activity android:name=".UI.UpcomingMovies" android:theme="@style/NoActionBar"></activity> -->
         <activity android:name=".UI.MoviePlayerActivity" />
         <activity android:name=".UI.MovieDetailsActivity" />
         <activity android:name=".UI.ForgotPassword" />
-        <activity android:name=".UI.PopupMap" android:theme="@style/Theme.AuthApp.CustomThemePopUp"></activity>
+        <activity
+            android:name=".UI.PopupMap"
+            android:theme="@style/Theme.AuthApp.CustomThemePopUp" />
         <activity android:name=".UI.RegisterUser" />
         <activity android:name=".UI.MainActivity" />
-        <activity android:name=".UI.Logo" />
-<!--         <activity android:name=".UI.Home"/>-->
+        <activity android:name=".UI.Logo" /> <!-- <activity android:name=".UI.Home"/> -->
         <activity android:name=".UI.UpcomingMovies" />
         <activity android:name=".UI.Home">
             <intent-filter>
@@ -48,14 +50,12 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
-
-        <meta-data android:name="com.google.android.gms.version"
+        <meta-data
+            android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
-        <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyADG1VDZ-IZFV8BvFYR4IKr0KSxqvsX1eE"/>
-
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyADG1VDZ-IZFV8BvFYR4IKr0KSxqvsX1eE" />
     </application>
 
 </manifest>
