@@ -5,6 +5,9 @@ public class Movie {
     private String title;
     private String description;
     private String genre;
+    private String thumbn;
+    private String cover;
+    private String link;
     private int thumbnail;
     private String length;
     private String rating;
@@ -38,6 +41,20 @@ public class Movie {
         this.trailerLink = trailerLink;
         this.category = type;
 
+    }
+
+    public Movie(String title, String description, String genre, String thumbn, String cover, String link, String length, String rating, String starring, String directors, String category) {
+        this.title = title;
+        this.description = description;
+        this.genre = genre;
+        this.thumbn = thumbn;
+        this.cover = cover;
+        this.link = link;
+        this.length = length;
+        this.rating = rating;
+        this.starring = starring;
+        this.directors = directors;
+        this.category = category;
     }
 
     public int getCoverPhoto() {

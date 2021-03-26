@@ -56,4 +56,8 @@
         <item name="android:fontFamily">@font/marko_one</item>
     </style>
 
+    <style name="CustomHorizontalPicker" parent="Widget.MaterialComponents.MaterialCalendar.Day.Today">
+
+    </style>
+
 </resources>

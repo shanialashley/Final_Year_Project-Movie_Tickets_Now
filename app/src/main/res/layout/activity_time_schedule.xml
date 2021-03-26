@@ -7,20 +7,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blue"
-    tools:context=".UI.UpcomingMovies"
+    tools:context=".UI.TimeSchedule"
     >
-
-    <com.google.android.material.navigation.NavigationView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/nav_view"
-        android:background="@color/blue"
-        app:itemIconTint="@color/orange"
-        app:itemTextAppearance="@style/TextViewStyle"
-        app:itemHorizontalPadding="40dp"
-        app:headerLayout="@layout/nav_header"
-        app:menu="@menu/drawer_menu"
-        android:layout_gravity="start"/>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,13 +22,11 @@
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/Scroll"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:fillViewport="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -48,12 +34,17 @@
                 android:orientation="vertical">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/upcoming_recycleView"
+                    android:id="@+id/calendar_recycleView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="60dp">
+                    android:layout_marginTop="60dp"/>
 
-                </androidx.recyclerview.widget.RecyclerView>
+<!--                <com.github.jhonnyx2012.horizontalpicker.HorizontalPicker-->
+<!--                    android:id="@+id/data_picker"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="60dp" />-->
+
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 

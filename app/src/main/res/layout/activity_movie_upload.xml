@@ -29,7 +29,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/movie_title"
+            android:id="@+id/movieUpload_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -45,7 +45,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/movie_description"
+            android:id="@+id/movieUpload_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -61,7 +61,7 @@
             android:textStyle="bold"  />
 
         <EditText
-            android:id="@+id/movie_genre"
+            android:id="@+id/movieUpload_genre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -88,19 +88,18 @@
                 android:layout_width="128dp"
                 android:layout_height="41dp"
                 android:layout_marginEnd="10dp"
-                android:cornerRadius="5dp"
                 android:fontFamily="@font/marko_one"
                 android:text="@string/upload"
                 android:textColor="@color/orange"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:backgroundTint="@color/blue"
-                app:layout_constraintEnd_toStartOf="@+id/movie_thumbnail"
+                app:layout_constraintEnd_toStartOf="@+id/movieUpload_thumbnail"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/movie_thumbnail"
+                android:id="@+id/movieUpload_thumbnail"
                 android:layout_width="225dp"
                 android:layout_height="49dp"
                 android:ems="10"
@@ -116,7 +115,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <EditText
-            android:id="@+id/movie_length"
+            android:id="@+id/movieUpload_length"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -132,18 +131,16 @@
             android:textStyle="bold"/>
 
         <Spinner
-            android:id="@+id/movie_rating_spinner"
+            android:id="@+id/movieUpload_rating_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
-            android:entries="@array/rating"
-            android:prompt="Select A Rating"
             android:theme="@style/CustomSpinner" />
 
         <EditText
-            android:id="@+id/movie_starring"
+            android:id="@+id/movieUpload_starring"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -159,7 +156,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/movie_directors"
+            android:id="@+id/movieUpload_directors"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -175,7 +172,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/movie_trailer_link"
+            android:id="@+id/movieUpload_trailer_link"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -202,20 +199,19 @@
                 android:layout_width="128dp"
                 android:layout_height="41dp"
                 android:layout_marginEnd="10dp"
-                android:cornerRadius="5dp"
                 android:fontFamily="@font/marko_one"
                 android:text="@string/upload"
                 android:textColor="@color/orange"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:backgroundTint="@color/blue"
-                app:layout_constraintEnd_toStartOf="@+id/movie_cover"
+                app:layout_constraintEnd_toStartOf="@+id/movieUpload_cover"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:strokeColor="#FFFFFF" />
 
             <EditText
-                android:id="@+id/movie_cover"
+                android:id="@+id/movieUpload_cover"
                 android:layout_width="225dp"
                 android:layout_height="49dp"
                 android:ems="10"
@@ -232,14 +228,12 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Spinner
-            android:id="@+id/movie_category_spinner"
+            android:id="@+id/movieUpload_category_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
-            android:entries="@array/category"
-            android:prompt="Select A Category"
             android:theme="@style/CustomSpinner" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -249,7 +243,7 @@
             android:layout_marginBottom="40dp">
 
             <Button
-                android:id="@+id/movie_update"
+                android:id="@+id/movieUpload_update"
                 android:layout_width="130dp"
                 android:layout_height="70dp"
                 android:layout_marginStart="30dp"
@@ -262,10 +256,11 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/movie_submit"
+                android:id="@+id/movieUpload_submit"
                 android:layout_width="130dp"
                 android:layout_height="70dp"
                 android:layout_marginEnd="30dp"
+                android:onClick="uploadFileToFirebase"
                 android:text="Submit"
                 android:textColor="@color/orange"
                 android:textSize="18sp"
