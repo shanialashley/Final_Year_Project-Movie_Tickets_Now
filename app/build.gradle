@@ -94,6 +94,9 @@ dependencies {
     //Custom Toast
     implementation 'com.muddzdev:styleabletoast:2.0.1'
 
+    //image retrieve display
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
     //UploadImage
     implementation("com.google.guava:guava:30.1-android")
     implementation("com.google.guava:guava:30.1-jre")

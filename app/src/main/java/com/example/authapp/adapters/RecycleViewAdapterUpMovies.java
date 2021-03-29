@@ -8,19 +8,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.authapp.Model.Movie;
+import com.example.authapp.Model.Movies;
 import com.example.authapp.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class RecycleViewAdapterUpMovies extends RecyclerView.Adapter<RecycleViewAdapterUpMovies.MyViewHolder> {
 
     private Context context;
-    private List<Movie> mlist;
+    private List<Movies> mlist;
 
-    public RecycleViewAdapterUpMovies(Context context, List<Movie> mlist) {
+    public RecycleViewAdapterUpMovies(Context context, List<Movies> mlist) {
         this.context = context;
         this.mlist = mlist;
     }
@@ -40,7 +42,16 @@ public class RecycleViewAdapterUpMovies extends RecyclerView.Adapter<RecycleView
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         holder.m_title.setText(mlist.get(position).getTitle());
-        holder.m_thumbnail.setImageResource(mlist.get(position).getThumbnail());
+        Picasso.get().load(mlist.get(position).getThumbnail_url()).into(holder.m_thumbnail);
+
+        //setting up listener
+        holder.m_cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
+
 
     }
 
@@ -53,12 +64,15 @@ public class RecycleViewAdapterUpMovies extends RecyclerView.Adapter<RecycleView
 
         TextView m_title;
         ImageView m_thumbnail;
+        CardView m_cardView;
 
         public MyViewHolder(View itemView){
             super(itemView);
 
             m_title = itemView.findViewById(R.id.uMovie_title_id);
             m_thumbnail = itemView.findViewById(R.id.uMovie_img_id);
+            m_cardView = itemView.findViewById(R.id.upm_cardView);
+
 
         }
 

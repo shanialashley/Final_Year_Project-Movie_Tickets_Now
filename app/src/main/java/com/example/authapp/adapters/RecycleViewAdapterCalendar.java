@@ -7,21 +7,25 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.authapp.Model.DateOfWeek;
 import com.example.authapp.R;
 
-import java.sql.Date;
 import java.util.List;
 
 public class RecycleViewAdapterCalendar extends RecyclerView.Adapter<RecycleViewAdapterCalendar.MyViewHolder>{
 
     private Context context;
-    private List<Date> mlist;
+    private List<DateOfWeek> wlist;
 
-    public RecycleViewAdapterCalendar(Context context, List<Date> mlist) {
+
+
+    public RecycleViewAdapterCalendar(Context context, List<DateOfWeek> wlist) {
         this.context = context;
-        this.mlist = mlist;
+        this.wlist = wlist;
+
     }
 
     @NonNull
@@ -39,28 +43,37 @@ public class RecycleViewAdapterCalendar extends RecyclerView.Adapter<RecycleView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        //noinspection deprecation
-        holder.c_date_num.setText(mlist.get(position).getDate());
-        //noinspection deprecation
-        holder.c_date_week.setText(mlist.get(position).getDate());
+
+        holder.c_date_num.setText(wlist.get(position).getDate_num());
+        holder.c_date_week.setText(wlist.get(position).getDate_week());
+        holder.ts_cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
 
     @Override
     public int getItemCount() {
-        return mlist.size();
+        return wlist.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView c_date_num, c_date_week;
+        CardView ts_cardView;
 
         public MyViewHolder(View itemView){
             super(itemView);
 
             c_date_num = itemView.findViewById(R.id.c_date_num);
             c_date_week = itemView.findViewById(R.id.c_date_week);
+            ts_cardView = itemView.findViewById(R.id.c_cardView);
 
         }
     }
 }
+
+

@@ -56,8 +56,12 @@
         <item name="android:fontFamily">@font/marko_one</item>
     </style>
 
-    <style name="CustomHorizontalPicker" parent="Widget.MaterialComponents.MaterialCalendar.Day.Today">
-
+    <style name="Cities_Spinner">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/marko_one</item>
     </style>
+
 
 </resources>
