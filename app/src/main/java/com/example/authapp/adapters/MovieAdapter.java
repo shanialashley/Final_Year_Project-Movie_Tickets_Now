@@ -11,18 +11,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.authapp.Model.Movie;
+import com.example.authapp.Model.Movies;
 import com.example.authapp.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder> {
 
     Context context;
-    List<Movie> mData;
+    List<Movies> mData;
     MovieItemClickListener movieICL;
 
-    public MovieAdapter(Context context, List<Movie> mData, MovieItemClickListener listener) {
+    public MovieAdapter(Context context, List<Movies> mData, MovieItemClickListener listener) {
         this.context = context;
         this.mData = mData;
         this.movieICL = listener;
@@ -40,7 +41,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         holder.TVTitle.setText(mData.get(position).getTitle());
-        holder.ImgMovie.setImageResource(mData.get(position).getThumbnail());
+        Picasso.get().load(mData.get(position).getThumbnail_url()).into(holder.ImgMovie);
 
 
 

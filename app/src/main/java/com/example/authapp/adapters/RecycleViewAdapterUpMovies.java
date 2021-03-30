@@ -21,10 +21,12 @@ public class RecycleViewAdapterUpMovies extends RecyclerView.Adapter<RecycleView
 
     private Context context;
     private List<Movies> mlist;
+    MovieItemClickListener movieItemClickListener;
 
-    public RecycleViewAdapterUpMovies(Context context, List<Movies> mlist) {
+    public RecycleViewAdapterUpMovies(Context context, List<Movies> mlist, MovieItemClickListener listener) {
         this.context = context;
         this.mlist = mlist;
+        this.movieItemClickListener = listener;
     }
 
     @NonNull
@@ -48,7 +50,7 @@ public class RecycleViewAdapterUpMovies extends RecyclerView.Adapter<RecycleView
         holder.m_cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                 movieItemClickListener.onMovieClick(mlist.get(position), holder.m_thumbnail);
             }
         });
 
@@ -60,18 +62,26 @@ public class RecycleViewAdapterUpMovies extends RecyclerView.Adapter<RecycleView
         return mlist.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView m_title;
         ImageView m_thumbnail;
         CardView m_cardView;
 
-        public MyViewHolder(View itemView){
+        public MyViewHolder(@NonNull View itemView){
             super(itemView);
 
             m_title = itemView.findViewById(R.id.uMovie_title_id);
             m_thumbnail = itemView.findViewById(R.id.uMovie_img_id);
             m_cardView = itemView.findViewById(R.id.upm_cardView);
+
+//            m_cardView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    movieItemClickListener.onMovieClick(mlist.get(getAdapterPosition()), m_thumbnail);
+////
+//                }
+//            });
 
 
         }

@@ -80,30 +80,11 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/RV_movies"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp" />
 
-            <TextView
-                android:id="@+id/tV2"
-                android:layout_width="match_parent"
-                android:layout_height="47dp"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/amaranth"
-                android:gravity="center_vertical"
-                android:text="Coming Soon"
-                android:textColor="@color/orange"
-                android:textSize="30sp"
-                android:textStyle="bold" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/RV_Coming_Soon"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
