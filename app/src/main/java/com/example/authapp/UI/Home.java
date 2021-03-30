@@ -52,6 +52,7 @@ public class Home extends AppCompatActivity implements MovieItemClickListener, N
     private FirebaseAuth mAuth;
     Query currentMoviesQ;
     List<Movies> MovieList;
+    List<String> Moviekey;
 
 
     @Override
@@ -193,6 +194,7 @@ public class Home extends AppCompatActivity implements MovieItemClickListener, N
                 if(snapshot.exists()){
                     for(DataSnapshot ss: snapshot.getChildren()){
                         Movies m = ss.getValue(Movies.class);
+//                        Moviekey.add(ss.getKey());
                         MovieList.add(m);
                     }
                 }
@@ -229,6 +231,8 @@ public class Home extends AppCompatActivity implements MovieItemClickListener, N
         intent.putExtra("director", movie.getDirectors());
         intent.putExtra("trailer", movie.getTrailer_link());
         intent.putExtra("category", movie.getType());
+//        int k = MovieList.indexOf(movie);
+//        intent.putExtra("key", Moviekey.get(k));
 
         @SuppressLint({"NewApi", "LocalSuppress"})
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Home.this, movieImageView, "sharedTransName");

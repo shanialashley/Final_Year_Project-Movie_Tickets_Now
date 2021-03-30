@@ -52,6 +52,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         String directors = getIntent().getExtras().getString("director");
         String category = getIntent().getExtras().getString("category");
         String trailer = getIntent().getExtras().getString("trailer");
+//        String key = getIntent().getExtras().getString("key");
 
 
         movieDThumbnail = findViewById(R.id.details_movie_img);
@@ -120,6 +121,18 @@ public class MovieDetailsActivity extends AppCompatActivity {
                     }
                 }
         );
+
+        img1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MovieDetailsActivity.this, TimeSchedule.class);
+//                intent.putExtra("title", movieTitle);
+//                intent.putExtra("key", key);
+                startActivity(intent);
+
+//                Toast.makeText(MovieDetailsActivity.this, "this is the key "+ key , Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
 
