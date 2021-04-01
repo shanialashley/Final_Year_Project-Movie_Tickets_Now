@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -52,7 +53,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         String directors = getIntent().getExtras().getString("director");
         String category = getIntent().getExtras().getString("category");
         String trailer = getIntent().getExtras().getString("trailer");
-//        String key = getIntent().getExtras().getString("key");
+        String key = getIntent().getExtras().getString("key");
 
 
         movieDThumbnail = findViewById(R.id.details_movie_img);
@@ -126,11 +127,12 @@ public class MovieDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MovieDetailsActivity.this, TimeSchedule.class);
-//                intent.putExtra("title", movieTitle);
-//                intent.putExtra("key", key);
+                intent.putExtra("title", movieTitle);
+                intent.putExtra("key", key);
                 startActivity(intent);
 
-//                Toast.makeText(MovieDetailsActivity.this, "this is the key "+ key , Toast.LENGTH_SHORT).show();
+                Toast.makeText(MovieDetailsActivity.this, key, Toast.LENGTH_SHORT).show();
+
             }
         });
 

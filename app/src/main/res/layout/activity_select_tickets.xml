@@ -96,6 +96,7 @@
             android:layout_width="match_parent"
             android:layout_height="5dp"
             android:layout_marginTop="16dp"
+            android:background="?android:attr/listDivider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/st_senior_num" />
@@ -177,28 +178,81 @@
             app:layout_constraintTop_toBottomOf="@+id/st_child_num"
             tools:layout_editor_absoluteX="13dp" />
 
+
         <TextView
-            android:id="@+id/st_total"
-            android:layout_width="match_parent"
+            android:id="@+id/st_maxi_tickets"
+            android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginStart="5dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/amarante"
+            android:gravity="center_vertical"
+            android:text="Maximum"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/st_divider_4" />
+
+        <TextView
+            android:id="@+id/st_maxi_num"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="5dp"
             android:fontFamily="@font/amarante"
             android:gravity="center_vertical"
-            android:text="Total \t \t \t \t \t $20.00"
+            android:text="0/10"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/st_divider_4" />
+
+        <View
+            android:id="@+id/st_divider_5"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_marginTop="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/st_maxi_num" />
+
+
+        <TextView
+            android:id="@+id/st_total"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/amarante"
+            android:gravity="center_vertical"
+            android:text="Total"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/st_divider_5" />
+
+        <TextView
+            android:id="@+id/st_total_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="5dp"
+            android:fontFamily="@font/amarante"
+            android:gravity="center_vertical"
+            android:text="$10.00"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/st_divider_5" />
 
         <Button
             android:id="@+id/button2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:background="@color/orange"
+            android:background="@color/green"
             android:text="Continue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

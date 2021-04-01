@@ -184,6 +184,7 @@ public class Home extends AppCompatActivity implements MovieItemClickListener, N
     public void CurrentMoviesInfor(){
 
         MovieList = new ArrayList<>();
+        Moviekey = new ArrayList<>();
 
         currentMoviesQ = FirebaseDatabase.getInstance().getReference("Movies")
                 .orderByChild("type").equalTo("current");
@@ -194,7 +195,8 @@ public class Home extends AppCompatActivity implements MovieItemClickListener, N
                 if(snapshot.exists()){
                     for(DataSnapshot ss: snapshot.getChildren()){
                         Movies m = ss.getValue(Movies.class);
-//                        Moviekey.add(ss.getKey());
+                        String temp = ss.getKey();
+                        Moviekey.add(temp);
                         MovieList.add(m);
                     }
                 }
@@ -231,8 +233,8 @@ public class Home extends AppCompatActivity implements MovieItemClickListener, N
         intent.putExtra("director", movie.getDirectors());
         intent.putExtra("trailer", movie.getTrailer_link());
         intent.putExtra("category", movie.getType());
-//        int k = MovieList.indexOf(movie);
-//        intent.putExtra("key", Moviekey.get(k));
+        int k = MovieList.indexOf(movie);
+        intent.putExtra("key", Moviekey.get(k));
 
         @SuppressLint({"NewApi", "LocalSuppress"})
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Home.this, movieImageView, "sharedTransName");

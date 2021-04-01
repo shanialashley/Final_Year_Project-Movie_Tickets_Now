@@ -44,8 +44,8 @@
         <activity android:name=".Admin.MovieUpload" />
         <activity android:name=".UI.TimeSchedule" />
         <activity android:name=".UI.UpcomingMovies"/>
-        <activity android:name=".UI.Home" />
-        <activity android:name=".UI.SelectTickets">
+        <activity android:name=".UI.SelectTickets"/>
+        <activity android:name=".UI.Home" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -19,12 +19,14 @@ public class RecycleViewAdapterCalendar extends RecyclerView.Adapter<RecycleView
 
     private Context context;
     private List<DateOfWeek> wlist;
+    private DateItemClickListener clickListener;
 
 
 
-    public RecycleViewAdapterCalendar(Context context, List<DateOfWeek> wlist) {
+    public RecycleViewAdapterCalendar(Context context, List<DateOfWeek> wlist, DateItemClickListener listener) {
         this.context = context;
         this.wlist = wlist;
+        this.clickListener = listener;
 
     }
 
@@ -43,15 +45,9 @@ public class RecycleViewAdapterCalendar extends RecyclerView.Adapter<RecycleView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-
         holder.c_date_num.setText(wlist.get(position).getDate_num());
         holder.c_date_week.setText(wlist.get(position).getDate_week());
-        holder.ts_cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
 
     }
 
@@ -60,7 +56,7 @@ public class RecycleViewAdapterCalendar extends RecyclerView.Adapter<RecycleView
         return wlist.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView c_date_num, c_date_week;
         CardView ts_cardView;
@@ -71,6 +67,15 @@ public class RecycleViewAdapterCalendar extends RecyclerView.Adapter<RecycleView
             c_date_num = itemView.findViewById(R.id.c_date_num);
             c_date_week = itemView.findViewById(R.id.c_date_week);
             ts_cardView = itemView.findViewById(R.id.c_cardView);
+            ts_cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                                clickListener.onClick(wlist.get(getAdapterPosition()));
+
+
+                }
+            });
 
         }
     }

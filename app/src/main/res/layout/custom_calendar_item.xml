@@ -6,13 +6,13 @@
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
     android:layout_margin="5dp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="80dp"
+    android:layout_height="80dp"
     app:cardBackgroundColor="#05FFFFFF">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:background="@drawable/custom_calendar_bg"
         android:orientation="vertical"
         android:padding="10dp">
@@ -28,7 +28,7 @@
             android:padding="3dp"
             android:text="12"
             android:textColor="@color/orange"
-            android:textSize="24sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/c_date_week"
@@ -37,9 +37,9 @@
             android:fontFamily="@font/amaranth"
             android:gravity="center"
             android:padding="3dp"
-            android:text="Fri"
+            android:text="Wed"
             android:textColor="@color/orange"
-            android:textSize="24sp" />
+            android:textSize="18sp" />
 
 
     </LinearLayout>

@@ -54,7 +54,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_marginTop="5dp"
-                    tools:srcCompat="@drawable/caribcin" />
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/caribcin" />
 
                 <TextView
                     android:id="@+id/ts_trincity"
@@ -216,12 +217,13 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"/>
 
-                 <ImageView
+                <ImageView
                     android:id="@+id/ts_mt_img"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_marginTop="10dp"
-                    tools:srcCompat="@drawable/movietown" />
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/movietown" />
 
                 <TextView
                     android:id="@+id/ts_pos"
@@ -460,7 +462,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_marginTop="10dp"
-                    tools:srcCompat="@drawable/imax_logo" />
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/imax_logo" />
 
                 <TextView
                     android:id="@+id/ts_cinemaOne"
