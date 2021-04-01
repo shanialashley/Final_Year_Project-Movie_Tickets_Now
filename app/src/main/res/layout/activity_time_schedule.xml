@@ -64,6 +64,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
+                    android:background="@color/red"
                     android:fontFamily="@font/amarante"
                     android:gravity="center"
                     android:text="Trincity"
@@ -78,11 +79,12 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
+                    android:background="@color/grey"
                     android:fontFamily="@font/amarante"
+                    android:text="Regular"
                     android:textColor="@color/white"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:text="Regular" />
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/ts_t_r_recyclerV"
