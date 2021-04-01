@@ -103,11 +103,12 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
+                    android:background="@color/grey"
                     android:fontFamily="@font/amarante"
+                    android:text="3D"
                     android:textColor="@color/white"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:text="3D" />
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/ts_t_3D_recycleV"
@@ -124,6 +125,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
+                    android:background="@color/red"
                     android:fontFamily="@font/amarante"
                     android:gravity="center"
                     android:text="SouthPark"
@@ -138,11 +140,12 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
+                    android:background="@color/grey"
                     android:fontFamily="@font/amarante"
+                    android:text="Regular"
                     android:textColor="@color/white"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:text="Regular" />
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/ts_sp_r_recyclerV"
@@ -161,11 +164,12 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
+                    android:background="@color/grey"
                     android:fontFamily="@font/amarante"
+                    android:text="3D"
                     android:textColor="@color/white"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:text="3D" />
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/ts_sp_3D_recycleV"
@@ -182,11 +186,12 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
+                    android:background="@color/grey"
                     android:fontFamily="@font/amarante"
+                    android:text="4DX"
                     android:textColor="@color/white"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:text="4DX" />
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/ts_sp_4Dx_recyclerV"
@@ -205,11 +210,12 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
+                    android:background="@color/grey"
                     android:fontFamily="@font/amarante"
+                    android:text="CXC"
                     android:textColor="@color/white"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:text="CXC" />
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/ts_sp_CXC_recycleV"
@@ -234,6 +240,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
+                    android:background="@color/yellow"
                     android:fontFamily="@font/amarante"
                     android:gravity="center"
                     android:text="Port Of Spain"
@@ -248,11 +255,12 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
+                    android:background="@color/grey"
                     android:fontFamily="@font/amarante"
+                    android:text="Regular"
                     android:textColor="@color/white"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:text="Regular" />
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/ts_pos_r_recyclerV"
@@ -271,11 +279,12 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
+                    android:background="@color/grey"
                     android:fontFamily="@font/amarante"
+                    android:text="3D"
                     android:textColor="@color/white"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:text="3D" />
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/ts_pos_3D_recycleV"
@@ -292,6 +301,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
+                    android:background="@color/yellow"
                     android:fontFamily="@font/amarante"
                     android:gravity="center"
                     android:text="Chaguanas"
@@ -306,11 +316,12 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
+                    android:background="@color/grey"
                     android:fontFamily="@font/amarante"
+                    android:text="Regular"
                     android:textColor="@color/white"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:text="Regular" />
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/ts_chag_r_recyclerV"
@@ -329,11 +340,12 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
+                    android:background="@color/grey"
                     android:fontFamily="@font/amarante"
+                    android:text="3D"
                     android:textColor="@color/white"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:text="3D" />
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/ts_chag_3D_recycleV"
@@ -350,6 +362,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
+                    android:background="@color/yellow"
                     android:fontFamily="@font/amarante"
                     android:gravity="center"
                     android:text="San Fernando"
@@ -364,11 +377,12 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
+                    android:background="@color/grey"
                     android:fontFamily="@font/amarante"
+                    android:text="Regular"
                     android:textColor="@color/white"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:text="Regular" />
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/ts_sdo_r_recyclerV"
@@ -387,11 +401,12 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
+                    android:background="@color/grey"
                     android:fontFamily="@font/amarante"
+                    android:text="3D"
                     android:textColor="@color/white"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:text="3D" />
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/ts_sdo_3D_recycleV"
@@ -408,6 +423,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
+                    android:background="@color/yellow"
                     android:fontFamily="@font/amarante"
                     android:gravity="center"
                     android:text="Tobago"
@@ -422,11 +438,12 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
+                    android:background="@color/grey"
                     android:fontFamily="@font/amarante"
+                    android:text="Regular"
                     android:textColor="@color/white"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:text="Regular" />
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/ts_tgo_r_recyclerV"
@@ -445,11 +462,12 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
+                    android:background="@color/grey"
                     android:fontFamily="@font/amarante"
+                    android:text="3D"
                     android:textColor="@color/white"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:text="3D" />
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/ts_tgo_3D_recycleV"
@@ -474,6 +492,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
+                    android:background="@color/light_blue"
                     android:fontFamily="@font/amarante"
                     android:gravity="center"
                     android:text="CinemaONE"
@@ -488,11 +507,12 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
+                    android:background="@color/grey"
                     android:fontFamily="@font/amarante"
+                    android:text="Digicel IMAX"
                     android:textColor="@color/white"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:text="Digicel IMAX" />
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/ts_imax_recyclerV"
@@ -511,11 +531,12 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
+                    android:background="@color/grey"
                     android:fontFamily="@font/amarante"
+                    android:text="GemStone"
                     android:textColor="@color/white"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:text="GemStone" />
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/ts_gemStone_recycleV"
@@ -532,11 +553,12 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
+                    android:background="@color/grey"
                     android:fontFamily="@font/amarante"
+                    android:text="4DX"
                     android:textColor="@color/white"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:text="4DX" />
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/ts_4DX_recycleV"
