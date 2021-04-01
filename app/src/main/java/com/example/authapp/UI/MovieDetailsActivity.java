@@ -5,9 +5,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +20,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
     private ImageView movieDThumbnail, movieDCover, img1, img2, img3;
     private TextView movieDTitle, movieDDescription, movieDRating, movieDlength, movieDStarring, movieDDirectors, movieDGenre, showing;
-
+    private Button continueB;
     private FloatingActionButton play_fab;
     private Toolbar toolbar;
 
@@ -60,7 +60,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         Picasso.get().load(thumbnail).into(movieDThumbnail);
 
         movieDCover = findViewById(R.id.detail_movie_cover);
-        Picasso.get().load(cover).into(movieDCover);
+        Picasso.get().load(cover).fit().centerCrop().into(movieDCover);
 
         movieDTitle = findViewById(R.id.detail_movie_title);
         movieDTitle.setText(movieTitle);
@@ -126,12 +126,19 @@ public class MovieDetailsActivity extends AppCompatActivity {
         img1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+            }
+        });
+
+        continueB = findViewById(R.id.continueButton);
+        continueB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 Intent intent = new Intent(MovieDetailsActivity.this, TimeSchedule.class);
                 intent.putExtra("title", movieTitle);
                 intent.putExtra("key", key);
                 startActivity(intent);
-
-                Toast.makeText(MovieDetailsActivity.this, key, Toast.LENGTH_SHORT).show();
 
             }
         });
