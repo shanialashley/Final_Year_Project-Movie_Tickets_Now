@@ -137,6 +137,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MovieDetailsActivity.this, TimeSchedule.class);
                 intent.putExtra("title", movieTitle);
+                intent.putExtra("thumbnail", thumbnail);
                 intent.putExtra("key", key);
                 startActivity(intent);
 

@@ -19,10 +19,12 @@ public class RecycleViewScheduleAdapter extends RecyclerView.Adapter<RecycleView
 
     private Context context;
     private List<TimeOfMovie> tlist;
+    private TimeItemClickListener listener;
 
-    public RecycleViewScheduleAdapter(Context context, List<TimeOfMovie> tlist) {
+    public RecycleViewScheduleAdapter(Context context, List<TimeOfMovie> tlist, TimeItemClickListener listener) {
         this.context = context;
         this.tlist = tlist;
+        this.listener = listener;
     }
 
     @NonNull
@@ -39,12 +41,6 @@ public class RecycleViewScheduleAdapter extends RecyclerView.Adapter<RecycleView
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         holder.ts_time.setText(tlist.get(position).getT());
-        holder.ts_cardV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
     }
 
@@ -53,7 +49,7 @@ public class RecycleViewScheduleAdapter extends RecyclerView.Adapter<RecycleView
         return tlist.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder{
         TextView ts_time;
         CardView ts_cardV;
 
@@ -61,6 +57,14 @@ public class RecycleViewScheduleAdapter extends RecyclerView.Adapter<RecycleView
             super(itemView);
             ts_time = itemView.findViewById(R.id.d_time);
             ts_cardV = itemView.findViewById(R.id.time_cardV);
+            ts_cardV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    listener.onTimeClick(tlist.get(getAdapterPosition()));
+
+                }
+            });
         }
     }
 
