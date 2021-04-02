@@ -1,14 +1,12 @@
 package com.example.authapp.Model;
 
-import java.util.Date;
-
 public class DateOfWeek {
 
     private String date_num;
     private String date_week;
-    private Date date;
+    private String date;
 
-    public DateOfWeek(String date_num, String date_week, Date date) {
+    public DateOfWeek(String date_num, String date_week, String date) {
         this.date_num = date_num;
         this.date_week = date_week;
         this.date = date;
@@ -30,11 +28,11 @@ public class DateOfWeek {
         this.date_week = date_week;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }

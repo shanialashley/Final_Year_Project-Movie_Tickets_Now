@@ -16,6 +16,7 @@ public class SelectTickets extends AppCompatActivity {
     String title, date, time, thumbnail, theater_type;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +34,7 @@ public class SelectTickets extends AppCompatActivity {
         thumbnail_img = findViewById(R.id.st_movie_thumbnail);
         Picasso.get().load(thumbnail).into(thumbnail_img);
 
-        date = String.valueOf(getIntent().getExtras().getSerializable("date"));
+        date = getIntent().getExtras().getString("date");
         time = getIntent().getExtras().getString("time");
         date_tv = findViewById(R.id.st_movie_dateNtime);
         date_tv.setText(date + " "+ time);

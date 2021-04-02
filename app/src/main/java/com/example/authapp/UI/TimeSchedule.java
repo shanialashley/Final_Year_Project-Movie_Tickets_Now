@@ -62,7 +62,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
     private String title, id, movieid, thumbnail;
     private List<TimeOfMovie> mtList, cc8List, cOneList;
     private Date currentdate;
-    private Date selectedDate;
+    private String selectedDate;
 
 
     @Override
@@ -72,12 +72,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
         timeReference = FirebaseDatabase.getInstance().getReference().child("TimeSchedule");
         thumbnail = getIntent().getExtras().getString("thumbnail");
-        cc8List = new ArrayList<>();
-        cc8List.clear();
-        mtList = new ArrayList<>();
-        mtList.clear();
-        cOneList = new ArrayList<>();
-        cOneList.clear();
+
         currentdate = new Date();
 
         ToolbarInfo();
@@ -110,8 +105,15 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Movie Schedule");
+        getSupportActionBar().setTitle(title);
         toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(TimeSchedule.this, MovieDetailsActivity.class) );
+            }
+        });
+
 
 
     }
@@ -123,39 +125,45 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
 
 
+
         cal1 = Calendar.getInstance();
         cal1.setTime(currentdate);
         int num = cal1.get(Calendar.DAY_OF_MONTH);
 
         SimpleDateFormat dfs = new SimpleDateFormat("EEE", Locale.US);
+        SimpleDateFormat DateFor = new SimpleDateFormat("E, dd MMM yyyy");
 
         List<DateOfWeek> week = new ArrayList<>();
-
-        week.add(new DateOfWeek( String.valueOf(num) , dfs.format(currentdate), currentdate));
+        String date_c = DateFor.format(currentdate);
+        week.add(new DateOfWeek( String.valueOf(num) , dfs.format(currentdate), date_c));
 
         cal1.add(Calendar.DATE, 1);
         Date date2 = cal1.getTime();
         Calendar cal2 = Calendar.getInstance();
         cal2.setTime(date2);
-        week.add(new DateOfWeek( String.valueOf(cal2.get(Calendar.DAY_OF_MONTH)), dfs.format(date2), date2));
+        String date_s2 = DateFor.format(date2);
+        week.add(new DateOfWeek( String.valueOf(cal2.get(Calendar.DAY_OF_MONTH)), dfs.format(date2), date_s2));
 
         cal2.add(Calendar.DATE, 1);
         Date date3 = cal2.getTime();
         Calendar cal3 = Calendar.getInstance();
         cal3.setTime(date3);
-        week.add(new DateOfWeek( String.valueOf(cal3.get(Calendar.DAY_OF_MONTH)), dfs.format(date3), date3));
+        String date_s3 = DateFor.format(date3);
+        week.add(new DateOfWeek( String.valueOf(cal3.get(Calendar.DAY_OF_MONTH)), dfs.format(date3), date_s3));
 
         cal3.add(Calendar.DATE, 1);
         Date date4 = cal3.getTime();
         Calendar cal4 = Calendar.getInstance();
         cal4.setTime(date4);
-        week.add(new DateOfWeek( String.valueOf(cal4.get(Calendar.DAY_OF_MONTH)) , dfs.format(date4), date4));
+        String date_s4 = DateFor.format(date4);
+        week.add(new DateOfWeek( String.valueOf(cal4.get(Calendar.DAY_OF_MONTH)) , dfs.format(date4), date_s4));
 
         cal4.add(Calendar.DATE, 1);
         Date date5 = cal4.getTime();
         Calendar cal5 = Calendar.getInstance();
         cal5.setTime(date5);
-        week.add(new DateOfWeek( String.valueOf(cal5.get(Calendar.DAY_OF_MONTH)) , dfs.format(date5), date5));
+        String date_s5 = DateFor.format(date5);
+        week.add(new DateOfWeek( String.valueOf(cal5.get(Calendar.DAY_OF_MONTH)) , dfs.format(date5), date_s5));
 
 
         RecycleViewAdapterCalendar timeScheduleAdp = new RecycleViewAdapterCalendar(TimeSchedule.this, week, TimeSchedule.this);
@@ -244,7 +252,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
     @Override
     public void onClick(DateOfWeek dOWeek) {
 
-        selectedDate = dOWeek.getDate();
+       selectedDate = dOWeek.getDate();
 
         if (dOWeek.getDate_week().equals("Mon") || dOWeek.getDate_week().equals("Tue") ||dOWeek.getDate_week().equals("Wed")
             || dOWeek.getDate_week().equals("Thu") || dOWeek.getDate_week().equals("Fri")){
@@ -267,6 +275,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
         CC8_mf();
         MT_mf();
+        CONE_mf();
 
 
     }
@@ -274,22 +283,28 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
     public void onSatClick() {
 
-//        CC8_sat();
+        CC8_sat();
+        MT_sat();
+        CONE_sat();
     }
 
 
     public void onSunNHolClick() {
 
-//        CC8_sunH();
+        CC8_sunH();
+        MT_sun();
+        CONE_sun();
 
     }
 
     public void CC8_mf(){
 
         DatabaseReference cc8_t_r = timeReference.child(movieid).child("CC8").child("trincity").child("regular").child("mon-fri");
+        List<TimeOfMovie> t_r_mf = new ArrayList<>();
         cc8_t_r.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                t_r_mf.clear();
 
                 if (snapshot.exists()) {
                     t_regular.setVisibility(View.VISIBLE);
@@ -297,16 +312,16 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                     for (DataSnapshot ss : snapshot.getChildren()) {
                         String n = String.valueOf(ss.getValue());
-                        cc8List.add(new TimeOfMovie(n, "cc8_t_r"));
+                        t_r_mf.add(new TimeOfMovie(n, "cc8_t_r"));
                     }
                 }else{
                     t_regular.setVisibility(View.GONE);
                     t_r_recycleV.setVisibility(View.GONE);
                 }
 
-                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, mtList, TimeSchedule.this);
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, t_r_mf, TimeSchedule.this);
                 t_r_recycleV.setAdapter(scheduleAdp);
-                t_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
+                t_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
 
             }
 
@@ -317,9 +332,11 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
         });
 
         DatabaseReference cc8_t_3d = timeReference.child(movieid).child("CC8").child("trincity").child("3D").child("mon-fri");
+        List<TimeOfMovie> t_3D_mf = new ArrayList<>();
         cc8_t_3d.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                t_3D_mf.clear();
 
                 if (snapshot.exists()) {
                     t_3D.setVisibility(View.VISIBLE);
@@ -327,16 +344,16 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                     for (DataSnapshot ss : snapshot.getChildren()) {
                         String n = String.valueOf(ss.getValue());
-                        cc8List.add(new TimeOfMovie(n, "cc8_t_3D"));
+                        t_3D_mf.add(new TimeOfMovie(n, "cc8_t_3D"));
                     }
                 }else{
                     t_3D.setVisibility(View.GONE);
                     t_3D_recycleV.setVisibility(View.GONE);
                 }
 
-                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, mtList, TimeSchedule.this);
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, t_3D_mf, TimeSchedule.this);
                 t_3D_recycleV.setAdapter(scheduleAdp);
-                t_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
+                t_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
 
             }
 
@@ -347,9 +364,11 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
         });
 
         DatabaseReference cc8_s_r = timeReference.child(movieid).child("CC8").child("southpark").child("regular").child("mon-fri");
+        List<TimeOfMovie> s_r_mf = new ArrayList<>();
         cc8_s_r.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                s_r_mf.clear();
 
                 if (snapshot.exists()) {
                     s_regular.setVisibility(View.VISIBLE);
@@ -357,16 +376,16 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                     for (DataSnapshot ss : snapshot.getChildren()) {
                         String n = String.valueOf(ss.getValue());
-                        cc8List.add(new TimeOfMovie(n, "cc8_s_r"));
+                        s_r_mf.add(new TimeOfMovie(n, "cc8_s_r"));
                     }
                 }else{
                     s_regular.setVisibility(View.GONE);
                     s_r_recycleV.setVisibility(View.GONE);
                 }
 
-                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, mtList, TimeSchedule.this);
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, s_r_mf, TimeSchedule.this);
                 s_r_recycleV.setAdapter(scheduleAdp);
-                s_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
+                s_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
 
             }
 
@@ -377,9 +396,11 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
         });
 
         DatabaseReference cc8_s_3D = timeReference.child(movieid).child("CC8").child("southpark").child("3D").child("mon-fri");
+        List<TimeOfMovie> s_3d_mf = new ArrayList<>();
         cc8_s_3D.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                s_3d_mf.clear();
 
                 if (snapshot.exists()) {
                     s_3D.setVisibility(View.VISIBLE);
@@ -387,16 +408,16 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                     for (DataSnapshot ss : snapshot.getChildren()) {
                         String n = String.valueOf(ss.getValue());
-                        cc8List.add(new TimeOfMovie(n, "cc8_s_3D"));
+                        s_3d_mf.add(new TimeOfMovie(n, "cc8_s_3D"));
                     }
                 }else{
                     s_3D.setVisibility(View.GONE);
                     s_3D_recycleV.setVisibility(View.GONE);
                 }
 
-                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, mtList, TimeSchedule.this);
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, s_3d_mf , TimeSchedule.this);
                 s_3D_recycleV.setAdapter(scheduleAdp);
-                s_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
+                s_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
 
             }
 
@@ -407,10 +428,11 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
         });
 
         DatabaseReference cc8_s_4DX = timeReference.child(movieid).child("CC8").child("southpark").child("4DX").child("mon-fri");
-
+        List<TimeOfMovie> s_4dx_mf = new ArrayList<>();
         cc8_s_4DX.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                s_4dx_mf.clear();
 
                 if (snapshot.exists()) {
                     s_4DX.setVisibility(View.VISIBLE);
@@ -418,16 +440,16 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                     for (DataSnapshot ss : snapshot.getChildren()) {
                         String n = String.valueOf(ss.getValue());
-                        cc8List.add(new TimeOfMovie(n, "cc8_s_4DX"));
+                        s_4dx_mf.add(new TimeOfMovie(n, "cc8_s_4DX"));
                     }
                 }else{
                     s_4DX.setVisibility(View.GONE);
                     s_4DX_recycleV.setVisibility(View.GONE);
                 }
 
-                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, mtList, TimeSchedule.this);
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, s_4dx_mf, TimeSchedule.this);
                 s_4DX_recycleV.setAdapter(scheduleAdp);
-                s_4DX_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
+                s_4DX_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
 
             }
 
@@ -438,9 +460,11 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
         });
 
         DatabaseReference cc8_s_CXC = timeReference.child(movieid).child("CC8").child("southpark").child("CXC").child("mon-fri");
+        List<TimeOfMovie> s_cxc_mf = new ArrayList<>();
         cc8_s_CXC.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                s_cxc_mf.clear();
 
                 if (snapshot.exists()) {
                     s_CXC.setVisibility(View.VISIBLE);
@@ -448,16 +472,16 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                     for (DataSnapshot ss : snapshot.getChildren()) {
                         String n = String.valueOf(ss.getValue());
-                        cc8List.add(new TimeOfMovie(n, "cc8_s_cxc"));
+                        s_cxc_mf.add(new TimeOfMovie(n, "cc8_s_cxc"));
                     }
                 }else{
                     s_CXC.setVisibility(View.GONE);
                     s_CXC_recycleV.setVisibility(View.GONE);
                 }
 
-                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, mtList, TimeSchedule.this);
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, s_cxc_mf, TimeSchedule.this);
                 s_CXC_recycleV.setAdapter(scheduleAdp);
-                s_CXC_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
+                s_CXC_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
 
             }
 
@@ -469,405 +493,31 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
     }
 
-//    public void CC8_sat(){
-//
-//        DatabaseReference cc8_t_r = timeReference.child(movieid).child("CC8").child("trincity").child("regular").child("sat");
-//        cc8_t_r.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                mtList.clear();
-//                if (snapshot.exists()) {
-//                    t_regular.setVisibility(View.VISIBLE);
-//                    t_r_recycleV.setVisibility(View.VISIBLE);
-//
-//                    for (DataSnapshot ss : snapshot.getChildren()) {
-//                        String n = String.valueOf(ss.getValue());
-//                        mtList.add(new TimeOfMovie(n));
-//                    }
-//                }else{
-//                    t_regular.setVisibility(View.GONE);
-//                    t_r_recycleV.setVisibility(View.GONE);
-//                }
-//
-//                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, mtList);
-//                t_r_recycleV.setAdapter(scheduleAdp);
-//                t_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//
-//        DatabaseReference cc8_t_3d = timeReference.child(movieid).child("CC8").child("trincity").child("3D").child("sat");
-//        cc8_t_3d.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                mtList.clear();
-//
-//                if (snapshot.exists()) {
-//                    t_3D.setVisibility(View.VISIBLE);
-//                    t_3D_recycleV.setVisibility(View.VISIBLE);
-//
-//                    for (DataSnapshot ss : snapshot.getChildren()) {
-//                        String n = String.valueOf(ss.getValue());
-//                        mtList.add(new TimeOfMovie(n));
-//                    }
-//                }else{
-//                    t_3D.setVisibility(View.GONE);
-//                    t_3D_recycleV.setVisibility(View.GONE);
-//                }
-//
-//                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, mtList);
-//                t_3D_recycleV.setAdapter(scheduleAdp);
-//                t_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//
-//        DatabaseReference cc8_s_r = timeReference.child(movieid).child("CC8").child("southpark").child("regular").child("sat");
-//        cc8_s_r.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                mtList.clear();
-//
-//                if (snapshot.exists()) {
-//                    s_regular.setVisibility(View.VISIBLE);
-//                    s_r_recycleV.setVisibility(View.VISIBLE);
-//
-//                    for (DataSnapshot ss : snapshot.getChildren()) {
-//                        String n = String.valueOf(ss.getValue());
-//                        mtList.add(new TimeOfMovie(n));
-//                    }
-//                }else{
-//                    s_regular.setVisibility(View.GONE);
-//                    s_r_recycleV.setVisibility(View.GONE);
-//                }
-//
-//                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, mtList);
-//                s_r_recycleV.setAdapter(scheduleAdp);
-//                s_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//
-//        DatabaseReference cc8_s_3D = timeReference.child(movieid).child("CC8").child("southpark").child("3D").child("sat");
-//        cc8_s_3D.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                mtList.clear();
-//
-//                if (snapshot.exists()) {
-//                    s_3D.setVisibility(View.VISIBLE);
-//                    s_3D_recycleV.setVisibility(View.VISIBLE);
-//
-//                    for (DataSnapshot ss : snapshot.getChildren()) {
-//                        String n = String.valueOf(ss.getValue());
-//                        mtList.add(new TimeOfMovie(n));
-//                    }
-//                }else{
-//                    s_3D.setVisibility(View.GONE);
-//                    s_3D_recycleV.setVisibility(View.GONE);
-//                }
-//
-//                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, mtList);
-//                s_3D_recycleV.setAdapter(scheduleAdp);
-//                s_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//
-//        DatabaseReference cc8_s_4DX = timeReference.child(movieid).child("CC8").child("southpark").child("4DX").child("sat");
-//
-//        cc8_s_4DX.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                mtList.clear();
-//                if (snapshot.exists()) {
-//                    s_4DX.setVisibility(View.VISIBLE);
-//                    s_4DX_recycleV.setVisibility(View.VISIBLE);
-//
-//                    for (DataSnapshot ss : snapshot.getChildren()) {
-//                        String n = String.valueOf(ss.getValue());
-//                        mtList.add(new TimeOfMovie(n));
-//                    }
-//                }else{
-//                    s_4DX.setVisibility(View.GONE);
-//                    s_4DX_recycleV.setVisibility(View.GONE);
-//                }
-//
-//                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, mtList);
-//                s_4DX_recycleV.setAdapter(scheduleAdp);
-//                s_4DX_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//
-//        DatabaseReference cc8_s_CXC = timeReference.child(movieid).child("CC8").child("southpark").child("CXC").child("sat");
-//        cc8_s_CXC.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                mtList.clear();
-//
-//                if (snapshot.exists()) {
-//                    s_CXC.setVisibility(View.VISIBLE);
-//                    s_CXC_recycleV.setVisibility(View.VISIBLE);
-//
-//                    for (DataSnapshot ss : snapshot.getChildren()) {
-//                        String n = String.valueOf(ss.getValue());
-//                        mtList.add(new TimeOfMovie(n));
-//                    }
-//                }else{
-//                    s_CXC.setVisibility(View.GONE);
-//                    s_CXC_recycleV.setVisibility(View.GONE);
-//                }
-//
-//                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, mtList);
-//                s_CXC_recycleV.setAdapter(scheduleAdp);
-//                s_CXC_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//
-//    }
-//
-//    public void CC8_sunH(){
-//
-//        DatabaseReference cc8_t_r = timeReference.child(movieid).child("CC8").child("trincity").child("regular").child("sun+hol");
-//        cc8_t_r.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                mtList.clear();
-//                if (snapshot.exists()) {
-//                    t_regular.setVisibility(View.VISIBLE);
-//                    t_r_recycleV.setVisibility(View.VISIBLE);
-//
-//                    for (DataSnapshot ss : snapshot.getChildren()) {
-//                        String n = String.valueOf(ss.getValue());
-//                        mtList.add(new TimeOfMovie(n));
-//                    }
-//                }else{
-//                    t_regular.setVisibility(View.GONE);
-//                    t_r_recycleV.setVisibility(View.GONE);
-//                }
-//
-//                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, mtList);
-//                t_r_recycleV.setAdapter(scheduleAdp);
-//                t_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//
-//        DatabaseReference cc8_t_3d = timeReference.child(movieid).child("CC8").child("trincity").child("3D").child("sun+hol");
-//        cc8_t_3d.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                mtList.clear();
-//
-//                if (snapshot.exists()) {
-//                    t_3D.setVisibility(View.VISIBLE);
-//                    t_3D_recycleV.setVisibility(View.VISIBLE);
-//
-//                    for (DataSnapshot ss : snapshot.getChildren()) {
-//                        String n = String.valueOf(ss.getValue());
-//                        mtList.add(new TimeOfMovie(n));
-//                    }
-//                }else{
-//                    t_3D.setVisibility(View.GONE);
-//                    t_3D_recycleV.setVisibility(View.GONE);
-//                }
-//
-//                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, mtList);
-//                t_3D_recycleV.setAdapter(scheduleAdp);
-//                t_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//
-//        DatabaseReference cc8_s_r = timeReference.child(movieid).child("CC8").child("southpark").child("regular").child("sun+hol");
-//        cc8_s_r.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                mtList.clear();
-//
-//                if (snapshot.exists()) {
-//                    s_regular.setVisibility(View.VISIBLE);
-//                    s_r_recycleV.setVisibility(View.VISIBLE);
-//
-//                    for (DataSnapshot ss : snapshot.getChildren()) {
-//                        String n = String.valueOf(ss.getValue());
-//                        mtList.add(new TimeOfMovie(n));
-//                    }
-//                }else{
-//                    s_regular.setVisibility(View.GONE);
-//                    s_r_recycleV.setVisibility(View.GONE);
-//                }
-//
-//                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, mtList);
-//                s_r_recycleV.setAdapter(scheduleAdp);
-//                s_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//
-//        DatabaseReference cc8_s_3D = timeReference.child(movieid).child("CC8").child("southpark").child("3D").child("sun+hol");
-//        cc8_s_3D.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                mtList.clear();
-//
-//                if (snapshot.exists()) {
-//                    s_3D.setVisibility(View.VISIBLE);
-//                    s_3D_recycleV.setVisibility(View.VISIBLE);
-//
-//                    for (DataSnapshot ss : snapshot.getChildren()) {
-//                        String n = String.valueOf(ss.getValue());
-//                        mtList.add(new TimeOfMovie(n));
-//                    }
-//                }else{
-//                    s_3D.setVisibility(View.GONE);
-//                    s_3D_recycleV.setVisibility(View.GONE);
-//                }
-//
-//                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, mtList);
-//                s_3D_recycleV.setAdapter(scheduleAdp);
-//                s_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//
-//        DatabaseReference cc8_s_4DX = timeReference.child(movieid).child("CC8").child("southpark").child("4DX").child("sun+hol");
-//        cc8_s_4DX.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                mtList.clear();
-//                if (snapshot.exists()) {
-//                    s_4DX.setVisibility(View.VISIBLE);
-//                    s_4DX_recycleV.setVisibility(View.VISIBLE);
-//
-//                    for (DataSnapshot ss : snapshot.getChildren()) {
-//                        String n = String.valueOf(ss.getValue());
-//                        mtList.add(new TimeOfMovie(n));
-//                    }
-//                }else{
-//                    s_4DX.setVisibility(View.GONE);
-//                    s_4DX_recycleV.setVisibility(View.GONE);
-//                }
-//
-//                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, mtList);
-//                s_4DX_recycleV.setAdapter(scheduleAdp);
-//                s_4DX_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//
-//        DatabaseReference cc8_s_CXC = timeReference.child(movieid).child("CC8").child("southpark").child("CXC").child("sun+hol");
-//        cc8_s_CXC.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                mtList.clear();
-//
-//                if (snapshot.exists()) {
-//                    s_CXC.setVisibility(View.VISIBLE);
-//                    s_CXC_recycleV.setVisibility(View.VISIBLE);
-//
-//                    for (DataSnapshot ss : snapshot.getChildren()) {
-//                        String n = String.valueOf(ss.getValue());
-//                        mtList.add(new TimeOfMovie(n));
-//                    }
-//                }else{
-//                    s_CXC.setVisibility(View.GONE);
-//                    s_CXC_recycleV.setVisibility(View.GONE);
-//                }
-//
-//                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, mtList);
-//                s_CXC_recycleV.setAdapter(scheduleAdp);
-//                s_CXC_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//
-//    }
+    public void CC8_sat(){
 
-    private void MT_mf() {
-
-        DatabaseReference pos_r = timeReference.child(movieid).child("MT").child("pos").child("regular").child("mon-fri");
-        pos_r.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference cc8_t_r = timeReference.child(movieid).child("CC8").child("trincity").child("regular").child("sat");
+        List<TimeOfMovie> t_r_sat = new ArrayList<>();
+        cc8_t_r.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                mtList.clear();
+                t_r_sat.clear();
 
                 if (snapshot.exists()) {
-                    ts_pos_r.setVisibility(View.VISIBLE);
-                    ts_pos_r_recycleV.setVisibility(View.VISIBLE);
+                    t_regular.setVisibility(View.VISIBLE);
+                    t_r_recycleV.setVisibility(View.VISIBLE);
 
                     for (DataSnapshot ss : snapshot.getChildren()) {
                         String n = String.valueOf(ss.getValue());
-                        mtList.add(new TimeOfMovie(n, "mt_pos_r"));
+                        t_r_sat.add(new TimeOfMovie(n, "cc8_t_r"));
                     }
                 }else{
                     t_regular.setVisibility(View.GONE);
                     t_r_recycleV.setVisibility(View.GONE);
                 }
 
-                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, mtList, TimeSchedule.this);
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, t_r_sat, TimeSchedule.this);
                 t_r_recycleV.setAdapter(scheduleAdp);
-                t_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
+                t_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
 
             }
 
@@ -877,11 +527,12 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
             }
         });
 
-        DatabaseReference cc8_t_3d = timeReference.child(movieid).child("CC8").child("trincity").child("3D").child("mon-fri");
+        DatabaseReference cc8_t_3d = timeReference.child(movieid).child("CC8").child("trincity").child("3D").child("sat");
+        List<TimeOfMovie> t_3d_sat = new ArrayList<>();
         cc8_t_3d.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                mtList.clear();
+                t_3d_sat.clear();
 
                 if (snapshot.exists()) {
                     t_3D.setVisibility(View.VISIBLE);
@@ -889,16 +540,16 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                     for (DataSnapshot ss : snapshot.getChildren()) {
                         String n = String.valueOf(ss.getValue());
-                        mtList.add(new TimeOfMovie(n, "mt_pos_3d"));
+                        t_3d_sat.add(new TimeOfMovie(n, "cc8_t_3D"));
                     }
                 }else{
                     t_3D.setVisibility(View.GONE);
                     t_3D_recycleV.setVisibility(View.GONE);
                 }
 
-                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, mtList, TimeSchedule.this);
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, t_3d_sat, TimeSchedule.this);
                 t_3D_recycleV.setAdapter(scheduleAdp);
-                t_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
+                t_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
 
             }
 
@@ -908,132 +559,1458 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
             }
         });
 
-//        DatabaseReference cc8_s_r = timeReference.child(movieid).child("CC8").child("southpark").child("regular").child("mon-fri");
-//        cc8_s_r.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                mtList.clear();
-//
-//                if (snapshot.exists()) {
-//                    s_regular.setVisibility(View.VISIBLE);
-//                    s_r_recycleV.setVisibility(View.VISIBLE);
-//
-//                    for (DataSnapshot ss : snapshot.getChildren()) {
-//                        String n = String.valueOf(ss.getValue());
-//                        mtList.add(new TimeOfMovie(n, "mt_"));
-//                    }
-//                }else{
-//                    s_regular.setVisibility(View.GONE);
-//                    s_r_recycleV.setVisibility(View.GONE);
-//                }
-//
-//                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, mtList, TimeSchedule.this);
-//                s_r_recycleV.setAdapter(scheduleAdp);
-//                s_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//
-//        DatabaseReference cc8_s_3D = timeReference.child(movieid).child("CC8").child("southpark").child("3D").child("mon-fri");
-//        cc8_s_3D.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                mtList.clear();
-//
-//                if (snapshot.exists()) {
-//                    s_3D.setVisibility(View.VISIBLE);
-//                    s_3D_recycleV.setVisibility(View.VISIBLE);
-//
-//                    for (DataSnapshot ss : snapshot.getChildren()) {
-//                        String n = String.valueOf(ss.getValue());
-//                        mtList.add(new TimeOfMovie(n));
-//                    }
-//                }else{
-//                    s_3D.setVisibility(View.GONE);
-//                    s_3D_recycleV.setVisibility(View.GONE);
-//                }
-//
-//                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, mtList, TimeSchedule.this);
-//                s_3D_recycleV.setAdapter(scheduleAdp);
-//                s_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//
-//        DatabaseReference cc8_s_4DX = timeReference.child(movieid).child("CC8").child("southpark").child("4DX").child("mon-fri");
-//
-//        cc8_s_4DX.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                mtList.clear();
-//
-//                if (snapshot.exists()) {
-//                    s_4DX.setVisibility(View.VISIBLE);
-//                    s_4DX_recycleV.setVisibility(View.VISIBLE);
-//
-//                    for (DataSnapshot ss : snapshot.getChildren()) {
-//                        String n = String.valueOf(ss.getValue());
-//                        mtList.add(new TimeOfMovie(n));
-//                    }
-//                }else{
-//                    s_4DX.setVisibility(View.GONE);
-//                    s_4DX_recycleV.setVisibility(View.GONE);
-//                }
-//
-//                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, mtList);
-//                s_4DX_recycleV.setAdapter(scheduleAdp);
-//                s_4DX_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//
-//        DatabaseReference cc8_s_CXC = timeReference.child(movieid).child("CC8").child("southpark").child("CXC").child("mon-fri");
-//
-//        cc8_s_CXC.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                mtList.clear();
-//
-//                if (snapshot.exists()) {
-//                    s_CXC.setVisibility(View.VISIBLE);
-//                    s_CXC_recycleV.setVisibility(View.VISIBLE);
-//
-//                    for (DataSnapshot ss : snapshot.getChildren()) {
-//                        String n = String.valueOf(ss.getValue());
-//                        mtList.add(new TimeOfMovie(n));
-//                    }
-//                }else{
-//                    s_CXC.setVisibility(View.GONE);
-//                    s_CXC_recycleV.setVisibility(View.GONE);
-//                }
-//
-//                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, mtList);
-//                s_CXC_recycleV.setAdapter(scheduleAdp);
-//                s_CXC_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+        DatabaseReference cc8_s_r = timeReference.child(movieid).child("CC8").child("southpark").child("regular").child("sat");
+        List<TimeOfMovie> s_r_sat = new ArrayList<>();
+        cc8_s_r.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                s_r_sat.clear();
 
+                if (snapshot.exists()) {
+                    s_regular.setVisibility(View.VISIBLE);
+                    s_r_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        s_r_sat.add(new TimeOfMovie(n, "cc8_s_r"));
+                    }
+                }else{
+                    s_regular.setVisibility(View.GONE);
+                    s_r_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, s_r_sat, TimeSchedule.this);
+                s_r_recycleV.setAdapter(scheduleAdp);
+                s_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference cc8_s_3D = timeReference.child(movieid).child("CC8").child("southpark").child("3D").child("sat");
+        List<TimeOfMovie> s_3d_sat = new ArrayList<>();
+        cc8_s_3D.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                s_3d_sat.clear();
+
+                if (snapshot.exists()) {
+                    s_3D.setVisibility(View.VISIBLE);
+                    s_3D_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        s_3d_sat.add(new TimeOfMovie(n, "cc8_s_3d"));
+                    }
+                }else{
+                    s_3D.setVisibility(View.GONE);
+                    s_3D_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, s_3d_sat, TimeSchedule.this);
+                s_3D_recycleV.setAdapter(scheduleAdp);
+                s_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference cc8_s_4DX = timeReference.child(movieid).child("CC8").child("southpark").child("4DX").child("sat");
+        List<TimeOfMovie> s_4dx_sat = new ArrayList<>();
+        cc8_s_4DX.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                s_4dx_sat.clear();
+
+                if (snapshot.exists()) {
+                    s_4DX.setVisibility(View.VISIBLE);
+                    s_4DX_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        s_4dx_sat.add(new TimeOfMovie(n, "cc8_s_4dx"));
+                    }
+                }else{
+                    s_4DX.setVisibility(View.GONE);
+                    s_4DX_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, s_4dx_sat, TimeSchedule.this);
+                s_4DX_recycleV.setAdapter(scheduleAdp);
+                s_4DX_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference cc8_s_CXC = timeReference.child(movieid).child("CC8").child("southpark").child("CXC").child("sat");
+        List<TimeOfMovie> s_cxc_sat = new ArrayList<>();
+        cc8_s_CXC.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                s_cxc_sat.clear();
+
+                if (snapshot.exists()) {
+                    s_CXC.setVisibility(View.VISIBLE);
+                    s_CXC_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        s_cxc_sat.add(new TimeOfMovie(n, "cc8_s_cxc"));
+                    }
+                }else{
+                    s_CXC.setVisibility(View.GONE);
+                    s_CXC_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, s_cxc_sat, TimeSchedule.this);
+                s_CXC_recycleV.setAdapter(scheduleAdp);
+                s_CXC_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+    public void CC8_sunH(){
+
+        DatabaseReference cc8_t_r = timeReference.child(movieid).child("CC8").child("trincity").child("regular").child("sun");
+        List<TimeOfMovie> t_r_sun = new ArrayList<>();
+        cc8_t_r.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                t_r_sun.clear();
+
+                if (snapshot.exists()) {
+                    t_regular.setVisibility(View.VISIBLE);
+                    t_r_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        t_r_sun.add(new TimeOfMovie(n, "cc8_t_r"));
+                    }
+                }else{
+                    t_regular.setVisibility(View.GONE);
+                    t_r_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, t_r_sun, TimeSchedule.this);
+                t_r_recycleV.setAdapter(scheduleAdp);
+                t_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference cc8_t_3d = timeReference.child(movieid).child("CC8").child("trincity").child("3D").child("sun");
+        List<TimeOfMovie> t_3d_sun = new ArrayList<>();
+        cc8_t_3d.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                t_3d_sun.clear();
+
+                if (snapshot.exists()) {
+                    t_3D.setVisibility(View.VISIBLE);
+                    t_3D_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        t_3d_sun.add(new TimeOfMovie(n, "cc8_t_3D"));
+                    }
+                }else{
+                    t_3D.setVisibility(View.GONE);
+                    t_3D_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, t_3d_sun, TimeSchedule.this);
+                t_3D_recycleV.setAdapter(scheduleAdp);
+                t_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference cc8_s_r = timeReference.child(movieid).child("CC8").child("southpark").child("regular").child("sun");
+        List<TimeOfMovie> s_r_sun = new ArrayList<>();
+        cc8_s_r.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                s_r_sun.clear();
+
+                if (snapshot.exists()) {
+                    s_regular.setVisibility(View.VISIBLE);
+                    s_r_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        s_r_sun.add(new TimeOfMovie(n, "cc8_s_r"));
+                    }
+                }else{
+                    s_regular.setVisibility(View.GONE);
+                    s_r_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, s_r_sun, TimeSchedule.this);
+                s_r_recycleV.setAdapter(scheduleAdp);
+                s_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference cc8_s_3D = timeReference.child(movieid).child("CC8").child("southpark").child("3D").child("sun");
+        List<TimeOfMovie> s_3d_sun = new ArrayList<>();
+        cc8_s_3D.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                s_3d_sun.clear();
+
+                if (snapshot.exists()) {
+                    s_3D.setVisibility(View.VISIBLE);
+                    s_3D_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        s_3d_sun.add(new TimeOfMovie(n, "cc8_s_3d"));
+                    }
+                }else{
+                    s_3D.setVisibility(View.GONE);
+                    s_3D_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, s_3d_sun, TimeSchedule.this);
+                s_3D_recycleV.setAdapter(scheduleAdp);
+                s_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference cc8_s_4DX = timeReference.child(movieid).child("CC8").child("southpark").child("4DX").child("sun");
+        List<TimeOfMovie> s_4dx_sun = new ArrayList<>();
+        cc8_s_4DX.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                s_4dx_sun.clear();
+
+                if (snapshot.exists()) {
+                    s_4DX.setVisibility(View.VISIBLE);
+                    s_4DX_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        s_4dx_sun.add(new TimeOfMovie(n, "cc8_s_4dx"));
+                    }
+                }else{
+                    s_4DX.setVisibility(View.GONE);
+                    s_4DX_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, s_4dx_sun, TimeSchedule.this);
+                s_4DX_recycleV.setAdapter(scheduleAdp);
+                s_4DX_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference cc8_s_CXC = timeReference.child(movieid).child("CC8").child("southpark").child("CXC").child("sun");
+        List<TimeOfMovie> s_cxc_sun = new ArrayList<>();
+        cc8_s_CXC.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                s_cxc_sun.clear();
+
+                if (snapshot.exists()) {
+                    s_CXC.setVisibility(View.VISIBLE);
+                    s_CXC_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        s_cxc_sun.add(new TimeOfMovie(n, "cc8_s_cxc"));
+                    }
+                }else{
+                    s_CXC.setVisibility(View.GONE);
+                    s_CXC_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, s_cxc_sun, TimeSchedule.this);
+                s_CXC_recycleV.setAdapter(scheduleAdp);
+                s_CXC_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+    private void MT_mf() {
+
+        DatabaseReference pos_r = timeReference.child(movieid).child("MT").child("pos").child("regular").child("mon-fri");
+        List<TimeOfMovie> pos_r_mf = new ArrayList<>();
+        pos_r.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                pos_r_mf.clear();
+
+                if (snapshot.exists()) {
+                    ts_pos.setVisibility(View.VISIBLE);
+                    ts_pos_r.setVisibility(View.VISIBLE);
+                    ts_pos_r_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        pos_r_mf.add(new TimeOfMovie(n, "mt_pos_r"));
+                    }
+                }else{
+                    ts_pos.setVisibility(View.GONE);
+                    ts_pos_r.setVisibility(View.GONE);
+                    ts_pos_r_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, pos_r_mf, TimeSchedule.this);
+                ts_pos_r_recycleV.setAdapter(scheduleAdp);
+                ts_pos_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference pos_3d = timeReference.child(movieid).child("MT").child("pos").child("3D").child("mon-fri");
+        List<TimeOfMovie> pos_3d_mf = new ArrayList<>();
+        pos_3d.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                pos_3d_mf.clear();
+
+                if (snapshot.exists()) {
+                    ts_pos.setVisibility(View.VISIBLE);
+                    ts_pos_3D.setVisibility(View.VISIBLE);
+                    ts_pos_3D_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        pos_3d_mf.add(new TimeOfMovie(n, "mt_pos_3d"));
+                    }
+                }else{
+//                    ts_pos.setVisibility(View.GONE);
+                    ts_pos_3D.setVisibility(View.GONE);
+                    ts_pos_3D_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, pos_3d_mf, TimeSchedule.this);
+                ts_pos_3D_recycleV.setAdapter(scheduleAdp);
+                ts_pos_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference chag_r = timeReference.child(movieid).child("MT").child("chag").child("regular").child("mon-fri");
+        List<TimeOfMovie> chag_r_mf = new ArrayList<>();
+        chag_r.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                chag_r_mf.clear();
+
+                if (snapshot.exists()) {
+                    ts_chag.setVisibility(View.VISIBLE);
+                    ts_chag_r.setVisibility(View.VISIBLE);
+                    ts_chag_r_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        chag_r_mf.add(new TimeOfMovie(n, "mt_chag_r"));
+                    }
+                }else{
+                    ts_chag.setVisibility(View.GONE);
+                    ts_chag_r.setVisibility(View.GONE);
+                    ts_chag_r_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, chag_r_mf, TimeSchedule.this);
+                ts_chag_r_recycleV.setAdapter(scheduleAdp);
+                ts_chag_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference chag_3d = timeReference.child(movieid).child("MT").child("chag").child("3D").child("mon-fri");
+        List<TimeOfMovie> chag_3d_mf = new ArrayList<>();
+        chag_3d.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                chag_3d_mf.clear();
+
+                if (snapshot.exists()) {
+                    ts_chag.setVisibility(View.VISIBLE);
+                    ts_chag_3D.setVisibility(View.VISIBLE);
+                    ts_chag_3D_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        chag_3d_mf.add(new TimeOfMovie(n, "mt_chag_3d"));
+                    }
+                }else{
+                    ts_chag.setVisibility(View.GONE);
+                    ts_chag_3D.setVisibility(View.GONE);
+                    ts_chag_3D_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, chag_3d_mf, TimeSchedule.this);
+                ts_chag_3D_recycleV.setAdapter(scheduleAdp);
+                ts_chag_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference sdo_r = timeReference.child(movieid).child("MT").child("sdo").child("regular").child("mon-fri");
+        List<TimeOfMovie> sdo_r_mf = new ArrayList<>();
+        sdo_r.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                sdo_r_mf.clear();
+
+                if (snapshot.exists()) {
+                    ts_sdo.setVisibility(View.VISIBLE);
+                    ts_sdo_r.setVisibility(View.VISIBLE);
+                    ts_sdo_r_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        sdo_r_mf.add(new TimeOfMovie(n, "mt_sdo_r"));
+                    }
+                }else{
+                    ts_sdo.setVisibility(View.GONE);
+                    ts_sdo_r.setVisibility(View.GONE);
+                    ts_sdo_r_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, sdo_r_mf, TimeSchedule.this);
+                ts_sdo_r_recycleV.setAdapter(scheduleAdp);
+                ts_sdo_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference sdo_3d = timeReference.child(movieid).child("MT").child("pos").child("3D").child("mon-fri");
+        List<TimeOfMovie> sdo_3d_mf = new ArrayList<>();
+        sdo_3d.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                sdo_3d_mf.clear();
+
+                if (snapshot.exists()) {
+                    ts_sdo.setVisibility(View.VISIBLE);
+                    ts_sdo_3D.setVisibility(View.VISIBLE);
+                    ts_sdo_3D_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        sdo_3d_mf.add(new TimeOfMovie(n, "mt_sdo_3d"));
+                    }
+                }else{
+                    ts_sdo.setVisibility(View.GONE);
+                    ts_sdo_3D.setVisibility(View.GONE);
+                    ts_sdo_3D_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, sdo_3d_mf, TimeSchedule.this);
+                ts_sdo_3D_recycleV.setAdapter(scheduleAdp);
+                ts_sdo_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference tgo_r = timeReference.child(movieid).child("MT").child("tgo").child("regular").child("mon-fri");
+        List<TimeOfMovie> tgo_r_mf = new ArrayList<>();
+        tgo_r.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                tgo_r_mf.clear();
+
+                if (snapshot.exists()) {
+                    ts_tgo.setVisibility(View.VISIBLE);
+                    ts_tgo_r.setVisibility(View.VISIBLE);
+                    ts_tgo_r_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        tgo_r_mf.add(new TimeOfMovie(n, "mt_tgo_r"));
+                    }
+                }else{
+                    ts_tgo.setVisibility(View.GONE);
+                    ts_tgo_r.setVisibility(View.GONE);
+                    ts_tgo_r_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, tgo_r_mf, TimeSchedule.this);
+                ts_tgo_r_recycleV.setAdapter(scheduleAdp);
+                ts_tgo_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference tgo_3d = timeReference.child(movieid).child("MT").child("tgo").child("3D").child("mon-fri");
+        List<TimeOfMovie> tgo_3d_mf = new ArrayList<>();
+        tgo_3d.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                tgo_3d_mf.clear();
+
+                if (snapshot.exists()) {
+                    ts_tgo.setVisibility(View.VISIBLE);
+                    ts_tgo_3D.setVisibility(View.VISIBLE);
+                    ts_tgo_3D_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        tgo_3d_mf.add(new TimeOfMovie(n, "mt_tgo_3d"));
+                    }
+                }else{
+                    ts_pos.setVisibility(View.GONE);
+                    ts_tgo_3D.setVisibility(View.GONE);
+                    ts_tgo_3D_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, tgo_3d_mf, TimeSchedule.this);
+                ts_tgo_3D_recycleV.setAdapter(scheduleAdp);
+                ts_tgo_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+    }
+
+    private void MT_sat() {
+
+        DatabaseReference pos_r = timeReference.child(movieid).child("MT").child("pos").child("regular").child("sat");
+        List<TimeOfMovie> pos_r_sat = new ArrayList<>();
+        pos_r.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                pos_r_sat.clear();
+
+                if (snapshot.exists()) {
+                    ts_pos.setVisibility(View.VISIBLE);
+                    ts_pos_r.setVisibility(View.VISIBLE);
+                    ts_pos_r_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        pos_r_sat.add(new TimeOfMovie(n, "mt_pos_r"));
+                    }
+                }else{
+                    ts_pos.setVisibility(View.GONE);
+                    ts_pos_r.setVisibility(View.GONE);
+                    ts_pos_r_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, pos_r_sat, TimeSchedule.this);
+                ts_pos_r_recycleV.setAdapter(scheduleAdp);
+                ts_pos_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference pos_3d = timeReference.child(movieid).child("MT").child("pos").child("3D").child("sat");
+        List<TimeOfMovie> pos_3d_sat = new ArrayList<>();
+        pos_3d.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                pos_3d_sat.clear();
+
+                if (snapshot.exists()) {
+                    ts_pos.setVisibility(View.VISIBLE);
+                    ts_pos_3D.setVisibility(View.VISIBLE);
+                    ts_pos_3D_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        pos_3d_sat.add(new TimeOfMovie(n, "mt_pos_3d"));
+                    }
+                }else{
+                    ts_pos.setVisibility(View.GONE);
+                    ts_pos_3D.setVisibility(View.GONE);
+                    ts_pos_3D_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, pos_3d_sat, TimeSchedule.this);
+                ts_pos_3D_recycleV.setAdapter(scheduleAdp);
+                ts_pos_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference chag_r = timeReference.child(movieid).child("MT").child("chag").child("regular").child("sat");
+        List<TimeOfMovie> chag_r_sat = new ArrayList<>();
+        chag_r.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                chag_r_sat.clear();
+
+                if (snapshot.exists()) {
+                    ts_chag.setVisibility(View.VISIBLE);
+                    ts_chag_r.setVisibility(View.VISIBLE);
+                    ts_chag_r_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        chag_r_sat.add(new TimeOfMovie(n, "mt_chag_r"));
+                    }
+                }else{
+                    ts_chag.setVisibility(View.GONE);
+                    ts_chag_r.setVisibility(View.GONE);
+                    ts_chag_r_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, chag_r_sat, TimeSchedule.this);
+                ts_chag_r_recycleV.setAdapter(scheduleAdp);
+                ts_chag_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference chag_3d = timeReference.child(movieid).child("MT").child("chag").child("3D").child("sat");
+        List<TimeOfMovie> chag_3d_sat = new ArrayList<>();
+        chag_3d.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                chag_3d_sat.clear();
+
+                if (snapshot.exists()) {
+                    ts_pos.setVisibility(View.VISIBLE);
+                    ts_chag_3D.setVisibility(View.VISIBLE);
+                    ts_chag_3D_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        chag_3d_sat.add(new TimeOfMovie(n, "mt_chag_3d"));
+                    }
+                }else{
+                    ts_chag.setVisibility(View.GONE);
+                    ts_chag_3D.setVisibility(View.GONE);
+                    ts_chag_3D_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, chag_3d_sat, TimeSchedule.this);
+                ts_chag_3D_recycleV.setAdapter(scheduleAdp);
+                ts_chag_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference sdo_r = timeReference.child(movieid).child("MT").child("sdo").child("regular").child("sat");
+        List<TimeOfMovie> sdo_r_sat = new ArrayList<>();
+        sdo_r.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                sdo_r_sat.clear();
+
+                if (snapshot.exists()) {
+                    ts_sdo.setVisibility(View.VISIBLE);
+                    ts_sdo_r.setVisibility(View.VISIBLE);
+                    ts_sdo_r_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        sdo_r_sat.add(new TimeOfMovie(n, "mt_sdo_r"));
+                    }
+                }else{
+                    ts_sdo.setVisibility(View.GONE);
+                    ts_sdo_r.setVisibility(View.GONE);
+                    ts_sdo_r_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, sdo_r_sat, TimeSchedule.this);
+                ts_sdo_r_recycleV.setAdapter(scheduleAdp);
+                ts_sdo_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference sdo_3d = timeReference.child(movieid).child("MT").child("pos").child("3D").child("sat");
+        List<TimeOfMovie> sdo_3d_sat = new ArrayList<>();
+        sdo_3d.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                sdo_3d_sat.clear();
+
+                if (snapshot.exists()) {
+                    ts_sdo.setVisibility(View.VISIBLE);
+                    ts_sdo_3D.setVisibility(View.VISIBLE);
+                    ts_sdo_3D_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        sdo_3d_sat.add(new TimeOfMovie(n, "mt_sdo_3d"));
+                    }
+                }else{
+                    ts_sdo.setVisibility(View.GONE);
+                    ts_sdo_3D.setVisibility(View.GONE);
+                    ts_sdo_3D_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, sdo_3d_sat, TimeSchedule.this);
+                ts_sdo_3D_recycleV.setAdapter(scheduleAdp);
+                ts_sdo_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference tgo_r = timeReference.child(movieid).child("MT").child("tgo").child("regular").child("sat");
+        List<TimeOfMovie> tgo_r_sat = new ArrayList<>();
+        tgo_r.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                tgo_r_sat.clear();
+
+                if (snapshot.exists()) {
+                    ts_tgo.setVisibility(View.VISIBLE);
+                    ts_tgo_r.setVisibility(View.VISIBLE);
+                    ts_tgo_r_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        tgo_r_sat.add(new TimeOfMovie(n, "mt_tgo_r"));
+                    }
+                }else{
+                    ts_tgo.setVisibility(View.GONE);
+                    ts_tgo_r.setVisibility(View.GONE);
+                    ts_tgo_r_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, tgo_r_sat, TimeSchedule.this);
+                ts_tgo_r_recycleV.setAdapter(scheduleAdp);
+                ts_tgo_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference tgo_3d = timeReference.child(movieid).child("MT").child("tgo").child("3D").child("sat");
+        List<TimeOfMovie> tgo_3d_sat = new ArrayList<>();
+        tgo_3d.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                tgo_3d_sat.clear();
+
+                if (snapshot.exists()) {
+                    ts_tgo.setVisibility(View.VISIBLE);
+                    ts_tgo_r.setVisibility(View.VISIBLE);
+                    ts_tgo_r_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        tgo_3d_sat.add(new TimeOfMovie(n, "mt_tgo_3d"));
+                    }
+                }else{
+                    ts_tgo.setVisibility(View.GONE);
+                    ts_tgo_3D.setVisibility(View.GONE);
+                    ts_tgo_3D_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, tgo_3d_sat, TimeSchedule.this);
+                ts_tgo_3D_recycleV.setAdapter(scheduleAdp);
+                ts_tgo_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+    }
+
+    private void MT_sun() {
+
+        DatabaseReference pos_r = timeReference.child(movieid).child("MT").child("pos").child("regular").child("sun");
+        List<TimeOfMovie> pos_r_sun = new ArrayList<>();
+        pos_r.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                pos_r_sun.clear();
+
+                if (snapshot.exists()) {
+                    ts_pos.setVisibility(View.VISIBLE);
+                    ts_pos_r.setVisibility(View.VISIBLE);
+                    ts_pos_r_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        pos_r_sun.add(new TimeOfMovie(n, "mt_pos_r"));
+                    }
+                }else{
+                    ts_pos.setVisibility(View.GONE);
+                    ts_pos_r.setVisibility(View.GONE);
+                    ts_pos_r_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, pos_r_sun, TimeSchedule.this);
+                ts_pos_r_recycleV.setAdapter(scheduleAdp);
+                ts_pos_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference pos_3d = timeReference.child(movieid).child("MT").child("pos").child("3D").child("sun");
+        List<TimeOfMovie> pos_3d_sun = new ArrayList<>();
+        pos_3d.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                pos_3d_sun.clear();
+
+                if (snapshot.exists()) {
+                    ts_pos.setVisibility(View.VISIBLE);
+                    ts_pos_3D.setVisibility(View.VISIBLE);
+                    ts_pos_3D_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        pos_3d_sun.add(new TimeOfMovie(n, "mt_pos_3d"));
+                    }
+                }else{
+                    ts_pos.setVisibility(View.GONE);
+                    ts_pos_3D.setVisibility(View.GONE);
+                    ts_pos_3D_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, pos_3d_sun, TimeSchedule.this);
+                ts_pos_3D_recycleV.setAdapter(scheduleAdp);
+                ts_pos_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference chag_r = timeReference.child(movieid).child("MT").child("chag").child("regular").child("sun");
+        List<TimeOfMovie> chag_r_sun = new ArrayList<>();
+        chag_r.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                chag_r_sun.clear();
+
+                if (snapshot.exists()) {
+                    ts_chag.setVisibility(View.VISIBLE);
+                    ts_chag_r.setVisibility(View.VISIBLE);
+                    ts_chag_r_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        chag_r_sun.add(new TimeOfMovie(n, "mt_chag_r"));
+                    }
+                }else{
+                    ts_chag.setVisibility(View.GONE);
+                    ts_chag_r.setVisibility(View.GONE);
+                    ts_chag_r_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, chag_r_sun, TimeSchedule.this);
+                ts_chag_r_recycleV.setAdapter(scheduleAdp);
+                ts_chag_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference chag_3d = timeReference.child(movieid).child("MT").child("chag").child("3D").child("sun");
+        List<TimeOfMovie> chag_3d_sun = new ArrayList<>();
+        chag_3d.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                chag_3d_sun.clear();
+
+                if (snapshot.exists()) {
+                    ts_chag.setVisibility(View.VISIBLE);
+                    ts_chag_3D.setVisibility(View.VISIBLE);
+                    ts_chag_3D_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        chag_3d_sun.add(new TimeOfMovie(n, "mt_chag_3d"));
+                    }
+                }else{
+                    ts_chag.setVisibility(View.GONE);
+                    ts_chag_3D.setVisibility(View.GONE);
+                    ts_chag_3D_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, chag_3d_sun, TimeSchedule.this);
+                ts_chag_3D_recycleV.setAdapter(scheduleAdp);
+                ts_chag_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference sdo_r = timeReference.child(movieid).child("MT").child("sdo").child("regular").child("sun");
+        List<TimeOfMovie> sdo_r_sun = new ArrayList<>();
+        sdo_r.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                sdo_r_sun.clear();
+
+                if (snapshot.exists()) {
+                    ts_sdo.setVisibility(View.VISIBLE);
+                    ts_sdo_r.setVisibility(View.VISIBLE);
+                    ts_sdo_r_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        sdo_r_sun.add(new TimeOfMovie(n, "mt_sdo_r"));
+                    }
+                }else{
+                    ts_sdo.setVisibility(View.GONE);
+                    ts_sdo_r.setVisibility(View.GONE);
+                    ts_sdo_r_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, sdo_r_sun, TimeSchedule.this);
+                ts_sdo_r_recycleV.setAdapter(scheduleAdp);
+                ts_sdo_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference sdo_3d = timeReference.child(movieid).child("MT").child("pos").child("3D").child("sun");
+        List<TimeOfMovie> sdo_3d_sun = new ArrayList<>();
+        sdo_3d.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                sdo_3d_sun.clear();
+
+                if (snapshot.exists()) {
+                    ts_sdo.setVisibility(View.VISIBLE);
+                    ts_sdo_3D.setVisibility(View.VISIBLE);
+                    ts_sdo_3D_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        sdo_3d_sun.add(new TimeOfMovie(n, "mt_sdo_3d"));
+                    }
+                }else{
+                    ts_sdo.setVisibility(View.GONE);
+                    ts_sdo_3D.setVisibility(View.GONE);
+                    ts_sdo_3D_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, sdo_3d_sun, TimeSchedule.this);
+                ts_sdo_3D_recycleV.setAdapter(scheduleAdp);
+                ts_sdo_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference tgo_r = timeReference.child(movieid).child("MT").child("tgo").child("regular").child("sun");
+        List<TimeOfMovie> tgo_r_sun = new ArrayList<>();
+        tgo_r.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                tgo_r_sun.clear();
+
+                if (snapshot.exists()) {
+                    ts_tgo.setVisibility(View.VISIBLE);
+                    ts_tgo_r.setVisibility(View.VISIBLE);
+                    ts_tgo_r_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        tgo_r_sun.add(new TimeOfMovie(n, "mt_tgo_r"));
+                    }
+                }else{
+                    ts_tgo.setVisibility(View.GONE);
+                    ts_tgo_r.setVisibility(View.GONE);
+                    ts_tgo_r_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, tgo_r_sun, TimeSchedule.this);
+                ts_tgo_r_recycleV.setAdapter(scheduleAdp);
+                ts_tgo_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference tgo_3d = timeReference.child(movieid).child("MT").child("tgo").child("3D").child("sun");
+        List<TimeOfMovie> tgo_3d_sun = new ArrayList<>();
+        tgo_3d.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                tgo_3d_sun.clear();
+
+                if (snapshot.exists()) {
+                    ts_tgo.setVisibility(View.VISIBLE);
+                    ts_tgo_3D.setVisibility(View.VISIBLE);
+                    ts_tgo_3D_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        tgo_3d_sun.add(new TimeOfMovie(n, "mt_tgo_3d"));
+                    }
+                }else{
+                    ts_tgo.setVisibility(View.GONE);
+                    ts_tgo_3D.setVisibility(View.GONE);
+                    ts_tgo_3D_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, tgo_3d_sun, TimeSchedule.this);
+                ts_tgo_3D_recycleV.setAdapter(scheduleAdp);
+                ts_tgo_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+    }
+
+    public void CONE_mf(){
+
+        DatabaseReference gemstone = timeReference.child(movieid).child("CONE").child("gemstone").child("mon-fri");
+        List<TimeOfMovie> gs_mf = new ArrayList<>();
+        gemstone.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                gs_mf.clear();
+
+                if (snapshot.exists()) {
+                    ts_gemStone.setVisibility(View.VISIBLE);
+                    ts_gemstone_recycleR.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        gs_mf.add(new TimeOfMovie(n, "cone_gs"));
+                    }
+                }else{
+                    ts_gemStone.setVisibility(View.GONE);
+                    ts_gemstone_recycleR.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, gs_mf, TimeSchedule.this);
+                ts_gemstone_recycleR.setAdapter(scheduleAdp);
+                ts_gemstone_recycleR.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference CONE_4DX = timeReference.child(movieid).child("CONE").child("4DX").child("mon-fri");
+        List<TimeOfMovie> cone_4dx_mf = new ArrayList<>();
+        CONE_4DX.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                cone_4dx_mf.clear();
+
+                if (snapshot.exists()) {
+                    ts_4DX.setVisibility(View.VISIBLE);
+                    ts_4DX_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        cone_4dx_mf.add(new TimeOfMovie(n, "cone_4dx"));
+                    }
+                }else{
+                    ts_4DX.setVisibility(View.GONE);
+                    ts_4DX_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, cone_4dx_mf, TimeSchedule.this);
+                ts_4DX_recycleV.setAdapter(scheduleAdp);
+                ts_4DX_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference imax = timeReference.child(movieid).child("CONE").child("imax").child("regular").child("mon-fri");
+        List<TimeOfMovie> imax_r_mf = new ArrayList<>();
+        imax.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                imax_r_mf.clear();
+
+                if (snapshot.exists()) {
+                    ts_imax.setVisibility(View.VISIBLE);
+                    ts_imax_recycleR.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        imax_r_mf.add(new TimeOfMovie(n, "cone_imax_r"));
+                    }
+                }else{
+                    ts_imax.setVisibility(View.GONE);
+                    ts_imax_recycleR.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, imax_r_mf, TimeSchedule.this);
+                ts_imax_recycleR.setAdapter(scheduleAdp);
+                ts_imax_recycleR.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+    public void CONE_sat(){
+
+        DatabaseReference gemstone = timeReference.child(movieid).child("CONE").child("gemstone").child("sat");
+        List<TimeOfMovie> gs_sat = new ArrayList<>();
+        gemstone.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                gs_sat.clear();
+
+                if (snapshot.exists()) {
+                    ts_gemStone.setVisibility(View.VISIBLE);
+                    ts_gemstone_recycleR.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        gs_sat.add(new TimeOfMovie(n, "cone_gs"));
+                    }
+                }else{
+                    ts_gemStone.setVisibility(View.GONE);
+                    ts_gemstone_recycleR.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, gs_sat, TimeSchedule.this);
+                ts_gemstone_recycleR.setAdapter(scheduleAdp);
+                ts_gemstone_recycleR.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference CONE_4DX = timeReference.child(movieid).child("CONE").child("4DX").child("sat");
+        List<TimeOfMovie> cone_4dx_sat = new ArrayList<>();
+        CONE_4DX.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                cone_4dx_sat.clear();
+
+                if (snapshot.exists()) {
+                    ts_4DX.setVisibility(View.VISIBLE);
+                    ts_4DX_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        cone_4dx_sat.add(new TimeOfMovie(n, "cone_4dx"));
+                    }
+                }else{
+                    ts_4DX.setVisibility(View.GONE);
+                    ts_4DX_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, cone_4dx_sat, TimeSchedule.this);
+                ts_4DX_recycleV.setAdapter(scheduleAdp);
+                ts_4DX_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference imax = timeReference.child(movieid).child("CONE").child("imax").child("regular").child("sat");
+        List<TimeOfMovie> imax_r_sat = new ArrayList<>();
+        imax.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                imax_r_sat.clear();
+
+                if (snapshot.exists()) {
+                    ts_imax.setVisibility(View.VISIBLE);
+                    ts_imax_recycleR.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        imax_r_sat.add(new TimeOfMovie(n, "cone_imax_r"));
+                    }
+                }else{
+                    ts_imax.setVisibility(View.GONE);
+                    ts_imax_recycleR.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, imax_r_sat, TimeSchedule.this);
+                ts_imax_recycleR.setAdapter(scheduleAdp);
+                ts_imax_recycleR.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+    public void CONE_sun(){
+
+        DatabaseReference gemstone = timeReference.child(movieid).child("CONE").child("gemstone").child("sun");
+        List<TimeOfMovie> gs_sun = new ArrayList<>();
+        gemstone.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                gs_sun.clear();
+
+                if (snapshot.exists()) {
+                    ts_gemStone.setVisibility(View.VISIBLE);
+                    ts_gemstone_recycleR.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        gs_sun.add(new TimeOfMovie(n, "cone_gs"));
+                    }
+                }else{
+                    ts_gemStone.setVisibility(View.GONE);
+                    ts_gemstone_recycleR.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, gs_sun, TimeSchedule.this);
+                ts_gemstone_recycleR.setAdapter(scheduleAdp);
+                ts_gemstone_recycleR.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference CONE_4DX = timeReference.child(movieid).child("CONE").child("4DX").child("sun");
+        List<TimeOfMovie> cone_4dx_sun = new ArrayList<>();
+        CONE_4DX.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                cone_4dx_sun.clear();
+
+                if (snapshot.exists()) {
+                    ts_4DX.setVisibility(View.VISIBLE);
+                    ts_4DX_recycleV.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        cone_4dx_sun.add(new TimeOfMovie(n, "cone_4dx"));
+                    }
+                }else{
+                    ts_4DX.setVisibility(View.GONE);
+                    ts_4DX_recycleV.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, cone_4dx_sun, TimeSchedule.this);
+                ts_4DX_recycleV.setAdapter(scheduleAdp);
+                ts_4DX_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference imax = timeReference.child(movieid).child("CONE").child("imax").child("regular").child("sun");
+        List<TimeOfMovie> imax_r_sun = new ArrayList<>();
+        imax.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                imax_r_sun.clear();
+
+                if (snapshot.exists()) {
+                    ts_imax.setVisibility(View.VISIBLE);
+                    ts_imax_recycleR.setVisibility(View.VISIBLE);
+
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String n = String.valueOf(ss.getValue());
+                        imax_r_sun.add(new TimeOfMovie(n, "cone_imax_r"));
+                    }
+                }else{
+                    ts_imax.setVisibility(View.GONE);
+                    ts_imax_recycleR.setVisibility(View.GONE);
+                }
+
+                RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, imax_r_sun, TimeSchedule.this);
+                ts_imax_recycleR.setAdapter(scheduleAdp);
+                ts_imax_recycleR.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
 
@@ -1041,6 +2018,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
     public void onTimeClick(TimeOfMovie timeOfMovie) {
 
         Intent intent =new Intent(TimeSchedule.this, SelectTickets.class );
+
         intent.putExtra("selectDate", selectedDate);
         intent.putExtra("title", title);
         intent.putExtra("thumbnail", thumbnail);
