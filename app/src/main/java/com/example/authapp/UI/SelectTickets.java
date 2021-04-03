@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.authapp.Purchases;
 import com.example.authapp.R;
@@ -32,18 +31,27 @@ public class SelectTickets extends AppCompatActivity {
     String thumbnail;
     String theater_type;
     int senior_num = 0, child_num = 0 , adult_num = 0;
-    int total_tickets = 0;
-    private View view;
-    private DrawerLayout drawerLayout;
+    int cc8_r_price, cc8_3d_price, cc8_4dx_price, cc8_cxc_price;
 
+    int mt_r_Aprice = 50, mt_r_Cprice = 40,
+            mt_3d_Aprice = 60, mt_3d_Cprice = 50,
+            mt_tgo_Aprice = 45, mt_tgo_Cprice = 30;
+
+    int imax_r_Aprice = 65, imax_r_Cprice = 50, imax_r_Sprice = 55,
+            imax_H3d_Aprice = 75, imax_H3d_Cprice = 60 , imax_H3d_Sprice = 65,
+            imax_C3d_Aprice = 50, imax_C3d_Cprice = 40 , imax_C3d_Sprice = 45 ;
+
+    int gs_price = 100, cone_4dx_Aprice = 100, cone_4dx_Cprice = 85, cone_4dx_Sprice = 85;
+    int total_tickets = 0, total_amount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_tickets);
-
-        init();
+        
         ToolbarInfo();
+        init();
+
 
     }
 
@@ -53,11 +61,7 @@ public class SelectTickets extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
-        if(theater_type.equals("cc8_t_r") || theater_type.equals("cc8_t_3D") ||
-            theater_type.equals("cc8_s_r") || theater_type.equals("cc8_s_3d") ||
-                    theater_type.equals("cc8_s_4dx") || theater_type.equals("cc8_s_cxc")) {
-            getSupportActionBar().setTitle("Caribbean Cinema 8");
-        }
+
         toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,12 +106,13 @@ public class SelectTickets extends AppCompatActivity {
 
         continueB = findViewById(R.id.st_continueB);
 
-        Checktickets(view);
+        Checktickets();
 
         continueB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ValidEntry(v);
+
                 Intent intent = new Intent(SelectTickets.this, Purchases.class);
                 startActivity(intent);
             }
@@ -115,99 +120,589 @@ public class SelectTickets extends AppCompatActivity {
 
 
 
-        senior_tickets.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                String temp1 = s.toString();
-                if(!temp1.equals("") ) {
-                    senior_num = Integer.parseInt(temp1);
-                }
-                if(total_tickets <= 10) {
-                    total_tickets = senior_num + child_num + adult_num;
-                    max_tickets_tv.setText(String.valueOf(total_tickets) + "/10");
-                }
-            }
-        });
-
-        adult_tickets.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                String temp1 = s.toString();
-                if(!temp1.equals("") ) {
-                    adult_num = Integer.parseInt(temp1);
-                }
-                if(total_tickets <= 10) {
-                    total_tickets = senior_num + child_num + adult_num;
-                    max_tickets_tv.setText(String.valueOf(total_tickets) + "/10");
-                }
-            }
-        });
-
-        child_tickets.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                String temp1 = s.toString();
-                if(!temp1.equals("") ) {
-                    child_num = Integer.parseInt(temp1);
-                }
-                if(total_tickets <= 10) {
-                    total_tickets = senior_num + child_num + adult_num;
-                    max_tickets_tv.setText(String.valueOf(total_tickets) + "/10");
-                }
-            }
-        });
 
 
     }
 
-    public void Checktickets(View v){
-//        String temp1 = senior_tickets.getText().toString();
-//        String temp2 = adult_tickets.getText().toString();
-//        String temp3 = child_tickets.getText().toString();
-//
-//        if(!temp1.equals("") || !temp2.equals("") || !temp3.equals("") ) {
-//            senior_num = Integer.parseInt(temp1);
-//
-//            adult_num = Integer.parseInt(temp2);
-//
-//            child_num = Integer.parseInt(temp3);
-//        }
-//        int total_tickets = 0;
-//        total_tickets = senior_num + child_num + adult_num;
-//
-//        max_tickets_tv.setText(String.valueOf(total_tickets) + "/10");
+    public void Checktickets(){
+
+        if(theater_type.equals("cc8_t_r") || theater_type.equals("cc8_t_3D") ||
+                theater_type.equals("cc8_s_r") || theater_type.equals("cc8_s_3d") ||
+                theater_type.equals("cc8_s_4dx") || theater_type.equals("cc8_s_cxc")) {
+
+                 getSupportActionBar().setTitle("Caribbean Cinema 8");
+
+                 if(theater_type.equals("cc8_t_r") ||theater_type.equals("cc8_s_r")){}
+
+
+        }
+
+        if(theater_type.equals("mt_pos_r") || theater_type.equals("mt_chag_r") || theater_type.equals("mt_sdo_r") ||
+                theater_type.equals("mt_tgo_r") || theater_type.equals("mt_pos_3d") ||
+                theater_type.equals("mt_chag_3d") || theater_type.equals("mt_sdo_3d") || theater_type.equals("mt_tgo_3d")){
+
+            getSupportActionBar().setTitle("Movie Towne");
+
+            if(theater_type.equals("mt_pos_r") || theater_type.equals("mt_chag_r") || theater_type.equals("mt_sdo_r") ){
+
+                senior_tv.setText("Senior ($" + mt_r_Aprice + ")");
+                adult_tv.setText("Adult ($" + mt_r_Aprice + ")");
+                child_tv.setText("Child ($"+ mt_r_Cprice + ")");
+
+                senior_tickets.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        String temp1 = s.toString();
+                        if(!temp1.equals("") ) {
+                            senior_num = Integer.parseInt(temp1);
+                        }
+                        if(total_tickets <= 10) {
+                            total_tickets = senior_num + child_num + adult_num;
+                            max_tickets_tv.setText(String.valueOf(total_tickets) + "/10");
+
+                            total_amount = total_amount + (senior_num * mt_r_Aprice);
+                            total_tv.setText("$" + total_amount);
+
+                        }
+                    }
+                });
+
+                adult_tickets.addTextChangedListener(new TextWatcher() {
+
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        String temp1 = s.toString();
+                        if(!temp1.equals("") ) {
+                            adult_num = Integer.parseInt(temp1);
+                        }
+                        if(total_tickets <= 10) {
+                            total_tickets = senior_num + child_num + adult_num;
+                            max_tickets_tv.setText(String.valueOf(total_tickets) + "/10");
+
+                            total_amount = total_amount + (adult_num * mt_r_Aprice);
+                            total_tv.setText("$" + total_amount);
+                        }
+                    }
+                });
+
+                child_tickets.addTextChangedListener(new TextWatcher() {
+
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        String temp1 = s.toString();
+                        if(!temp1.equals("") ) {
+                            child_num = Integer.parseInt(temp1);
+                        }
+                        if(total_tickets <= 10) {
+                            total_tickets = senior_num + child_num + adult_num;
+                            max_tickets_tv.setText(String.valueOf(total_tickets) + "/10");
+
+                            total_amount = total_amount + (child_num * mt_r_Cprice);
+                            total_tv.setText("$" + total_amount);
+                        }
+                    }
+                });
+
+            }
+
+            if(theater_type.equals("mt_tgo_r")){
+
+                senior_tv.setText("Senior ($" + mt_tgo_Aprice + ")");
+                adult_tv.setText("Adult ($" + mt_tgo_Aprice + ")");
+                child_tv.setText("Child ($"+ mt_tgo_Cprice + ")");
+
+                senior_tickets.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        String temp1 = s.toString();
+                        if(!temp1.equals("") ) {
+                            senior_num = Integer.parseInt(temp1);
+                        }
+                        if(total_tickets <= 10) {
+                            total_tickets = senior_num + child_num + adult_num;
+                            max_tickets_tv.setText(String.valueOf(total_tickets) + "/10");
+
+                            total_amount = total_amount + (senior_num * mt_tgo_Aprice);
+                            total_tv.setText("$" + total_amount);
+
+                        }
+                    }
+                });
+
+                adult_tickets.addTextChangedListener(new TextWatcher() {
+
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        String temp1 = s.toString();
+                        if(!temp1.equals("") ) {
+                            adult_num = Integer.parseInt(temp1);
+                        }
+                        if(total_tickets <= 10) {
+                            total_tickets = senior_num + child_num + adult_num;
+                            max_tickets_tv.setText(String.valueOf(total_tickets) + "/10");
+
+                            total_amount = total_amount + (adult_num * mt_tgo_Aprice);
+                            total_tv.setText("$" + total_amount);
+                        }
+                    }
+                });
+
+                child_tickets.addTextChangedListener(new TextWatcher() {
+
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        String temp1 = s.toString();
+                        if(!temp1.equals("") ) {
+                            child_num = Integer.parseInt(temp1);
+                        }
+                        if(total_tickets <= 10) {
+                            total_tickets = senior_num + child_num + adult_num;
+                            max_tickets_tv.setText(String.valueOf(total_tickets) + "/10");
+
+                            total_amount = total_amount + (child_num * mt_tgo_Cprice);
+                            total_tv.setText("$" + total_amount);
+                        }
+                    }
+                });
+
+            }
+
+            if( theater_type.equals("mt_pos_3d") || theater_type.equals("mt_chag_3d") || theater_type.equals("mt_sdo_3d") ){
+
+                senior_tv.setText("Senior ($" + mt_3d_Aprice + ")");
+                adult_tv.setText("Adult ($" + mt_3d_Aprice + ")");
+                child_tv.setText("Child ($"+ mt_3d_Cprice + ")");
+
+                senior_tickets.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        String temp1 = s.toString();
+                        if(!temp1.equals("") ) {
+                            senior_num = Integer.parseInt(temp1);
+                        }
+                        if(total_tickets <= 10) {
+                            total_tickets = senior_num + child_num + adult_num;
+                            max_tickets_tv.setText(String.valueOf(total_tickets) + "/10");
+
+                            total_amount = total_amount + (senior_num * mt_3d_Aprice);
+                            total_tv.setText("$" + total_amount);
+
+                        }
+                    }
+                });
+
+                adult_tickets.addTextChangedListener(new TextWatcher() {
+
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        String temp1 = s.toString();
+                        if(!temp1.equals("") ) {
+                            adult_num = Integer.parseInt(temp1);
+                        }
+                        if(total_tickets <= 10) {
+                            total_tickets = senior_num + child_num + adult_num;
+                            max_tickets_tv.setText(String.valueOf(total_tickets) + "/10");
+
+                            total_amount = total_amount + (adult_num * mt_3d_Aprice);
+                            total_tv.setText("$" + total_amount);
+                        }
+                    }
+                });
+
+                child_tickets.addTextChangedListener(new TextWatcher() {
+
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        String temp1 = s.toString();
+                        if(!temp1.equals("") ) {
+                            child_num = Integer.parseInt(temp1);
+                        }
+                        if(total_tickets <= 10) {
+                            total_tickets = senior_num + child_num + adult_num;
+                            max_tickets_tv.setText(String.valueOf(total_tickets) + "/10");
+
+                            total_amount = total_amount + (child_num * mt_3d_Cprice);
+                            total_tv.setText("$" + total_amount);
+                        }
+                    }
+                });
+
+            }
+
+        }
+
+
+
+        if(theater_type.equals("cone_gs") || theater_type.equals("cone_4dx") || theater_type.equals("cone_imax_r")){
+
+            getSupportActionBar().setTitle("Cinema ONE");
+
+            if(theater_type.equals("cone_gs")){
+                senior_tv.setText("Senior ($" + gs_price + ")");
+                adult_tv.setText("Adult ($" + gs_price + ")");
+                child_tv.setText("Child ($"+ gs_price + ")");
+
+                senior_tickets.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        String temp1 = s.toString();
+                        if(!temp1.equals("") ) {
+                            senior_num = Integer.parseInt(temp1);
+                        }
+                        if(total_tickets <= 10) {
+                            total_tickets = senior_num + child_num + adult_num;
+                            max_tickets_tv.setText(String.valueOf(total_tickets) + "/10");
+
+                            total_amount = total_amount + (senior_num * gs_price);
+                            total_tv.setText("$" + total_amount);
+
+                        }
+                    }
+                });
+
+                adult_tickets.addTextChangedListener(new TextWatcher() {
+
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        String temp1 = s.toString();
+                        if(!temp1.equals("") ) {
+                            adult_num = Integer.parseInt(temp1);
+                        }
+                        if(total_tickets <= 10) {
+                            total_tickets = senior_num + child_num + adult_num;
+                            max_tickets_tv.setText(String.valueOf(total_tickets) + "/10");
+
+                            total_amount = total_amount + (adult_num * gs_price);
+                            total_tv.setText("$" + total_amount);
+                        }
+                    }
+                });
+
+                child_tickets.addTextChangedListener(new TextWatcher() {
+
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        String temp1 = s.toString();
+                        if(!temp1.equals("") ) {
+                            child_num = Integer.parseInt(temp1);
+                        }
+                        if(total_tickets <= 10) {
+                            total_tickets = senior_num + child_num + adult_num;
+                            max_tickets_tv.setText(String.valueOf(total_tickets) + "/10");
+
+                            total_amount = total_amount + (child_num * gs_price);
+                            total_tv.setText("$" + total_amount);
+                        }
+                    }
+                });
+            }
+
+            if(theater_type.equals("cone_4dx")){
+                senior_tv.setText("Senior ($" + cone_4dx_Sprice + ")");
+                adult_tv.setText("Adult ($" + cone_4dx_Aprice + ")");
+                child_tv.setText("Child ($"+ cone_4dx_Cprice + ")");
+
+                senior_tickets.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        String temp1 = s.toString();
+                        if(!temp1.equals("") ) {
+                            senior_num = Integer.parseInt(temp1);
+                        }
+                        if(total_tickets <= 10) {
+                            total_tickets = senior_num + child_num + adult_num;
+                            max_tickets_tv.setText(String.valueOf(total_tickets) + "/10");
+
+                            total_amount = total_amount + (senior_num * cone_4dx_Sprice);
+                            total_tv.setText("$" + total_amount);
+
+                        }
+                    }
+                });
+
+                adult_tickets.addTextChangedListener(new TextWatcher() {
+
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        String temp1 = s.toString();
+                        if(!temp1.equals("") ) {
+                            adult_num = Integer.parseInt(temp1);
+                        }
+                        if(total_tickets <= 10) {
+                            total_tickets = senior_num + child_num + adult_num;
+                            max_tickets_tv.setText(String.valueOf(total_tickets) + "/10");
+
+                            total_amount = total_amount + (adult_num * cone_4dx_Aprice);
+                            total_tv.setText("$" + total_amount);
+                        }
+                    }
+                });
+
+                child_tickets.addTextChangedListener(new TextWatcher() {
+
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        String temp1 = s.toString();
+                        if(!temp1.equals("") ) {
+                            child_num = Integer.parseInt(temp1);
+                        }
+                        if(total_tickets <= 10) {
+                            total_tickets = senior_num + child_num + adult_num;
+                            max_tickets_tv.setText(String.valueOf(total_tickets) + "/10");
+
+                            total_amount = total_amount + (child_num * cone_4dx_Cprice);
+                            total_tv.setText("$" + total_amount);
+                        }
+                    }
+                });
+
+            }
+
+           if(theater_type.equals("cone_imax_r")){
+               senior_tv.setText("Senior ($" + imax_r_Sprice + ")");
+               adult_tv.setText("Adult ($" + imax_r_Aprice + ")");
+               child_tv.setText("Child ($"+ imax_r_Cprice + ")");
+
+               senior_tickets.addTextChangedListener(new TextWatcher() {
+                   @Override
+                   public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                   }
+
+                   @Override
+                   public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                   }
+
+                   @Override
+                   public void afterTextChanged(Editable s) {
+                       String temp1 = s.toString();
+                       if(!temp1.equals("") ) {
+                           senior_num = Integer.parseInt(temp1);
+                       }
+                       if(total_tickets <= 10) {
+                           total_tickets = senior_num + child_num + adult_num;
+                           max_tickets_tv.setText(String.valueOf(total_tickets) + "/10");
+
+                           total_amount = total_amount + (senior_num * imax_r_Sprice);
+                           total_tv.setText("$" + total_amount);
+
+                       }
+                   }
+               });
+
+               adult_tickets.addTextChangedListener(new TextWatcher() {
+
+                   @Override
+                   public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                   }
+
+                   @Override
+                   public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                   }
+
+                   @Override
+                   public void afterTextChanged(Editable s) {
+                       String temp1 = s.toString();
+                       if(!temp1.equals("") ) {
+                           adult_num = Integer.parseInt(temp1);
+                       }
+                       if(total_tickets <= 10) {
+                           total_tickets = senior_num + child_num + adult_num;
+                           max_tickets_tv.setText(String.valueOf(total_tickets) + "/10");
+
+                           total_amount = total_amount + (adult_num * imax_r_Aprice);
+                           total_tv.setText("$" + total_amount);
+                       }
+                   }
+               });
+
+               child_tickets.addTextChangedListener(new TextWatcher() {
+
+                   @Override
+                   public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                   }
+
+                   @Override
+                   public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                   }
+
+                   @Override
+                   public void afterTextChanged(Editable s) {
+                       String temp1 = s.toString();
+                       if(!temp1.equals("") ) {
+                           child_num = Integer.parseInt(temp1);
+                       }
+                       if(total_tickets <= 10) {
+                           total_tickets = senior_num + child_num + adult_num;
+                           max_tickets_tv.setText(String.valueOf(total_tickets) + "/10");
+
+                           total_amount = total_amount + (child_num * imax_r_Cprice);
+                           total_tv.setText("$" + total_amount);
+                       }
+                   }
+               });
+
+
+           }
+
+        }
+
     }
 
     public void ValidEntry( View view){
@@ -216,20 +711,21 @@ public class SelectTickets extends AppCompatActivity {
         if( !(senior_num >= 0 && senior_num <= 10) ){
             senior_tickets.setError("Please Enter Amount between 1 and 10!");
             senior_tickets.requestFocus();
-
+            return;
         }
 
 
         if( !(adult_num >= 0 && adult_num <= 10)){
             adult_tickets.setError("Please Enter Amount between 1 and 10!");
             adult_tickets.requestFocus();
-
+            return;
         }
 
 
         if( !(child_num >= 0 && child_num <= 10)){
             child_tickets.setError("Please Enter Amount between 1 and 10!");
             child_tickets.requestFocus();
+            return;
         }
 
     }
