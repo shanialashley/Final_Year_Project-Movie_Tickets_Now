@@ -23,13 +23,14 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/movie_tickets_now__1_"
-        android:label= "@string/app_name"
+        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AuthApp"
         android:usesCleartextTraffic="true">
-<!--        <activity android:name=".UI.SelectTickets"/>-->
-<!--        <activity android:name=".UI.TimeSchedule" /> &lt;!&ndash; <activity android:name=".Admin.MovieUpload"></activity> &ndash;&gt;-->
+        <activity android:name=".Purchases"></activity>
+        <!-- <activity android:name=".UI.SelectTickets"/> -->
+        <!-- <activity android:name=".UI.TimeSchedule" /> &lt;!&ndash; <activity android:name=".Admin.MovieUpload"></activity> &ndash;&gt; -->
         <activity android:name=".UI.Search" />
         <activity android:name=".UI.Theaters" /> <!-- <activity android:name=".UI.UpcomingMovies" android:theme="@style/NoActionBar"></activity> -->
         <activity android:name=".UI.MoviePlayerActivity" />
@@ -43,9 +44,9 @@
         <activity android:name=".UI.Logo" />
         <activity android:name=".Admin.MovieUpload" />
         <activity android:name=".UI.TimeSchedule" />
-        <activity android:name=".UI.UpcomingMovies"/>
-        <activity android:name=".UI.SelectTickets"/>
-        <activity android:name=".UI.Home" >
+        <activity android:name=".UI.UpcomingMovies" />
+        <activity android:name=".UI.SelectTickets" />
+        <activity android:name=".UI.Home">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -60,7 +60,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         Picasso.get().load(thumbnail).into(movieDThumbnail);
 
         movieDCover = findViewById(R.id.detail_movie_cover);
-        Picasso.get().load(cover).fit().centerCrop().into(movieDCover);
+        Picasso.get().load(cover).into(movieDCover);
 
         movieDTitle = findViewById(R.id.detail_movie_title);
         movieDTitle.setText(movieTitle);

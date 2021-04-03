@@ -71,14 +71,17 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
         setContentView(R.layout.activity_time_schedule);
 
         timeReference = FirebaseDatabase.getInstance().getReference().child("TimeSchedule");
-        thumbnail = getIntent().getExtras().getString("thumbnail");
 
         currentdate = new Date();
 
-        ToolbarInfo();
         init();
+        ToolbarInfo();
+
 
         SimpleDateFormat dfs = new SimpleDateFormat("EEE", Locale.US);
+        SimpleDateFormat DateFor = new SimpleDateFormat("E, dd MMM yyyy");
+
+        selectedDate = DateFor.format(currentdate);
 
         if(dfs.format(currentdate).equals("Mon") || dfs.format(currentdate).equals("Tue") || dfs.format(currentdate).equals("Wed")
             || dfs.format(currentdate).equals("Thu") || dfs.format(currentdate).equals("Fri")){
@@ -91,8 +94,8 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
 
 
-
         HorizontalDate();
+
         SpinnerActivity();
     }
 
@@ -101,8 +104,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
         drawerLayout = findViewById(R.id.drawer_layout);
         toolbar = findViewById(R.id.toolbar);
-
-
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(title);
@@ -121,10 +122,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
     public void HorizontalDate(){
 
         rView = findViewById(R.id.calendar_recycleView);
-
-
-
-
 
         cal1 = Calendar.getInstance();
         cal1.setTime(currentdate);
@@ -180,6 +177,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
         title = getIntent().getExtras().getString("title");
         id = getIntent().getExtras().getString("key");
+        thumbnail = getIntent().getExtras().getString("thumbnail");
         movieid =  title.replaceAll("\\s", "_") +"_"+ id;
 
         cc8_img = findViewById(R.id.ts_cc8_img);
@@ -246,26 +244,32 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
         theaterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cities_spinner.setAdapter(theaterAdapter);
 
+
+
     }
 
 
     @Override
     public void onClick(DateOfWeek dOWeek) {
 
-       selectedDate = dOWeek.getDate();
+        selectedDate = dOWeek.getDate();
 
         if (dOWeek.getDate_week().equals("Mon") || dOWeek.getDate_week().equals("Tue") ||dOWeek.getDate_week().equals("Wed")
             || dOWeek.getDate_week().equals("Thu") || dOWeek.getDate_week().equals("Fri")){
 
             onMonFriClick();
 
+
+
         }else if(dOWeek.getDate_week().equals("Sat")){
 
             onSatClick();
 
+
         }else if(dOWeek.getDate_week().equals("Sun")){
 
             onSunNHolClick();
+
 
         }
 
@@ -321,7 +325,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, t_r_mf, TimeSchedule.this);
                 t_r_recycleV.setAdapter(scheduleAdp);
-                t_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                t_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -353,7 +357,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, t_3D_mf, TimeSchedule.this);
                 t_3D_recycleV.setAdapter(scheduleAdp);
-                t_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                t_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -385,7 +389,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, s_r_mf, TimeSchedule.this);
                 s_r_recycleV.setAdapter(scheduleAdp);
-                s_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                s_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -417,7 +421,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, s_3d_mf , TimeSchedule.this);
                 s_3D_recycleV.setAdapter(scheduleAdp);
-                s_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                s_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -449,7 +453,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, s_4dx_mf, TimeSchedule.this);
                 s_4DX_recycleV.setAdapter(scheduleAdp);
-                s_4DX_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                s_4DX_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -481,7 +485,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, s_cxc_mf, TimeSchedule.this);
                 s_CXC_recycleV.setAdapter(scheduleAdp);
-                s_CXC_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                s_CXC_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -517,7 +521,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, t_r_sat, TimeSchedule.this);
                 t_r_recycleV.setAdapter(scheduleAdp);
-                t_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                t_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -549,7 +553,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, t_3d_sat, TimeSchedule.this);
                 t_3D_recycleV.setAdapter(scheduleAdp);
-                t_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                t_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -581,7 +585,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, s_r_sat, TimeSchedule.this);
                 s_r_recycleV.setAdapter(scheduleAdp);
-                s_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                s_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
             }
 
             @Override
@@ -612,7 +616,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, s_3d_sat, TimeSchedule.this);
                 s_3D_recycleV.setAdapter(scheduleAdp);
-                s_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                s_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -644,7 +648,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, s_4dx_sat, TimeSchedule.this);
                 s_4DX_recycleV.setAdapter(scheduleAdp);
-                s_4DX_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                s_4DX_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -676,7 +680,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, s_cxc_sat, TimeSchedule.this);
                 s_CXC_recycleV.setAdapter(scheduleAdp);
-                s_CXC_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                s_CXC_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -690,7 +694,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
     public void CC8_sunH(){
 
-        DatabaseReference cc8_t_r = timeReference.child(movieid).child("CC8").child("trincity").child("regular").child("sun");
+        DatabaseReference cc8_t_r = timeReference.child(movieid).child("CC8").child("trincity").child("regular").child("sun+hol");
         List<TimeOfMovie> t_r_sun = new ArrayList<>();
         cc8_t_r.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -712,7 +716,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, t_r_sun, TimeSchedule.this);
                 t_r_recycleV.setAdapter(scheduleAdp);
-                t_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                t_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -722,7 +726,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
             }
         });
 
-        DatabaseReference cc8_t_3d = timeReference.child(movieid).child("CC8").child("trincity").child("3D").child("sun");
+        DatabaseReference cc8_t_3d = timeReference.child(movieid).child("CC8").child("trincity").child("3D").child("sun+hol");
         List<TimeOfMovie> t_3d_sun = new ArrayList<>();
         cc8_t_3d.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -744,7 +748,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, t_3d_sun, TimeSchedule.this);
                 t_3D_recycleV.setAdapter(scheduleAdp);
-                t_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                t_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -754,7 +758,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
             }
         });
 
-        DatabaseReference cc8_s_r = timeReference.child(movieid).child("CC8").child("southpark").child("regular").child("sun");
+        DatabaseReference cc8_s_r = timeReference.child(movieid).child("CC8").child("southpark").child("regular").child("sun+hol");
         List<TimeOfMovie> s_r_sun = new ArrayList<>();
         cc8_s_r.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -776,7 +780,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, s_r_sun, TimeSchedule.this);
                 s_r_recycleV.setAdapter(scheduleAdp);
-                s_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                s_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
             }
 
             @Override
@@ -785,7 +789,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
             }
         });
 
-        DatabaseReference cc8_s_3D = timeReference.child(movieid).child("CC8").child("southpark").child("3D").child("sun");
+        DatabaseReference cc8_s_3D = timeReference.child(movieid).child("CC8").child("southpark").child("3D").child("sun+hol");
         List<TimeOfMovie> s_3d_sun = new ArrayList<>();
         cc8_s_3D.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -807,7 +811,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, s_3d_sun, TimeSchedule.this);
                 s_3D_recycleV.setAdapter(scheduleAdp);
-                s_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                s_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -817,7 +821,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
             }
         });
 
-        DatabaseReference cc8_s_4DX = timeReference.child(movieid).child("CC8").child("southpark").child("4DX").child("sun");
+        DatabaseReference cc8_s_4DX = timeReference.child(movieid).child("CC8").child("southpark").child("4DX").child("sun+hol");
         List<TimeOfMovie> s_4dx_sun = new ArrayList<>();
         cc8_s_4DX.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -839,7 +843,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, s_4dx_sun, TimeSchedule.this);
                 s_4DX_recycleV.setAdapter(scheduleAdp);
-                s_4DX_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                s_4DX_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -849,7 +853,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
             }
         });
 
-        DatabaseReference cc8_s_CXC = timeReference.child(movieid).child("CC8").child("southpark").child("CXC").child("sun");
+        DatabaseReference cc8_s_CXC = timeReference.child(movieid).child("CC8").child("southpark").child("CXC").child("sun+hol");
         List<TimeOfMovie> s_cxc_sun = new ArrayList<>();
         cc8_s_CXC.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -871,7 +875,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, s_cxc_sun, TimeSchedule.this);
                 s_CXC_recycleV.setAdapter(scheduleAdp);
-                s_CXC_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                s_CXC_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -909,7 +913,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, pos_r_mf, TimeSchedule.this);
                 ts_pos_r_recycleV.setAdapter(scheduleAdp);
-                ts_pos_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                ts_pos_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -943,7 +947,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, pos_3d_mf, TimeSchedule.this);
                 ts_pos_3D_recycleV.setAdapter(scheduleAdp);
-                ts_pos_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                ts_pos_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -977,7 +981,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, chag_r_mf, TimeSchedule.this);
                 ts_chag_r_recycleV.setAdapter(scheduleAdp);
-                ts_chag_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                ts_chag_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -1011,7 +1015,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, chag_3d_mf, TimeSchedule.this);
                 ts_chag_3D_recycleV.setAdapter(scheduleAdp);
-                ts_chag_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                ts_chag_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -1045,7 +1049,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, sdo_r_mf, TimeSchedule.this);
                 ts_sdo_r_recycleV.setAdapter(scheduleAdp);
-                ts_sdo_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                ts_sdo_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -1063,7 +1067,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                 sdo_3d_mf.clear();
 
                 if (snapshot.exists()) {
-                    ts_sdo.setVisibility(View.VISIBLE);
                     ts_sdo_3D.setVisibility(View.VISIBLE);
                     ts_sdo_3D_recycleV.setVisibility(View.VISIBLE);
 
@@ -1072,14 +1075,13 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                         sdo_3d_mf.add(new TimeOfMovie(n, "mt_sdo_3d"));
                     }
                 }else{
-                    ts_sdo.setVisibility(View.GONE);
                     ts_sdo_3D.setVisibility(View.GONE);
                     ts_sdo_3D_recycleV.setVisibility(View.GONE);
                 }
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, sdo_3d_mf, TimeSchedule.this);
                 ts_sdo_3D_recycleV.setAdapter(scheduleAdp);
-                ts_sdo_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                ts_sdo_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -1113,7 +1115,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, tgo_r_mf, TimeSchedule.this);
                 ts_tgo_r_recycleV.setAdapter(scheduleAdp);
-                ts_tgo_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                ts_tgo_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -1131,7 +1133,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                 tgo_3d_mf.clear();
 
                 if (snapshot.exists()) {
-                    ts_tgo.setVisibility(View.VISIBLE);
                     ts_tgo_3D.setVisibility(View.VISIBLE);
                     ts_tgo_3D_recycleV.setVisibility(View.VISIBLE);
 
@@ -1140,14 +1141,13 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                         tgo_3d_mf.add(new TimeOfMovie(n, "mt_tgo_3d"));
                     }
                 }else{
-                    ts_pos.setVisibility(View.GONE);
                     ts_tgo_3D.setVisibility(View.GONE);
                     ts_tgo_3D_recycleV.setVisibility(View.GONE);
                 }
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, tgo_3d_mf, TimeSchedule.this);
                 ts_tgo_3D_recycleV.setAdapter(scheduleAdp);
-                ts_tgo_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                ts_tgo_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -1186,7 +1186,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, pos_r_sat, TimeSchedule.this);
                 ts_pos_r_recycleV.setAdapter(scheduleAdp);
-                ts_pos_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                ts_pos_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -1204,7 +1204,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                 pos_3d_sat.clear();
 
                 if (snapshot.exists()) {
-                    ts_pos.setVisibility(View.VISIBLE);
                     ts_pos_3D.setVisibility(View.VISIBLE);
                     ts_pos_3D_recycleV.setVisibility(View.VISIBLE);
 
@@ -1213,14 +1212,13 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                         pos_3d_sat.add(new TimeOfMovie(n, "mt_pos_3d"));
                     }
                 }else{
-                    ts_pos.setVisibility(View.GONE);
                     ts_pos_3D.setVisibility(View.GONE);
                     ts_pos_3D_recycleV.setVisibility(View.GONE);
                 }
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, pos_3d_sat, TimeSchedule.this);
                 ts_pos_3D_recycleV.setAdapter(scheduleAdp);
-                ts_pos_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                ts_pos_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -1254,7 +1252,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, chag_r_sat, TimeSchedule.this);
                 ts_chag_r_recycleV.setAdapter(scheduleAdp);
-                ts_chag_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                ts_chag_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -1272,7 +1270,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                 chag_3d_sat.clear();
 
                 if (snapshot.exists()) {
-                    ts_pos.setVisibility(View.VISIBLE);
+                    ts_chag.setVisibility(View.VISIBLE);
                     ts_chag_3D.setVisibility(View.VISIBLE);
                     ts_chag_3D_recycleV.setVisibility(View.VISIBLE);
 
@@ -1281,14 +1279,14 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                         chag_3d_sat.add(new TimeOfMovie(n, "mt_chag_3d"));
                     }
                 }else{
-                    ts_chag.setVisibility(View.GONE);
+//                    ts_chag.setVisibility(View.GONE);
                     ts_chag_3D.setVisibility(View.GONE);
                     ts_chag_3D_recycleV.setVisibility(View.GONE);
                 }
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, chag_3d_sat, TimeSchedule.this);
                 ts_chag_3D_recycleV.setAdapter(scheduleAdp);
-                ts_chag_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                ts_chag_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -1322,7 +1320,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, sdo_r_sat, TimeSchedule.this);
                 ts_sdo_r_recycleV.setAdapter(scheduleAdp);
-                ts_sdo_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                ts_sdo_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -1340,7 +1338,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                 sdo_3d_sat.clear();
 
                 if (snapshot.exists()) {
-                    ts_sdo.setVisibility(View.VISIBLE);
                     ts_sdo_3D.setVisibility(View.VISIBLE);
                     ts_sdo_3D_recycleV.setVisibility(View.VISIBLE);
 
@@ -1349,14 +1346,13 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                         sdo_3d_sat.add(new TimeOfMovie(n, "mt_sdo_3d"));
                     }
                 }else{
-                    ts_sdo.setVisibility(View.GONE);
                     ts_sdo_3D.setVisibility(View.GONE);
                     ts_sdo_3D_recycleV.setVisibility(View.GONE);
                 }
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, sdo_3d_sat, TimeSchedule.this);
                 ts_sdo_3D_recycleV.setAdapter(scheduleAdp);
-                ts_sdo_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                ts_sdo_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -1390,7 +1386,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, tgo_r_sat, TimeSchedule.this);
                 ts_tgo_r_recycleV.setAdapter(scheduleAdp);
-                ts_tgo_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                ts_tgo_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -1408,7 +1404,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                 tgo_3d_sat.clear();
 
                 if (snapshot.exists()) {
-                    ts_tgo.setVisibility(View.VISIBLE);
                     ts_tgo_r.setVisibility(View.VISIBLE);
                     ts_tgo_r_recycleV.setVisibility(View.VISIBLE);
 
@@ -1417,14 +1412,13 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                         tgo_3d_sat.add(new TimeOfMovie(n, "mt_tgo_3d"));
                     }
                 }else{
-                    ts_tgo.setVisibility(View.GONE);
                     ts_tgo_3D.setVisibility(View.GONE);
                     ts_tgo_3D_recycleV.setVisibility(View.GONE);
                 }
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, tgo_3d_sat, TimeSchedule.this);
                 ts_tgo_3D_recycleV.setAdapter(scheduleAdp);
-                ts_tgo_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                ts_tgo_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -1439,7 +1433,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
     private void MT_sun() {
 
-        DatabaseReference pos_r = timeReference.child(movieid).child("MT").child("pos").child("regular").child("sun");
+        DatabaseReference pos_r = timeReference.child(movieid).child("MT").child("pos").child("regular").child("sun+hol");
         List<TimeOfMovie> pos_r_sun = new ArrayList<>();
         pos_r.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -1463,7 +1457,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, pos_r_sun, TimeSchedule.this);
                 ts_pos_r_recycleV.setAdapter(scheduleAdp);
-                ts_pos_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                ts_pos_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -1473,7 +1467,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
             }
         });
 
-        DatabaseReference pos_3d = timeReference.child(movieid).child("MT").child("pos").child("3D").child("sun");
+        DatabaseReference pos_3d = timeReference.child(movieid).child("MT").child("pos").child("3D").child("sun+hol");
         List<TimeOfMovie> pos_3d_sun = new ArrayList<>();
         pos_3d.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -1490,14 +1484,13 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                         pos_3d_sun.add(new TimeOfMovie(n, "mt_pos_3d"));
                     }
                 }else{
-                    ts_pos.setVisibility(View.GONE);
                     ts_pos_3D.setVisibility(View.GONE);
                     ts_pos_3D_recycleV.setVisibility(View.GONE);
                 }
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, pos_3d_sun, TimeSchedule.this);
                 ts_pos_3D_recycleV.setAdapter(scheduleAdp);
-                ts_pos_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                ts_pos_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -1507,7 +1500,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
             }
         });
 
-        DatabaseReference chag_r = timeReference.child(movieid).child("MT").child("chag").child("regular").child("sun");
+        DatabaseReference chag_r = timeReference.child(movieid).child("MT").child("chag").child("regular").child("sun+hol");
         List<TimeOfMovie> chag_r_sun = new ArrayList<>();
         chag_r.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -1531,7 +1524,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, chag_r_sun, TimeSchedule.this);
                 ts_chag_r_recycleV.setAdapter(scheduleAdp);
-                ts_chag_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                ts_chag_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -1541,7 +1534,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
             }
         });
 
-        DatabaseReference chag_3d = timeReference.child(movieid).child("MT").child("chag").child("3D").child("sun");
+        DatabaseReference chag_3d = timeReference.child(movieid).child("MT").child("chag").child("3D").child("sun+hol");
         List<TimeOfMovie> chag_3d_sun = new ArrayList<>();
         chag_3d.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -1558,14 +1551,13 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                         chag_3d_sun.add(new TimeOfMovie(n, "mt_chag_3d"));
                     }
                 }else{
-                    ts_chag.setVisibility(View.GONE);
                     ts_chag_3D.setVisibility(View.GONE);
                     ts_chag_3D_recycleV.setVisibility(View.GONE);
                 }
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, chag_3d_sun, TimeSchedule.this);
                 ts_chag_3D_recycleV.setAdapter(scheduleAdp);
-                ts_chag_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                ts_chag_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -1575,7 +1567,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
             }
         });
 
-        DatabaseReference sdo_r = timeReference.child(movieid).child("MT").child("sdo").child("regular").child("sun");
+        DatabaseReference sdo_r = timeReference.child(movieid).child("MT").child("sdo").child("regular").child("sun+hol");
         List<TimeOfMovie> sdo_r_sun = new ArrayList<>();
         sdo_r.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -1599,7 +1591,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, sdo_r_sun, TimeSchedule.this);
                 ts_sdo_r_recycleV.setAdapter(scheduleAdp);
-                ts_sdo_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                ts_sdo_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -1609,7 +1601,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
             }
         });
 
-        DatabaseReference sdo_3d = timeReference.child(movieid).child("MT").child("pos").child("3D").child("sun");
+        DatabaseReference sdo_3d = timeReference.child(movieid).child("MT").child("pos").child("3D").child("sun+hol");
         List<TimeOfMovie> sdo_3d_sun = new ArrayList<>();
         sdo_3d.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -1626,14 +1618,13 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                         sdo_3d_sun.add(new TimeOfMovie(n, "mt_sdo_3d"));
                     }
                 }else{
-                    ts_sdo.setVisibility(View.GONE);
                     ts_sdo_3D.setVisibility(View.GONE);
                     ts_sdo_3D_recycleV.setVisibility(View.GONE);
                 }
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, sdo_3d_sun, TimeSchedule.this);
                 ts_sdo_3D_recycleV.setAdapter(scheduleAdp);
-                ts_sdo_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                ts_sdo_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -1643,7 +1634,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
             }
         });
 
-        DatabaseReference tgo_r = timeReference.child(movieid).child("MT").child("tgo").child("regular").child("sun");
+        DatabaseReference tgo_r = timeReference.child(movieid).child("MT").child("tgo").child("regular").child("sun+hol");
         List<TimeOfMovie> tgo_r_sun = new ArrayList<>();
         tgo_r.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -1667,7 +1658,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, tgo_r_sun, TimeSchedule.this);
                 ts_tgo_r_recycleV.setAdapter(scheduleAdp);
-                ts_tgo_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                ts_tgo_r_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -1677,7 +1668,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
             }
         });
 
-        DatabaseReference tgo_3d = timeReference.child(movieid).child("MT").child("tgo").child("3D").child("sun");
+        DatabaseReference tgo_3d = timeReference.child(movieid).child("MT").child("tgo").child("3D").child("sun+hol");
         List<TimeOfMovie> tgo_3d_sun = new ArrayList<>();
         tgo_3d.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -1694,14 +1685,13 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                         tgo_3d_sun.add(new TimeOfMovie(n, "mt_tgo_3d"));
                     }
                 }else{
-                    ts_tgo.setVisibility(View.GONE);
                     ts_tgo_3D.setVisibility(View.GONE);
                     ts_tgo_3D_recycleV.setVisibility(View.GONE);
                 }
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, tgo_3d_sun, TimeSchedule.this);
                 ts_tgo_3D_recycleV.setAdapter(scheduleAdp);
-                ts_tgo_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                ts_tgo_3D_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -1738,7 +1728,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, gs_mf, TimeSchedule.this);
                 ts_gemstone_recycleR.setAdapter(scheduleAdp);
-                ts_gemstone_recycleR.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                ts_gemstone_recycleR.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -1770,7 +1760,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, cone_4dx_mf, TimeSchedule.this);
                 ts_4DX_recycleV.setAdapter(scheduleAdp);
-                ts_4DX_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                ts_4DX_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -1802,7 +1792,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, imax_r_mf, TimeSchedule.this);
                 ts_imax_recycleR.setAdapter(scheduleAdp);
-                ts_imax_recycleR.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                ts_imax_recycleR.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -1838,7 +1828,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, gs_sat, TimeSchedule.this);
                 ts_gemstone_recycleR.setAdapter(scheduleAdp);
-                ts_gemstone_recycleR.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                ts_gemstone_recycleR.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -1870,7 +1860,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, cone_4dx_sat, TimeSchedule.this);
                 ts_4DX_recycleV.setAdapter(scheduleAdp);
-                ts_4DX_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                ts_4DX_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -1902,7 +1892,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, imax_r_sat, TimeSchedule.this);
                 ts_imax_recycleR.setAdapter(scheduleAdp);
-                ts_imax_recycleR.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                ts_imax_recycleR.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -1916,7 +1906,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
     public void CONE_sun(){
 
-        DatabaseReference gemstone = timeReference.child(movieid).child("CONE").child("gemstone").child("sun");
+        DatabaseReference gemstone = timeReference.child(movieid).child("CONE").child("gemstone").child("sun+hol");
         List<TimeOfMovie> gs_sun = new ArrayList<>();
         gemstone.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -1938,7 +1928,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, gs_sun, TimeSchedule.this);
                 ts_gemstone_recycleR.setAdapter(scheduleAdp);
-                ts_gemstone_recycleR.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                ts_gemstone_recycleR.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -1948,7 +1938,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
             }
         });
 
-        DatabaseReference CONE_4DX = timeReference.child(movieid).child("CONE").child("4DX").child("sun");
+        DatabaseReference CONE_4DX = timeReference.child(movieid).child("CONE").child("4DX").child("sun+hol");
         List<TimeOfMovie> cone_4dx_sun = new ArrayList<>();
         CONE_4DX.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -1970,7 +1960,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, cone_4dx_sun, TimeSchedule.this);
                 ts_4DX_recycleV.setAdapter(scheduleAdp);
-                ts_4DX_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                ts_4DX_recycleV.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -1980,7 +1970,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
             }
         });
 
-        DatabaseReference imax = timeReference.child(movieid).child("CONE").child("imax").child("regular").child("sun");
+        DatabaseReference imax = timeReference.child(movieid).child("CONE").child("imax").child("regular").child("sun+hol");
         List<TimeOfMovie> imax_r_sun = new ArrayList<>();
         imax.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -2002,7 +1992,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 RecycleViewScheduleAdapter scheduleAdp = new RecycleViewScheduleAdapter(TimeSchedule.this, imax_r_sun, TimeSchedule.this);
                 ts_imax_recycleR.setAdapter(scheduleAdp);
-                ts_imax_recycleR.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 4));
+                ts_imax_recycleR.setLayoutManager(new GridLayoutManager(TimeSchedule.this, 3));
 
             }
 
@@ -2017,8 +2007,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
     @Override
     public void onTimeClick(TimeOfMovie timeOfMovie) {
 
-        Intent intent =new Intent(TimeSchedule.this, SelectTickets.class );
-
+        Intent intent = new Intent(TimeSchedule.this, SelectTickets.class );
         intent.putExtra("selectDate", selectedDate);
         intent.putExtra("title", title);
         intent.putExtra("thumbnail", thumbnail);
