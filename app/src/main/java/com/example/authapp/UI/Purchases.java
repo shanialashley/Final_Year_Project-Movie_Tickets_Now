@@ -83,15 +83,15 @@ public class Purchases extends AppCompatActivity {
         p_time.setText("Movie Time: " + time);
 
         p_seniorT = findViewById(R.id.p_seniorT);
-        seniorT = getIntent().getExtras().getInt("Senior tickets", 0);
+        seniorT = getIntent().getExtras().getInt("senior_tickets", 0);
         p_seniorT.setText("Number of Senior Tickets: " + seniorT);
 
         p_adultT = findViewById(R.id.p_adultT);
-        adultT = getIntent().getExtras().getInt("Adult tickets", 0);
+        adultT = getIntent().getExtras().getInt("adult_tickets", 0);
         p_adultT.setText("Number of Adult Tickets: " + adultT);
 
         p_childT = findViewById(R.id.p_childT);
-        childT = getIntent().getExtras().getInt("Senior tickets", 0);
+        childT = getIntent().getExtras().getInt("child_tickets", 0);
         p_childT.setText("Number of Children Tickets: " + childT);
 
         p_total = findViewById(R.id.p_totalA);
@@ -104,7 +104,7 @@ public class Purchases extends AppCompatActivity {
         //New Service
         Intent in = new Intent(Purchases.this, PayPalService.class);
         in.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, payPalConfig);
-        startActivity(in);
+        startService(in);
 
 
         paypayB.setOnClickListener(new View.OnClickListener() {

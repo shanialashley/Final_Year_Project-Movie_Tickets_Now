@@ -116,9 +116,9 @@ public class SelectTickets extends AppCompatActivity {
                     intent.putExtra("title", title);
                     intent.putExtra("date", date);
                     intent.putExtra("time", time);
-                    intent.putExtra("Adult tickets", adult_num);
-                    intent.putExtra("Child tickets", child_num);
-                    intent.putExtra("Senior tickets", adult_num);
+                    intent.putExtra("adult_tickets", adult_num);
+                    intent.putExtra("child_tickets", child_num);
+                    intent.putExtra("senior_tickets", senior_num);
                     intent.putExtra("Total", total_amount);
                     startActivity(intent);
                 }
