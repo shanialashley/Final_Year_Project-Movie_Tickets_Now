@@ -104,6 +104,9 @@ dependencies {
     //Horizontal Date Picker
     implementation 'com.github.jhonnyx2012:horizontal-picker:1.0.6'
 
+    //PayPal
+    implementation 'com.paypal.sdk:paypal-android-sdk:2.16.0'
+
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

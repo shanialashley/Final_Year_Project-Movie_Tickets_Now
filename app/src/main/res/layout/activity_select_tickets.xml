@@ -252,7 +252,7 @@
             android:layout_marginEnd="5dp"
             android:fontFamily="@font/amarante"
             android:gravity="center_vertical"
-            android:text="$10.00"
+            android:text="$0.00"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"

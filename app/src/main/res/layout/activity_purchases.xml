@@ -1,9 +1,200 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Purchases">
+    android:background="@color/blue"
+    tools:context=".UI.Purchases">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
+
+        <TextView
+            android:id="@+id/p_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Payment Information"
+            android:fontFamily="@font/amaranth"
+            android:textColor="@color/orange"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            />
+
+        <View
+            android:id="@+id/p_divider1"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@color/grey" />
+
+        <TextView
+            android:id="@+id/p_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Movie Title: Godzilla"
+            android:fontFamily="@font/amaranth"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:layout_margin="10dp"
+            />
+
+        <View
+            android:id="@+id/p_divider2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey" />
+
+        <TextView
+            android:id="@+id/p_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Date: Mon, 23th Jan, 2021"
+            android:fontFamily="@font/amaranth"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:layout_margin="10dp"/>
+
+        <View
+            android:id="@+id/p_divider3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey" />
+
+        <TextView
+            android:id="@+id/p_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Show Time: 2:30 PM"
+            android:fontFamily="@font/amaranth"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:layout_margin="10dp"/>
+
+        <View
+            android:id="@+id/p_divider4"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey" />
+
+        <TextView
+            android:id="@+id/p_seniorT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Number of Senior Tickets: 3"
+            android:fontFamily="@font/amaranth"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:layout_margin="10dp"/>
+
+        <View
+            android:id="@+id/p_divider5"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey" />
+
+        <TextView
+            android:id="@+id/p_adultT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Number of Adult Tickets: 3"
+            android:fontFamily="@font/amaranth"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:layout_margin="10dp"/>
+
+        <View
+            android:id="@+id/p_divider6"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey" />
+
+        <TextView
+            android:id="@+id/p_childT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Number of Children Tickets: 3"
+            android:fontFamily="@font/amaranth"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:layout_margin="10dp"
+            />
+
+        <View
+            android:id="@+id/p_divider7"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey" />
+
+        <TextView
+            android:id="@+id/p_totalA"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Total Cost: $200.00"
+            android:fontFamily="@font/amaranth"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
+
+        <View
+            android:id="@+id/p_divider8"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@color/orange" />
+
+
+
+
+            <Button
+                android:id="@+id/p_paypalB"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:layout_marginTop="80dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/light_blue"
+                android:textColor="@color/white"
+                android:elevation="20dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:text="Pay VIA PayPal" />
+
+        <Button
+            android:id="@+id/p_creditB"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="1"
+            android:background="@color/black"
+            android:padding="5dp"
+            android:elevation="20dp"
+            android:text="Pay VIA Credit Card"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+
+    </LinearLayout>
+
+
+
+</androidx.core.widget.NestedScrollView>

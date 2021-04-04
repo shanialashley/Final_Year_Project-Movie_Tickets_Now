@@ -28,11 +28,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AuthApp"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Purchases"></activity>
-        <!-- <activity android:name=".UI.SelectTickets"/> -->
-        <!-- <activity android:name=".UI.TimeSchedule" /> &lt;!&ndash; <activity android:name=".Admin.MovieUpload"></activity> &ndash;&gt; -->
+        <activity android:name=".DisplayQRCode"/>
+        <activity android:name=".UI.Purchases" />
         <activity android:name=".UI.Search" />
-        <activity android:name=".UI.Theaters" /> <!-- <activity android:name=".UI.UpcomingMovies" android:theme="@style/NoActionBar"></activity> -->
+        <activity android:name=".UI.Theaters" />
         <activity android:name=".UI.MoviePlayerActivity" />
         <activity android:name=".UI.MovieDetailsActivity" />
         <activity android:name=".UI.ForgotPassword" />
