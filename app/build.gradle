@@ -59,6 +59,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.6.1'
     implementation 'com.google.firebase:firebase-storage:19.2.1'
     implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'org.giavacms:paypal:2.0.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
 
     //exoplayer library(video)
@@ -106,6 +107,9 @@ dependencies {
 
     //PayPal
     implementation 'com.paypal.sdk:paypal-android-sdk:2.16.0'
+    implementation 'com.paypal.sdk:rest-api-sdk:+'
+
+    //QRC Generator
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

@@ -30,7 +30,7 @@ public class Purchases extends AppCompatActivity {
     private String title, date, time;
     private int seniorT, adultT, childT, totalA;
 
-    private int PAYPAL_REQ_CODE = 12;
+    private int PAYPAL_REQ_CODE = 123;
     private PayPalConfiguration payPalConfig = new PayPalConfiguration()
             .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX).clientId(Config.PAYPAL_CLIENTS_ID);
 
@@ -119,7 +119,8 @@ public class Purchases extends AppCompatActivity {
 
     private void PayPalPaymentMethod() {
 
-        PayPalPayment payPalPayment = new PayPalPayment(new BigDecimal(totalA ), "USD", "Movie Tickets Now", PayPalPayment.PAYMENT_INTENT_SALE);
+        PayPalPayment payPalPayment = new PayPalPayment(new BigDecimal(totalA ), "USD", "Movie Tickets Now",
+                PayPalPayment.PAYMENT_INTENT_SALE);
 
         Intent intent = new Intent(Purchases.this, PaymentActivity.class);
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, payPalConfig);
