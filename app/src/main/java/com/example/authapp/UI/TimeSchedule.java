@@ -3,6 +3,7 @@ package com.example.authapp.UI;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -63,6 +64,8 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
     private List<TimeOfMovie> mtList, cc8List, cOneList;
     private Date currentdate;
     private String selectedDate;
+    private SimpleDateFormat DateFor;
+    private SimpleDateFormat dfs;
 
 
     @Override
@@ -78,8 +81,8 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
         ToolbarInfo();
 
 
-        SimpleDateFormat dfs = new SimpleDateFormat("EEE", Locale.US);
-        SimpleDateFormat DateFor = new SimpleDateFormat("E, dd MMM yyyy");
+        dfs = new SimpleDateFormat("EEE", Locale.US);
+        DateFor = new SimpleDateFormat("E, dd MMM yyyy");
 
         selectedDate = DateFor.format(currentdate);
 
@@ -216,11 +219,12 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
         ts_tgo = findViewById(R.id.ts_tgo);
         ts_tgo_r = findViewById(R.id.ts_tgo_r);
         ts_tgo_r_recycleV = findViewById(R.id.ts_tgo_r_recyclerV);
-        ts_tgo_3D = findViewById(R.id.ts_pos_3D);
-        ts_tgo_3D_recycleV = findViewById(R.id.ts_pos_3D_recycleV);
+        ts_tgo_3D = findViewById(R.id.ts_tgo_3D);
+        ts_tgo_3D_recycleV = findViewById(R.id.ts_tgo_3D_recycleV);
 
 
         cONE_img = findViewById(R.id.ts_imax_img);
+        ts_cinemaOne = findViewById(R.id.ts_cinemaOne);
         ts_imax = findViewById(R.id.ts_imax);
         ts_imax_recycleR = findViewById(R.id.ts_imax_recyclerV);
         ts_gemStone = findViewById(R.id.ts_gemStone);
@@ -243,7 +247,218 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
         ArrayAdapter<String> theaterAdapter = new ArrayAdapter<>(this, android.R.layout. simple_spinner_item, theaters);
         theaterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cities_spinner.setAdapter(theaterAdapter);
+        cities_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position == 0){
 
+                    currentdate = new Date();
+                    if(dfs.format(currentdate).equals("Mon") || dfs.format(currentdate).equals("Tue") || dfs.format(currentdate).equals("Wed")
+                            || dfs.format(currentdate).equals("Thu") || dfs.format(currentdate).equals("Fri")){
+                        onMonFriClick();
+                    }else if (dfs.format(currentdate).equals("Sat")){
+                        onSatClick();
+                    }else if(dfs.format(currentdate).equals("Sun")){
+                        onSunNHolClick();
+                    }
+
+                }
+
+                if(position == 1){
+
+                    DateItemClickListener dateItemClickListener = new DateItemClickListener() {
+                        @Override
+                        public void onClick(DateOfWeek dOWeek) {
+                            if (dOWeek.getDate_week().equals("Mon") || dOWeek.getDate_week().equals("Tue") ||dOWeek.getDate_week().equals("Wed")
+                                    || dOWeek.getDate_week().equals("Thu") || dOWeek.getDate_week().equals("Fri")){
+
+                                CC8_mf();
+
+                            }else if(dOWeek.getDate_week().equals("Sat")){
+
+                                CC8_sat();
+
+                            }else if(dOWeek.getDate_week().equals("Sun")){
+
+                                CC8_sunH();
+
+                            }
+                        }
+                    };
+
+//                    CC8_mf();
+//                    CC8_sat();
+//                    CC8_sunH();
+
+//                    cc8_img.setVisibility(View.VISIBLE);
+//                    trincity.setVisibility(View.VISIBLE);
+//                    t_regular.setVisibility(View.VISIBLE);
+//                    t_r_recycleV.setVisibility(View.VISIBLE);
+//                    t_3D.setVisibility(View.VISIBLE);
+//                    t_3D_recycleV.setVisibility(View.VISIBLE);
+//                    southpark.setVisibility(View.VISIBLE);
+//                    s_regular.setVisibility(View.VISIBLE);
+//                    s_r_recycleV.setVisibility(View.VISIBLE);
+//                    s_3D.setVisibility(View.VISIBLE);
+//                    s_3D_recycleV.setVisibility(View.VISIBLE);
+//                    s_4DX.setVisibility(View.VISIBLE);
+//                    s_4DX_recycleV.setVisibility(View.VISIBLE);
+//                    s_CXC.setVisibility(View.VISIBLE);
+//                    s_CXC_recycleV.setVisibility(View.VISIBLE);
+
+                    mt_img.setVisibility(View.GONE);
+                    ts_pos.setVisibility(View.GONE);
+                    ts_pos_r.setVisibility(View.GONE);
+                    ts_pos_r_recycleV.setVisibility(View.GONE);
+                    ts_pos_3D.setVisibility(View.GONE);
+                    ts_pos_3D_recycleV.setVisibility(View.GONE);
+                    ts_chag.setVisibility(View.GONE);
+                    ts_chag_r.setVisibility(View.GONE);
+                    ts_chag_r_recycleV.setVisibility(View.GONE);
+                    ts_chag_3D.setVisibility(View.GONE);
+                    ts_chag_3D_recycleV.setVisibility(View.GONE);
+                    ts_sdo.setVisibility(View.GONE);
+                    ts_sdo_r.setVisibility(View.GONE);
+                    ts_sdo_r_recycleV.setVisibility(View.GONE);
+                    ts_sdo_3D.setVisibility(View.GONE);
+                    ts_sdo_3D_recycleV.setVisibility(View.GONE);
+                    ts_tgo.setVisibility(View.GONE);
+                    ts_tgo_r.setVisibility(View.GONE);
+                    ts_tgo_r_recycleV.setVisibility(View.GONE);
+                    ts_tgo_3D.setVisibility(View.GONE);
+                    ts_tgo_3D_recycleV.setVisibility(View.GONE);
+
+                    cONE_img.setVisibility(View.GONE);
+                    ts_cinemaOne.setVisibility(View.GONE);
+                    ts_imax.setVisibility(View.GONE);
+                    ts_imax_recycleR.setVisibility(View.GONE);
+                    ts_gemStone.setVisibility(View.GONE);
+                    ts_gemstone_recycleR.setVisibility(View.GONE);
+                    ts_4DX.setVisibility(View.GONE);
+                    ts_4DX_recycleV.setVisibility(View.GONE);
+
+                }
+
+                if(position == 2){
+
+                    MT_mf();
+                    MT_sat();
+                    MT_sun();
+
+//                    mt_img.setVisibility(View.VISIBLE);
+//                    ts_pos.setVisibility(View.VISIBLE);
+//                    ts_pos_r.setVisibility(View.VISIBLE);
+//                    ts_pos_r_recycleV.setVisibility(View.VISIBLE);
+//                    ts_pos_3D.setVisibility(View.VISIBLE);
+//                    ts_pos_3D_recycleV.setVisibility(View.VISIBLE);
+//                    ts_chag.setVisibility(View.VISIBLE);
+//                    ts_chag_r.setVisibility(View.VISIBLE);
+//                    ts_chag_r_recycleV.setVisibility(View.VISIBLE);
+//                    ts_chag_3D.setVisibility(View.VISIBLE);
+//                    ts_chag_3D_recycleV.setVisibility(View.VISIBLE);
+//                    ts_sdo.setVisibility(View.VISIBLE);
+//                    ts_sdo_r.setVisibility(View.VISIBLE);
+//                    ts_sdo_r_recycleV.setVisibility(View.VISIBLE);
+//                    ts_sdo_3D.setVisibility(View.VISIBLE);
+//                    ts_sdo_3D_recycleV.setVisibility(View.VISIBLE);
+//                    ts_tgo.setVisibility(View.VISIBLE);
+//                    ts_tgo_r.setVisibility(View.VISIBLE);
+//                    ts_tgo_r_recycleV.setVisibility(View.VISIBLE);
+//                    ts_tgo_3D.setVisibility(View.VISIBLE);
+//                    ts_tgo_3D_recycleV.setVisibility(View.VISIBLE);
+
+
+                    cc8_img.setVisibility(View.GONE);
+                    trincity.setVisibility(View.GONE);
+                    t_regular.setVisibility(View.GONE);
+                    t_r_recycleV.setVisibility(View.GONE);
+                    t_3D.setVisibility(View.GONE);
+                    t_3D_recycleV.setVisibility(View.GONE);
+                    southpark.setVisibility(View.GONE);
+                    s_regular.setVisibility(View.GONE);
+                    s_r_recycleV.setVisibility(View.GONE);
+                    s_3D.setVisibility(View.GONE);
+                    s_3D_recycleV.setVisibility(View.GONE);
+                    s_4DX.setVisibility(View.GONE);
+                    s_4DX_recycleV.setVisibility(View.GONE);
+                    s_CXC.setVisibility(View.GONE);
+                    s_CXC_recycleV.setVisibility(View.GONE);
+
+                    cONE_img.setVisibility(View.GONE);
+                    ts_cinemaOne.setVisibility(View.GONE);
+                    ts_imax.setVisibility(View.GONE);
+                    ts_imax_recycleR.setVisibility(View.GONE);
+                    ts_gemStone.setVisibility(View.GONE);
+                    ts_gemstone_recycleR.setVisibility(View.GONE);
+                    ts_4DX.setVisibility(View.GONE);
+                    ts_4DX_recycleV.setVisibility(View.GONE);
+
+                }
+
+                if(position == 3){
+
+                    CONE_mf();
+                    CONE_sat();
+                    CONE_sun();
+
+//                    cONE_img.setVisibility(View.VISIBLE);
+//                    ts_cinemaOne.setVisibility(View.VISIBLE);
+//                    ts_imax.setVisibility(View.VISIBLE);
+//                    ts_imax_recycleR.setVisibility(View.VISIBLE);
+//                    ts_gemStone.setVisibility(View.VISIBLE);
+//                    ts_gemstone_recycleR.setVisibility(View.VISIBLE);
+//                    ts_4DX.setVisibility(View.VISIBLE);
+//                    ts_4DX_recycleV.setVisibility(View.VISIBLE);
+
+                    cc8_img.setVisibility(View.GONE);
+                    trincity.setVisibility(View.GONE);
+                    t_regular.setVisibility(View.GONE);
+                    t_r_recycleV.setVisibility(View.GONE);
+                    t_3D.setVisibility(View.GONE);
+                    t_3D_recycleV.setVisibility(View.GONE);
+                    southpark.setVisibility(View.GONE);
+                    s_regular.setVisibility(View.GONE);
+                    s_r_recycleV.setVisibility(View.GONE);
+                    s_3D.setVisibility(View.GONE);
+                    s_3D_recycleV.setVisibility(View.GONE);
+                    s_4DX.setVisibility(View.GONE);
+                    s_4DX_recycleV.setVisibility(View.GONE);
+                    s_CXC.setVisibility(View.GONE);
+                    s_CXC_recycleV.setVisibility(View.GONE);
+
+                    mt_img.setVisibility(View.GONE);
+                    ts_pos.setVisibility(View.GONE);
+                    ts_pos_r.setVisibility(View.GONE);
+                    ts_pos_r_recycleV.setVisibility(View.GONE);
+                    ts_pos_3D.setVisibility(View.GONE);
+                    ts_pos_3D_recycleV.setVisibility(View.GONE);
+                    ts_chag.setVisibility(View.GONE);
+                    ts_chag_r.setVisibility(View.GONE);
+                    ts_chag_r_recycleV.setVisibility(View.GONE);
+                    ts_chag_3D.setVisibility(View.GONE);
+                    ts_chag_3D_recycleV.setVisibility(View.GONE);
+                    ts_sdo.setVisibility(View.GONE);
+                    ts_sdo_r.setVisibility(View.GONE);
+                    ts_sdo_r_recycleV.setVisibility(View.GONE);
+                    ts_sdo_3D.setVisibility(View.GONE);
+                    ts_sdo_3D_recycleV.setVisibility(View.GONE);
+                    ts_tgo.setVisibility(View.GONE);
+                    ts_tgo_r.setVisibility(View.GONE);
+                    ts_tgo_r_recycleV.setVisibility(View.GONE);
+                    ts_tgo_3D.setVisibility(View.GONE);
+                    ts_tgo_3D_recycleV.setVisibility(View.GONE);
+
+                }
+
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
     }

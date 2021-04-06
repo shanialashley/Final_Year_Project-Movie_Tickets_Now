@@ -28,7 +28,7 @@ public class SelectTickets extends AppCompatActivity {
     String date;
     String time;
     String thumbnail;
-    String theater_type;
+    String theater_type, theater_title;
     int senior_num = 0, child_num = 0 , adult_num = 0;
     int cc8_r_Aprice = 35, cc8_3d_Aprice = 0, cc8_4dx_Aprice = 90, cc8_cxc_Aprice = 50;
     int cc8_r_Cprice = 28, cc8_3d_Cprice = 0, cc8_4dx_Cprice = 75 , cc8_cxc_Cprice = 35;
@@ -113,6 +113,7 @@ public class SelectTickets extends AppCompatActivity {
             public void onClick(View v) {
                 if(total_amount != 0) {
                     Intent intent = new Intent(SelectTickets.this, Purchases.class);
+                    intent.putExtra("theater_title", theater_title);
                     intent.putExtra("title", title);
                     intent.putExtra("date", date);
                     intent.putExtra("time", time);
@@ -138,9 +139,13 @@ public class SelectTickets extends AppCompatActivity {
                 theater_type.equals("cc8_s_r") || theater_type.equals("cc8_s_3d") ||
                 theater_type.equals("cc8_s_4dx") || theater_type.equals("cc8_s_cxc")) {
 
-                 getSupportActionBar().setTitle("Caribbean Cinema 8");
+                theater_title = "Caribbean Cinema 8";
+                 getSupportActionBar().setTitle(theater_title);
 
                  if(theater_type.equals("cc8_t_r") ||theater_type.equals("cc8_s_r")){
+
+                     theater_title = "Caribbean Cinema 8: 2D";
+                     getSupportActionBar().setTitle(theater_title);
 
                      senior_tv.setText("Senior ($" + cc8_r_Sprice + ")");
                      adult_tv.setText("Adult ($" + cc8_r_Aprice + ")");
@@ -303,6 +308,9 @@ public class SelectTickets extends AppCompatActivity {
 
                  if(theater_type.equals("cc8_t_3D") || theater_type.equals("cc8_s_3d") ){
 
+                     theater_title = "Caribbean Cinema 8: 3D";
+                     getSupportActionBar().setTitle(theater_title);
+
                      senior_tv.setText("Senior ($" + cc8_3d_Sprice + ")");
                      adult_tv.setText("Adult ($" + cc8_3d_Aprice + ")");
                      child_tv.setText("Child ($"+ cc8_3d_Cprice + ")");
@@ -464,6 +472,9 @@ public class SelectTickets extends AppCompatActivity {
 
                  if( theater_type.equals("cc8_s_4dx")){
 
+                     theater_title = "Caribbean Cinema 8: 4DX";
+                     getSupportActionBar().setTitle(theater_title);
+
                      senior_tv.setText("Senior ($" + cc8_4dx_Sprice + ")");
                      adult_tv.setText("Adult ($" + cc8_4dx_Aprice + ")");
                      child_tv.setText("Child ($"+ cc8_4dx_Cprice + ")");
@@ -624,6 +635,9 @@ public class SelectTickets extends AppCompatActivity {
                  }
 
                  if( theater_type.equals("cc8_s_cxc") ){
+
+                     theater_title = "Caribbean Cinema 8: CXC";
+                     getSupportActionBar().setTitle(theater_title);
 
                      senior_tv.setText("Senior ($" + cc8_cxc_Sprice + ")");
                      adult_tv.setText("Adult ($" + cc8_cxc_Aprice + ")");
@@ -791,9 +805,13 @@ public class SelectTickets extends AppCompatActivity {
                 theater_type.equals("mt_tgo_r") || theater_type.equals("mt_pos_3d") ||
                 theater_type.equals("mt_chag_3d") || theater_type.equals("mt_sdo_3d") || theater_type.equals("mt_tgo_3d")){
 
-            getSupportActionBar().setTitle("Movie Towne");
+            theater_title = "Movie Towne";
+            getSupportActionBar().setTitle(theater_title);
 
             if(theater_type.equals("mt_pos_r") || theater_type.equals("mt_chag_r") || theater_type.equals("mt_sdo_r") ){
+
+                theater_title = "Movie Towne: 2D";
+                getSupportActionBar().setTitle(theater_title);
 
                 senior_tv.setText("Senior ($" + mt_r_Aprice + ")");
                 adult_tv.setText("Adult ($" + mt_r_Aprice + ")");
@@ -956,6 +974,9 @@ public class SelectTickets extends AppCompatActivity {
 
             if(theater_type.equals("mt_tgo_r")){
 
+                theater_title = "Movie Towne: 2D";
+                getSupportActionBar().setTitle(theater_title);
+
                 senior_tv.setText("Senior ($" + mt_tgo_Aprice + ")");
                 adult_tv.setText("Adult ($" + mt_tgo_Aprice + ")");
                 child_tv.setText("Child ($"+ mt_tgo_Cprice + ")");
@@ -1116,6 +1137,9 @@ public class SelectTickets extends AppCompatActivity {
             }
 
             if( theater_type.equals("mt_pos_3d") || theater_type.equals("mt_chag_3d") || theater_type.equals("mt_sdo_3d") ){
+
+                theater_title = "Movie Towne: 3D";
+                getSupportActionBar().setTitle(theater_title);
 
                 senior_tv.setText("Senior ($" + mt_3d_Aprice + ")");
                 adult_tv.setText("Adult ($" + mt_3d_Aprice + ")");
@@ -1282,9 +1306,14 @@ public class SelectTickets extends AppCompatActivity {
 
         if(theater_type.equals("cone_gs") || theater_type.equals("cone_4dx") || theater_type.equals("cone_imax_r")){
 
-            getSupportActionBar().setTitle("Cinema ONE");
+            theater_title = "Cinema ONE";
+            getSupportActionBar().setTitle(theater_title);
 
             if(theater_type.equals("cone_gs")){
+
+                theater_title = "Cinema ONE: GemStone";
+                getSupportActionBar().setTitle(theater_title);
+
                 senior_tv.setText("Senior ($" + gs_price + ")");
                 adult_tv.setText("Adult ($" + gs_price  + ")");
                 child_tv.setText("Child ($"+ gs_price  + ")");
@@ -1444,6 +1473,10 @@ public class SelectTickets extends AppCompatActivity {
             }
 
             if(theater_type.equals("cone_4dx")){
+
+                theater_title = "Cinema ONE: 4DX";
+                getSupportActionBar().setTitle(theater_title);
+
                 senior_tv.setText("Senior ($" + cone_4dx_Sprice + ")");
                 adult_tv.setText("Adult ($" + cone_4dx_Aprice + ")");
                 child_tv.setText("Child ($"+ cone_4dx_Cprice + ")");
@@ -1604,6 +1637,10 @@ public class SelectTickets extends AppCompatActivity {
             }
 
            if(theater_type.equals("cone_imax_r")){
+
+               theater_title = "Cinema ONE: 2D";
+               getSupportActionBar().setTitle(theater_title);
+
                senior_tv.setText("Senior ($" + imax_r_Sprice + ")");
                adult_tv.setText("Adult ($" + imax_r_Aprice + ")");
                child_tv.setText("Child ($"+ imax_r_Cprice + ")");

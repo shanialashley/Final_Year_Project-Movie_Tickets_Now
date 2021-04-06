@@ -25,12 +25,13 @@ import java.math.BigDecimal;
 public class Purchases extends AppCompatActivity {
 
     private Toolbar toolbar;
-    private TextView p_title, p_date, p_time, p_seniorT, p_adultT, p_childT, p_total;
+    private TextView p_theater, p_title, p_date, p_time, p_seniorT, p_adultT, p_childT, p_total;
     private Button paypayB, creditB;
-    private String title, date, time;
+    private String title, date, time, theater_title;
     private int seniorT, adultT, childT, totalA;
 
     private int PAYPAL_REQ_CODE = 123;
+    private PayPalPayment payPalPayment;
     private PayPalConfiguration payPalConfig = new PayPalConfiguration()
             .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX).clientId(Config.PAYPAL_CLIENTS_ID);
 
@@ -70,6 +71,11 @@ public class Purchases extends AppCompatActivity {
 
     private void init() {
 
+        p_theater = findViewById(R.id.p_theater);
+        theater_title = getIntent().getExtras().getString("theater_title");
+        p_theater.setText("Theater: " + theater_title);
+
+
         p_title = findViewById(R.id.p_title);
         title = getIntent().getExtras().getString("title");
         p_title.setText("Movie Title: " + title);
@@ -99,12 +105,26 @@ public class Purchases extends AppCompatActivity {
         p_total.setText("Total Cost: $" + totalA + ".00");
 
         paypayB = findViewById(R.id.p_paypalB);
-        creditB = findViewById(R.id.p_creditB);
 
-        //New Service
-        Intent in = new Intent(Purchases.this, PayPalService.class);
-        in.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, payPalConfig);
-        startService(in);
+        creditB = findViewById(R.id.p_creditB);
+        creditB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent display = new Intent(Purchases.this, DisplayQRCode.class);
+                display.putExtra("theater_title", theater_title);
+                display.putExtra("title", title);
+                display.putExtra("date", date);
+                display.putExtra("time", time);
+                display.putExtra("seniorT", seniorT);
+                display.putExtra("adultT", adultT);
+                display.putExtra("childT", childT);
+                startActivity(display);
+
+            }
+        });
+
+
 
 
         paypayB.setOnClickListener(new View.OnClickListener() {
@@ -119,13 +139,17 @@ public class Purchases extends AppCompatActivity {
 
     private void PayPalPaymentMethod() {
 
+        //New Service
+        Intent in = new Intent(Purchases.this, PayPalService.class);
+        in.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, payPalConfig);
+        startService(in);
+
         PayPalPayment payPalPayment = new PayPalPayment(new BigDecimal(totalA ), "USD", "Movie Tickets Now",
                 PayPalPayment.PAYMENT_INTENT_SALE);
 
         Intent intent = new Intent(Purchases.this, PaymentActivity.class);
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, payPalConfig);
         intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payPalPayment);
-
         startActivityForResult(intent, PAYPAL_REQ_CODE);
     }
 

@@ -33,9 +33,26 @@
             />
 
         <View
-            android:id="@+id/p_divider1"
+            android:id="@+id/p_divider"
             android:layout_width="match_parent"
             android:layout_height="5dp"
+            android:background="@color/grey" />
+
+        <TextView
+            android:id="@+id/p_theater"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Theater:Cinema 8"
+            android:fontFamily="@font/amaranth"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:layout_margin="10dp"
+            />
+
+        <View
+            android:id="@+id/p_divider1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
             android:background="@color/grey" />
 
         <TextView
