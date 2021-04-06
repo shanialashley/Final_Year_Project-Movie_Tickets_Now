@@ -162,7 +162,16 @@ public class Purchases extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK){
 
                 Intent display = new Intent(Purchases.this, DisplayQRCode.class);
+                display.putExtra("theater_title", theater_title);
+                display.putExtra("title", title);
+                display.putExtra("date", date);
+                display.putExtra("time", time);
+                display.putExtra("seniorT", seniorT);
+                display.putExtra("adultT", adultT);
+                display.putExtra("childT", childT);
                 startActivity(display);
+
+                Toast.makeText(this, "Payment was successful!", Toast.LENGTH_SHORT).show();
 
             }else{
                 Toast.makeText(this, "Payment was unsuccessful!", Toast.LENGTH_SHORT).show();

@@ -49,7 +49,7 @@ public class RecycleViewQRCode extends RecyclerView.Adapter<RecycleViewQRCode.My
         holder.time.setText(qrc_list.get(position).getTime());
         holder.ticket_type.setText(qrc_list.get(position).getTicket_type());
 
-            String value = qrc_list.get(position).getTitle() + "\n";
+            String value = qrc_list.get(position).getTheater_title() + "\n";
                  value += qrc_list.get(position).getTitle()+ "\n";
                  value += qrc_list.get(position).getDate()+ "\n";
                  value += qrc_list.get(position).getTime()+ "\n";
@@ -58,7 +58,7 @@ public class RecycleViewQRCode extends RecyclerView.Adapter<RecycleViewQRCode.My
 
 
                  if(value.length() >0) {
-                     QRGEncoder qrgEncoder = new QRGEncoder(value, null, QRGContents.Type.TEXT, 100);
+                     QRGEncoder qrgEncoder = new QRGEncoder(value, null, QRGContents.Type.TEXT, 500);
                      try {
                          Bitmap qrBits = qrgEncoder.getBitmap();
                          holder.qrcImg.setImageBitmap(qrBits);
