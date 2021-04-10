@@ -1,6 +1,8 @@
 package com.example.authapp.Model;
 
-public class Movies {
+import java.io.Serializable;
+
+public class Movies implements Serializable {
     private String title;
     private String description;
     private String genre;

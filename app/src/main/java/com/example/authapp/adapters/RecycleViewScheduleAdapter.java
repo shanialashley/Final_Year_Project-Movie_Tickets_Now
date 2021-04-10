@@ -1,5 +1,6 @@
 package com.example.authapp.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,9 +59,11 @@ public class RecycleViewScheduleAdapter extends RecyclerView.Adapter<RecycleView
             ts_time = itemView.findViewById(R.id.d_time);
             ts_cardV = itemView.findViewById(R.id.time_cardV);
             ts_cardV.setOnClickListener(new View.OnClickListener() {
+                @SuppressLint("ResourceAsColor")
                 @Override
                 public void onClick(View v) {
 
+                    ts_cardV.setCardBackgroundColor(R.color.light_orange);
                     listener.onTimeClick(tlist.get(getAdapterPosition()));
 
                 }

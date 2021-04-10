@@ -8,25 +8,6 @@
     tools:context=".UI.RegisterUser">
 
     <TextView
-        android:id="@+id/signup"
-        android:layout_width="164dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="73dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="73dp"
-        android:fontFamily="@font/amarante"
-        android:gravity="center"
-        android:text="Sign Up"
-        android:textColor="@color/orange"
-        android:textColorHighlight="#F4673B"
-        android:textSize="36sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/tv1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/tv1"
         android:layout_width="213dp"
         android:layout_height="45dp"
@@ -38,7 +19,7 @@
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signup" />
+        app:layout_constraintTop_toBottomOf="@+id/user_logo" />
 
     <EditText
         android:id="@+id/firstName"
@@ -141,7 +122,7 @@
         android:layout_height="65dp"
         android:layout_marginStart="130dp"
         android:layout_marginEnd="188dp"
-        android:layout_marginBottom="156dp"
+        android:layout_marginBottom="140dp"
         android:background="@color/orange"
         android:fontFamily="@font/amarante"
         android:text="Register"
@@ -165,7 +146,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/tv1"
-        app:layout_constraintTop_toBottomOf="@+id/signup" />
+        app:layout_constraintTop_toBottomOf="@+id/user_logo" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -180,5 +161,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.44" />
+
+    <ImageView
+        android:id="@+id/user_logo"
+        android:layout_width="230dp"
+        android:layout_height="137dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/movie_tickets_now__1_" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

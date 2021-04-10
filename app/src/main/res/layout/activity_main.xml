@@ -7,29 +7,12 @@
     android:background="@color/blue"
     tools:context=".UI.MainActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="239dp"
-        android:layout_height="72dp"
-        android:layout_marginStart="86dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="87dp"
-        android:fontFamily="@font/amaranth"
-        android:gravity="center"
-        android:text="Login"
-        android:textColor="@color/orange"
-        android:textSize="36sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <EditText
         android:id="@+id/username"
         android:layout_width="305dp"
         android:layout_height="50dp"
         android:layout_marginStart="41dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="65dp"
         android:ems="10"
         android:fontFamily="@font/amarante"
@@ -41,7 +24,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/main_logo" />
 
     <EditText
         android:id="@+id/password"
@@ -120,5 +103,19 @@
         app:layout_constraintStart_toEndOf="@+id/password"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <ImageView
+        android:id="@+id/main_logo"
+        android:layout_width="254dp"
+        android:layout_height="130dp"
+        android:layout_marginStart="79dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="78dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/movie_tickets_now__1_" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -222,17 +222,7 @@ public class Home extends AppCompatActivity implements MovieItemClickListener, N
     public void onMovieClick(Movies movie, ImageView movieImageView) {
 
         Intent intent = new Intent(this, MovieDetailsActivity.class);
-        intent.putExtra("title", movie.getTitle());
-        intent.putExtra("img", movie.getThumbnail_url());
-        intent.putExtra("imgCover", movie.getCover_url());
-        intent.putExtra("description", movie.getDescription());
-        intent.putExtra("genre", movie.getGenre());
-        intent.putExtra("length", movie.getLength());
-        intent.putExtra("rating", movie.getRating());
-        intent.putExtra("starring", movie.getStarring());
-        intent.putExtra("director", movie.getDirectors());
-        intent.putExtra("trailer", movie.getTrailer_link());
-        intent.putExtra("category", movie.getType());
+        intent.putExtra("currentMovie", movie);
         int k = MovieList.indexOf(movie);
         intent.putExtra("key", Moviekey.get(k));
 

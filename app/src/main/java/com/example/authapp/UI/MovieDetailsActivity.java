@@ -12,6 +12,7 @@ import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.authapp.Model.Movies;
 import com.example.authapp.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
@@ -23,6 +24,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private Button continueB;
     private FloatingActionButton play_fab;
     private Toolbar toolbar;
+    Movies movie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,20 +42,22 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
     void iniViews(){
 
+        movie = (Movies) getIntent().getExtras().getSerializable("currentMovie");
 
-
-        String movieTitle = getIntent().getExtras().getString("title");
-        String thumbnail = getIntent().getExtras().getString("img");
-        String cover = getIntent().getExtras().getString("imgCover");
-        String descrip = getIntent().getExtras().getString("description");
-        String genre = getIntent().getExtras().getString("genre");
-        String rating = getIntent().getExtras().getString("rating");
-        String length = getIntent().getExtras().getString("length");
-        String starring = getIntent().getExtras().getString("starring");
-        String directors = getIntent().getExtras().getString("director");
-        String category = getIntent().getExtras().getString("category");
-        String trailer = getIntent().getExtras().getString("trailer");
+        String movieTitle = movie.getTitle();
+        String thumbnail = movie.getThumbnail_url();
+        String cover = movie.getCover_url();
+        String descrip = movie.getDescription();
+        String genre = movie.getGenre();
+        String rating = movie.getRating();
+        String length = movie.getLength();
+        String starring = movie.getStarring();
+        String directors = movie.getDirectors();
+        String category = movie.getType();
+        String trailer = movie.getTrailer_link();
         String key = getIntent().getExtras().getString("key");
+
+
 
 
         movieDThumbnail = findViewById(R.id.details_movie_img);
@@ -103,22 +107,18 @@ public class MovieDetailsActivity extends AppCompatActivity {
             img1.setVisibility(View.GONE);
             img2.setVisibility(View.GONE);
             img3.setVisibility(View.GONE);
+            continueB.setVisibility(View.GONE);
 
         }
-
 
 
         play_fab.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(category.equals("current")) {
-                            Intent intent = new Intent(MovieDetailsActivity.this, MoviePlayerActivity.class);
-                            intent.putExtra("trailer", getIntent().getExtras().getInt("trailer"));
-                            startActivity(intent);
-                        }else{
+
                             Uri uri = Uri.parse(trailer);
                             startActivity(new Intent(Intent.ACTION_VIEW, uri));
-                        }
+
                     }
                 }
         );
@@ -136,8 +136,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MovieDetailsActivity.this, TimeSchedule.class);
-                intent.putExtra("title", movieTitle);
-                intent.putExtra("thumbnail", thumbnail);
+                intent.putExtra("currentMovie", movie);
                 intent.putExtra("key", key);
                 startActivity(intent);
 

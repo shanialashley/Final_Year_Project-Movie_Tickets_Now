@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.authapp.Model.Movies;
 import com.example.authapp.R;
 import com.squareup.picasso.Picasso;
 
@@ -23,6 +24,7 @@ public class SelectTickets extends AppCompatActivity {
     private ImageView thumbnail_img;
     private Button continueB;
     private Toolbar toolbar;
+    private Movies movie;
 
     String title;
     String date;
@@ -76,12 +78,14 @@ public class SelectTickets extends AppCompatActivity {
 
     private void init() {
 
+        movie = (Movies) getIntent().getExtras().getSerializable("currentMovie");
+
         title_tv = findViewById(R.id.st_title);
-        title = getIntent().getExtras().getString("title");
+        title = movie.getTitle();
         title_tv.setText(title);
 
         thumbnail_img = findViewById(R.id.st_movie_thumbnail);
-        thumbnail = getIntent().getExtras().getString("thumbnail");
+        thumbnail = movie.getThumbnail_url();
         Picasso.get().load(thumbnail).into(thumbnail_img);
 
         date = getIntent().getExtras().getString("selectDate");
@@ -252,6 +256,8 @@ public class SelectTickets extends AppCompatActivity {
 
                          }
                      });
+
+                     if(movie.getRating().equals("RATING: ")){}
 
                      child_tickets.addTextChangedListener(new TextWatcher() {
 

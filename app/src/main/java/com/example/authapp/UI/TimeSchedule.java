@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.authapp.Model.DateOfWeek;
+import com.example.authapp.Model.Movies;
 import com.example.authapp.Model.TimeOfMovie;
 import com.example.authapp.R;
 import com.example.authapp.adapters.DateItemClickListener;
@@ -40,6 +41,11 @@ import java.util.Locale;
 public class TimeSchedule extends AppCompatActivity implements DateItemClickListener, TimeItemClickListener {
 
     private DrawerLayout drawerLayout;
+    private Calendar cal1;
+    private Toolbar toolbar;
+    private Spinner cities_spinner;
+    private DatabaseReference timeReference;
+
     private ImageView cc8_img, mt_img, cONE_img;
     private TextView trincity, t_regular, t_3D,
                         southpark, s_regular, s_3D, s_4DX, s_CXC;
@@ -49,16 +55,16 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
     private TextView ts_cinemaOne, ts_imax, ts_gemStone, ts_4DX;
 
-    private Calendar cal1;
-    private Toolbar toolbar;
+
     private RecyclerView rView, t_r_recycleV, t_3D_recycleV,
                         s_r_recycleV, s_3D_recycleV, s_4DX_recycleV, s_CXC_recycleV;
+
     private RecyclerView ts_pos_r_recycleV, ts_pos_3D_recycleV, ts_chag_r_recycleV, ts_chag_3D_recycleV
                             , ts_sdo_r_recycleV, ts_sdo_3D_recycleV,  ts_tgo_r_recycleV, ts_tgo_3D_recycleV;
+
     private RecyclerView ts_imax_recycleR, ts_gemstone_recycleR, ts_4DX_recycleV;
 
-    private Spinner cities_spinner;
-    private DatabaseReference timeReference;
+
 
     private String title, id, movieid, thumbnail;
     private List<TimeOfMovie> mtList, cc8List, cOneList;
@@ -66,6 +72,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
     private String selectedDate;
     private SimpleDateFormat DateFor;
     private SimpleDateFormat dfs;
+    private Movies movie;
 
 
     @Override
@@ -176,11 +183,14 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
     private void init() {
 
+        movie = (Movies) getIntent().getExtras().getSerializable("currentMovie");
+        id = getIntent().getExtras().getString("key");
+
         cities_spinner = findViewById(R.id.cities_spinner);
 
-        title = getIntent().getExtras().getString("title");
-        id = getIntent().getExtras().getString("key");
-        thumbnail = getIntent().getExtras().getString("thumbnail");
+        title = movie.getTitle();
+        thumbnail = movie.getThumbnail_url();
+
         movieid =  title.replaceAll("\\s", "_") +"_"+ id;
 
         cc8_img = findViewById(R.id.ts_cc8_img);
@@ -252,6 +262,10 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(position == 0){
 
+                    CC8View();
+                    MTView();
+                    CONEView();
+
                     currentdate = new Date();
                     if(dfs.format(currentdate).equals("Mon") || dfs.format(currentdate).equals("Tue") || dfs.format(currentdate).equals("Wed")
                             || dfs.format(currentdate).equals("Thu") || dfs.format(currentdate).equals("Fri")){
@@ -262,9 +276,15 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                         onSunNHolClick();
                     }
 
+
+
                 }
 
                 if(position == 1){
+
+                    CC8View();
+                    MTGone();
+                    CONEGone();
 
                     DateItemClickListener dateItemClickListener = new DateItemClickListener() {
                         @Override
@@ -286,171 +306,79 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                         }
                     };
 
+
+
 //                    CC8_mf();
 //                    CC8_sat();
 //                    CC8_sunH();
-
-//                    cc8_img.setVisibility(View.VISIBLE);
-//                    trincity.setVisibility(View.VISIBLE);
-//                    t_regular.setVisibility(View.VISIBLE);
-//                    t_r_recycleV.setVisibility(View.VISIBLE);
-//                    t_3D.setVisibility(View.VISIBLE);
-//                    t_3D_recycleV.setVisibility(View.VISIBLE);
-//                    southpark.setVisibility(View.VISIBLE);
-//                    s_regular.setVisibility(View.VISIBLE);
-//                    s_r_recycleV.setVisibility(View.VISIBLE);
-//                    s_3D.setVisibility(View.VISIBLE);
-//                    s_3D_recycleV.setVisibility(View.VISIBLE);
-//                    s_4DX.setVisibility(View.VISIBLE);
-//                    s_4DX_recycleV.setVisibility(View.VISIBLE);
-//                    s_CXC.setVisibility(View.VISIBLE);
-//                    s_CXC_recycleV.setVisibility(View.VISIBLE);
-
-                    mt_img.setVisibility(View.GONE);
-                    ts_pos.setVisibility(View.GONE);
-                    ts_pos_r.setVisibility(View.GONE);
-                    ts_pos_r_recycleV.setVisibility(View.GONE);
-                    ts_pos_3D.setVisibility(View.GONE);
-                    ts_pos_3D_recycleV.setVisibility(View.GONE);
-                    ts_chag.setVisibility(View.GONE);
-                    ts_chag_r.setVisibility(View.GONE);
-                    ts_chag_r_recycleV.setVisibility(View.GONE);
-                    ts_chag_3D.setVisibility(View.GONE);
-                    ts_chag_3D_recycleV.setVisibility(View.GONE);
-                    ts_sdo.setVisibility(View.GONE);
-                    ts_sdo_r.setVisibility(View.GONE);
-                    ts_sdo_r_recycleV.setVisibility(View.GONE);
-                    ts_sdo_3D.setVisibility(View.GONE);
-                    ts_sdo_3D_recycleV.setVisibility(View.GONE);
-                    ts_tgo.setVisibility(View.GONE);
-                    ts_tgo_r.setVisibility(View.GONE);
-                    ts_tgo_r_recycleV.setVisibility(View.GONE);
-                    ts_tgo_3D.setVisibility(View.GONE);
-                    ts_tgo_3D_recycleV.setVisibility(View.GONE);
-
-                    cONE_img.setVisibility(View.GONE);
-                    ts_cinemaOne.setVisibility(View.GONE);
-                    ts_imax.setVisibility(View.GONE);
-                    ts_imax_recycleR.setVisibility(View.GONE);
-                    ts_gemStone.setVisibility(View.GONE);
-                    ts_gemstone_recycleR.setVisibility(View.GONE);
-                    ts_4DX.setVisibility(View.GONE);
-                    ts_4DX_recycleV.setVisibility(View.GONE);
 
                 }
 
                 if(position == 2){
 
-                    MT_mf();
-                    MT_sat();
-                    MT_sun();
+                    MTView();
+                    CC8Gone();
+                    CONEGone();
 
-//                    mt_img.setVisibility(View.VISIBLE);
-//                    ts_pos.setVisibility(View.VISIBLE);
-//                    ts_pos_r.setVisibility(View.VISIBLE);
-//                    ts_pos_r_recycleV.setVisibility(View.VISIBLE);
-//                    ts_pos_3D.setVisibility(View.VISIBLE);
-//                    ts_pos_3D_recycleV.setVisibility(View.VISIBLE);
-//                    ts_chag.setVisibility(View.VISIBLE);
-//                    ts_chag_r.setVisibility(View.VISIBLE);
-//                    ts_chag_r_recycleV.setVisibility(View.VISIBLE);
-//                    ts_chag_3D.setVisibility(View.VISIBLE);
-//                    ts_chag_3D_recycleV.setVisibility(View.VISIBLE);
-//                    ts_sdo.setVisibility(View.VISIBLE);
-//                    ts_sdo_r.setVisibility(View.VISIBLE);
-//                    ts_sdo_r_recycleV.setVisibility(View.VISIBLE);
-//                    ts_sdo_3D.setVisibility(View.VISIBLE);
-//                    ts_sdo_3D_recycleV.setVisibility(View.VISIBLE);
-//                    ts_tgo.setVisibility(View.VISIBLE);
-//                    ts_tgo_r.setVisibility(View.VISIBLE);
-//                    ts_tgo_r_recycleV.setVisibility(View.VISIBLE);
-//                    ts_tgo_3D.setVisibility(View.VISIBLE);
-//                    ts_tgo_3D_recycleV.setVisibility(View.VISIBLE);
+                    DateItemClickListener dateItemClickListener = new DateItemClickListener() {
+                        @Override
+                        public void onClick(DateOfWeek dOWeek) {
+                            if (dOWeek.getDate_week().equals("Mon") || dOWeek.getDate_week().equals("Tue") ||dOWeek.getDate_week().equals("Wed")
+                                    || dOWeek.getDate_week().equals("Thu") || dOWeek.getDate_week().equals("Fri")){
+
+                                MT_mf();
+
+                            }else if(dOWeek.getDate_week().equals("Sat")){
+
+                                MT_sat();
+
+                            }else if(dOWeek.getDate_week().equals("Sun")){
+
+                                MT_sun();
+
+                            }
+                        }
+                    };
+
+//                    MT_mf();
+//                    MT_sat();
+//                    MT_sun();
 
 
-                    cc8_img.setVisibility(View.GONE);
-                    trincity.setVisibility(View.GONE);
-                    t_regular.setVisibility(View.GONE);
-                    t_r_recycleV.setVisibility(View.GONE);
-                    t_3D.setVisibility(View.GONE);
-                    t_3D_recycleV.setVisibility(View.GONE);
-                    southpark.setVisibility(View.GONE);
-                    s_regular.setVisibility(View.GONE);
-                    s_r_recycleV.setVisibility(View.GONE);
-                    s_3D.setVisibility(View.GONE);
-                    s_3D_recycleV.setVisibility(View.GONE);
-                    s_4DX.setVisibility(View.GONE);
-                    s_4DX_recycleV.setVisibility(View.GONE);
-                    s_CXC.setVisibility(View.GONE);
-                    s_CXC_recycleV.setVisibility(View.GONE);
-
-                    cONE_img.setVisibility(View.GONE);
-                    ts_cinemaOne.setVisibility(View.GONE);
-                    ts_imax.setVisibility(View.GONE);
-                    ts_imax_recycleR.setVisibility(View.GONE);
-                    ts_gemStone.setVisibility(View.GONE);
-                    ts_gemstone_recycleR.setVisibility(View.GONE);
-                    ts_4DX.setVisibility(View.GONE);
-                    ts_4DX_recycleV.setVisibility(View.GONE);
 
                 }
 
                 if(position == 3){
 
-                    CONE_mf();
-                    CONE_sat();
-                    CONE_sun();
+                    CONEView();
+                    CC8Gone();
+                    MTGone();
+                    DateItemClickListener dateItemClickListener = new DateItemClickListener() {
+                        @Override
+                        public void onClick(DateOfWeek dOWeek) {
+                            if (dOWeek.getDate_week().equals("Mon") || dOWeek.getDate_week().equals("Tue") ||dOWeek.getDate_week().equals("Wed")
+                                    || dOWeek.getDate_week().equals("Thu") || dOWeek.getDate_week().equals("Fri")){
 
-//                    cONE_img.setVisibility(View.VISIBLE);
-//                    ts_cinemaOne.setVisibility(View.VISIBLE);
-//                    ts_imax.setVisibility(View.VISIBLE);
-//                    ts_imax_recycleR.setVisibility(View.VISIBLE);
-//                    ts_gemStone.setVisibility(View.VISIBLE);
-//                    ts_gemstone_recycleR.setVisibility(View.VISIBLE);
-//                    ts_4DX.setVisibility(View.VISIBLE);
-//                    ts_4DX_recycleV.setVisibility(View.VISIBLE);
+                                CONE_mf();
 
-                    cc8_img.setVisibility(View.GONE);
-                    trincity.setVisibility(View.GONE);
-                    t_regular.setVisibility(View.GONE);
-                    t_r_recycleV.setVisibility(View.GONE);
-                    t_3D.setVisibility(View.GONE);
-                    t_3D_recycleV.setVisibility(View.GONE);
-                    southpark.setVisibility(View.GONE);
-                    s_regular.setVisibility(View.GONE);
-                    s_r_recycleV.setVisibility(View.GONE);
-                    s_3D.setVisibility(View.GONE);
-                    s_3D_recycleV.setVisibility(View.GONE);
-                    s_4DX.setVisibility(View.GONE);
-                    s_4DX_recycleV.setVisibility(View.GONE);
-                    s_CXC.setVisibility(View.GONE);
-                    s_CXC_recycleV.setVisibility(View.GONE);
+                            }else if(dOWeek.getDate_week().equals("Sat")){
 
-                    mt_img.setVisibility(View.GONE);
-                    ts_pos.setVisibility(View.GONE);
-                    ts_pos_r.setVisibility(View.GONE);
-                    ts_pos_r_recycleV.setVisibility(View.GONE);
-                    ts_pos_3D.setVisibility(View.GONE);
-                    ts_pos_3D_recycleV.setVisibility(View.GONE);
-                    ts_chag.setVisibility(View.GONE);
-                    ts_chag_r.setVisibility(View.GONE);
-                    ts_chag_r_recycleV.setVisibility(View.GONE);
-                    ts_chag_3D.setVisibility(View.GONE);
-                    ts_chag_3D_recycleV.setVisibility(View.GONE);
-                    ts_sdo.setVisibility(View.GONE);
-                    ts_sdo_r.setVisibility(View.GONE);
-                    ts_sdo_r_recycleV.setVisibility(View.GONE);
-                    ts_sdo_3D.setVisibility(View.GONE);
-                    ts_sdo_3D_recycleV.setVisibility(View.GONE);
-                    ts_tgo.setVisibility(View.GONE);
-                    ts_tgo_r.setVisibility(View.GONE);
-                    ts_tgo_r_recycleV.setVisibility(View.GONE);
-                    ts_tgo_3D.setVisibility(View.GONE);
-                    ts_tgo_3D_recycleV.setVisibility(View.GONE);
+                                CONE_sat();
+
+                            }else if(dOWeek.getDate_week().equals("Sun")){
+
+                                CONE_sun();
+
+                            }
+                        }
+                    };
+
+//                    CONE_mf();
+//                    CONE_sat();
+//                    CONE_sun();
+
 
                 }
-
-
 
             }
 
@@ -517,7 +445,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
     }
 
     public void CC8_mf(){
-
+        cc8_img.setVisibility(View.VISIBLE);
         DatabaseReference cc8_t_r = timeReference.child(movieid).child("CC8").child("trincity").child("regular").child("mon-fri");
         List<TimeOfMovie> t_r_mf = new ArrayList<>();
         cc8_t_r.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -2223,6 +2151,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
     public void onTimeClick(TimeOfMovie timeOfMovie) {
 
         Intent intent = new Intent(TimeSchedule.this, SelectTickets.class );
+        intent.putExtra("currentMovie", movie);
         intent.putExtra("selectDate", selectedDate);
         intent.putExtra("title", title);
         intent.putExtra("thumbnail", thumbnail);
@@ -2230,6 +2159,123 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
         intent.putExtra("theater_type", timeOfMovie.getType());
         startActivity(intent);
 
+
+    }
+
+    public void CC8Gone(){
+
+        cc8_img.setVisibility(View.GONE);
+        trincity.setVisibility(View.GONE);
+        t_regular.setVisibility(View.GONE);
+        t_r_recycleV.setVisibility(View.GONE);
+        t_3D.setVisibility(View.GONE);
+        t_3D_recycleV.setVisibility(View.GONE);
+        southpark.setVisibility(View.GONE);
+        s_regular.setVisibility(View.GONE);
+        s_r_recycleV.setVisibility(View.GONE);
+        s_3D.setVisibility(View.GONE);
+        s_3D_recycleV.setVisibility(View.GONE);
+        s_4DX.setVisibility(View.GONE);
+        s_4DX_recycleV.setVisibility(View.GONE);
+        s_CXC.setVisibility(View.GONE);
+        s_CXC_recycleV.setVisibility(View.GONE);
+    }
+
+    public void CC8View(){
+
+        cc8_img.setVisibility(View.VISIBLE);
+        trincity.setVisibility(View.VISIBLE);
+        t_regular.setVisibility(View.VISIBLE);
+        t_r_recycleV.setVisibility(View.VISIBLE);
+        t_3D.setVisibility(View.VISIBLE);
+        t_3D_recycleV.setVisibility(View.VISIBLE);
+        southpark.setVisibility(View.VISIBLE);
+        s_regular.setVisibility(View.VISIBLE);
+        s_r_recycleV.setVisibility(View.VISIBLE);
+        s_3D.setVisibility(View.VISIBLE);
+        s_3D_recycleV.setVisibility(View.VISIBLE);
+        s_4DX.setVisibility(View.VISIBLE);
+        s_4DX_recycleV.setVisibility(View.VISIBLE);
+        s_CXC.setVisibility(View.VISIBLE);
+        s_CXC_recycleV.setVisibility(View.VISIBLE);
+
+    }
+
+    public void MTGone(){
+
+        mt_img.setVisibility(View.GONE);
+        ts_pos.setVisibility(View.GONE);
+        ts_pos_r.setVisibility(View.GONE);
+        ts_pos_r_recycleV.setVisibility(View.GONE);
+        ts_pos_3D.setVisibility(View.GONE);
+        ts_pos_3D_recycleV.setVisibility(View.GONE);
+        ts_chag.setVisibility(View.GONE);
+        ts_chag_r.setVisibility(View.GONE);
+        ts_chag_r_recycleV.setVisibility(View.GONE);
+        ts_chag_3D.setVisibility(View.GONE);
+        ts_chag_3D_recycleV.setVisibility(View.GONE);
+        ts_sdo.setVisibility(View.GONE);
+        ts_sdo_r.setVisibility(View.GONE);
+        ts_sdo_r_recycleV.setVisibility(View.GONE);
+        ts_sdo_3D.setVisibility(View.GONE);
+        ts_sdo_3D_recycleV.setVisibility(View.GONE);
+        ts_tgo.setVisibility(View.GONE);
+        ts_tgo_r.setVisibility(View.GONE);
+        ts_tgo_r_recycleV.setVisibility(View.GONE);
+        ts_tgo_3D.setVisibility(View.GONE);
+        ts_tgo_3D_recycleV.setVisibility(View.GONE);
+
+    }
+
+    public void MTView(){
+
+        mt_img.setVisibility(View.VISIBLE);
+        ts_pos.setVisibility(View.VISIBLE);
+        ts_pos_r.setVisibility(View.VISIBLE);
+        ts_pos_r_recycleV.setVisibility(View.VISIBLE);
+        ts_pos_3D.setVisibility(View.VISIBLE);
+        ts_pos_3D_recycleV.setVisibility(View.VISIBLE);
+        ts_chag.setVisibility(View.VISIBLE);
+        ts_chag_r.setVisibility(View.VISIBLE);
+        ts_chag_r_recycleV.setVisibility(View.VISIBLE);
+        ts_chag_3D.setVisibility(View.VISIBLE);
+        ts_chag_3D_recycleV.setVisibility(View.VISIBLE);
+        ts_sdo.setVisibility(View.VISIBLE);
+        ts_sdo_r.setVisibility(View.VISIBLE);
+        ts_sdo_r_recycleV.setVisibility(View.VISIBLE);
+        ts_sdo_3D.setVisibility(View.VISIBLE);
+        ts_sdo_3D_recycleV.setVisibility(View.VISIBLE);
+        ts_tgo.setVisibility(View.VISIBLE);
+        ts_tgo_r.setVisibility(View.VISIBLE);
+        ts_tgo_r_recycleV.setVisibility(View.VISIBLE);
+        ts_tgo_3D.setVisibility(View.VISIBLE);
+        ts_tgo_3D_recycleV.setVisibility(View.VISIBLE);
+
+    }
+
+    public void CONEGone(){
+
+        cONE_img.setVisibility(View.GONE);
+        ts_cinemaOne.setVisibility(View.GONE);
+        ts_imax.setVisibility(View.GONE);
+        ts_imax_recycleR.setVisibility(View.GONE);
+        ts_gemStone.setVisibility(View.GONE);
+        ts_gemstone_recycleR.setVisibility(View.GONE);
+        ts_4DX.setVisibility(View.GONE);
+        ts_4DX_recycleV.setVisibility(View.GONE);
+
+    }
+
+    public void CONEView(){
+
+        cONE_img.setVisibility(View.VISIBLE);
+        ts_cinemaOne.setVisibility(View.VISIBLE);
+        ts_imax.setVisibility(View.VISIBLE);
+        ts_imax_recycleR.setVisibility(View.VISIBLE);
+        ts_gemStone.setVisibility(View.VISIBLE);
+        ts_gemstone_recycleR.setVisibility(View.VISIBLE);
+        ts_4DX.setVisibility(View.VISIBLE);
+        ts_4DX_recycleV.setVisibility(View.VISIBLE);
 
     }
 }
