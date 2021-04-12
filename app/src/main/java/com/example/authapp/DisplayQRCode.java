@@ -1,12 +1,16 @@
 package com.example.authapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.authapp.Model.QRCode;
+import com.example.authapp.UI.Home;
 import com.example.authapp.adapters.RecycleViewQRCode;
 
 import java.util.ArrayList;
@@ -14,6 +18,7 @@ import java.util.List;
 
 public class DisplayQRCode extends AppCompatActivity {
     String title, theater_title, date, time, ticket_type;
+    Button d_qr_return;
     int sT, aT, cT;
     RecyclerView qrc_recycleV;
     List<QRCode> qr_list;
@@ -37,6 +42,13 @@ public class DisplayQRCode extends AppCompatActivity {
         sT = getIntent().getExtras().getInt("seniorT");
         aT = getIntent().getExtras().getInt("adultT");
         cT = getIntent().getExtras().getInt("childT");
+        d_qr_return = findViewById(R.id.d_qrc_return);
+        d_qr_return.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DisplayQRCode.this, Home.class));
+            }
+        });
 
         qr_list = new ArrayList<>();
 

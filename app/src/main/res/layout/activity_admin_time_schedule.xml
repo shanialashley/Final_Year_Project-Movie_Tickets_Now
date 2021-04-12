@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/orangebg"
+    tools:context=".Admin.AdminTimeSchedule">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/at_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/audiowide"
+            android:gravity="center"
+            android:shadowColor="@color/blue"
+            android:shadowRadius="10"
+            android:text="Choose a Theater"
+            android:textColor="@color/blue"
+            android:textSize="36sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/at_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/amaranth"
+            android:ems="10"
+            android:hint="Movie_Title_ + moviekey"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/ct_cc8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:drawableLeft="@drawable/caribcin"
+            android:fontFamily="@font/amaranth"
+            android:padding="10dp"
+            android:text="Caribbean Cinema 8"
+            android:textColor="#E41818"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:backgroundTint="#0AFFFFFF"
+            android:cornerRadius="10dp"
+            app:elevation="20dp"
+            app:iconSize="120dp"
+            app:strokeColor="@color/blue"
+            app:strokeWidth="5dp" />
+
+        <Button
+            android:id="@+id/ct_mt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="16dp"
+            android:drawableLeft="@drawable/mt_img_size"
+            android:drawablePadding="10dp"
+            android:drawingCacheQuality="auto"
+            android:fitsSystemWindows="true"
+            android:fontFamily="@font/amaranth"
+
+            android:padding="10dp"
+            android:text="Movie Towne"
+            android:textColor="@color/green"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:backgroundTint="#0AFFFFFF"
+            android:cornerRadius="10dp"
+            app:elevation="20dp"
+            app:strokeColor="@color/blue"
+            app:strokeWidth="5dp" />
+
+        <Button
+            android:id="@+id/ct_cone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="16dp"
+            android:drawableLeft="@drawable/black_cone_size"
+            android:fitsSystemWindows="true"
+            android:padding="16dp"
+            android:text="Cinema ONE"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:backgroundTint="#0AFFFFFF"
+            android:cornerRadius="10dp"
+            app:elevation="20dp"
+            app:strokeColor="@color/blue"
+            app:strokeWidth="5dp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

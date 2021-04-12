@@ -4,20 +4,21 @@
     xmlns:cardview="http://schemas.android.com/tools"
     android:id="@+id/c_cardView_qr"
     android:layout_width="350dp"
-    android:layout_height="650dp"
+    android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:layout_margin="16dp"
-    android:background="@color/blue"
     android:elevation="30dp"
     android:foreground="?android:attr/selectableItemBackground"
     app:cardBackgroundColor="#FFFFFF"
-    app:cardCornerRadius="10dp"
+    android:background="@drawable/qrc_bg"
+    app:cardCornerRadius="60dp"
     app:cardElevation="20dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:layout_gravity="center"
+        android:background="@drawable/qrc_bg"
         android:orientation="vertical">
 
 
@@ -25,18 +26,30 @@
             android:id="@+id/ds_theater_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center"
             android:fontFamily="@font/amaranth"
-            android:text=" Caribbean Cinema 8"
+            android:text=" Caribbean Cinema 8: 2D"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
+
+        <View
+            android:id="@+id/qrc_divider1"
+            android:layout_width="310dp"
+            android:layout_height="5dp"
+            android:layout_margin="16dp"
+            android:background="@color/orange" />
 
         <TextView
             android:id="@+id/ds_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="5dp"
             android:fontFamily="@font/amaranth"
             android:text=" Godzilla"
             android:textColor="@color/black"
@@ -47,7 +60,9 @@
             android:id="@+id/ds_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="5dp"
             android:fontFamily="@font/amaranth"
             android:text=" Mon 2nd April, 2021"
             android:textColor="@color/black"
@@ -58,9 +73,11 @@
             android:id="@+id/ds_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="5dp"
             android:fontFamily="@font/amaranth"
-            android:text="  2:30 PM"
+            android:text=" Time 2:30 PM"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -69,9 +86,38 @@
             android:id="@+id/ds_ticket_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="5dp"
             android:fontFamily="@font/amaranth"
-            android:text=" Adult"
+            android:text=" Ticket Type: Adult"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/ds_ticket_owner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/amaranth"
+            android:text=" Ticket Owner: Ato Samuel"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/ds_id_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/amaranth"
+            android:text=" ID Verification Code: 1023451234"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -79,8 +125,10 @@
         <ImageView
             android:id="@+id/ds_qrImage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="60dp"
             android:scaleType="fitXY"
             cardview:srcCompat="@tools:sample/backgrounds/scenic" />
 

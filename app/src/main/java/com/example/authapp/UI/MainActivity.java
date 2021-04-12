@@ -1,8 +1,5 @@
 package com.example.authapp.UI;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
@@ -15,6 +12,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.authapp.Model.Movies;
 import com.example.authapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton showp;
 
     private FirebaseAuth mAuth;
+    private Movies movie;
+    private String selectedDate, time, theater_type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         showp = findViewById(R.id.showPassword);
-        showp.setImageResource(R.drawable.show);
+        showp.setImageResource(R.drawable.ic_baseline_remove_red_eye_24);
         showp.setOnClickListener(new View.OnClickListener() {
             boolean show = false;
             @Override
@@ -113,7 +116,29 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    startActivity(new Intent(MainActivity.this, Home.class ));
+
+//                    Bundle data = ;
+                    String s =getIntent().getExtras().getString("Screen");
+
+                    if(s.equals("Select_Tickets")) {
+
+                        movie = (Movies) getIntent().getExtras().getSerializable("currentMovie");
+                        selectedDate = getIntent().getExtras().getString("selectedDate");
+                        time = getIntent().getExtras().getString("time");
+                        theater_type = getIntent().getExtras().getString("theater_type");
+
+                        Intent in = new Intent(MainActivity.this, SelectTickets.class);
+                        in.putExtra("currentMovie", movie);
+                        in.putExtra("selectDate", selectedDate);
+                        in.putExtra("time", time);
+                        in.putExtra("theater_type", theater_type);
+                        startActivity(in);
+                    }else{
+                        startActivity(new Intent(MainActivity.this, Home.class));
+
+
+
+                    }
                 }else{
                     Toast.makeText(MainActivity.this, "Failed to login! Please check your credentials", Toast.LENGTH_LONG).show();
                 }

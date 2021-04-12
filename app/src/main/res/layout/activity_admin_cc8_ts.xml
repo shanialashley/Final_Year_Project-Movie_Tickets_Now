@@ -1,0 +1,679 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ombrebg"
+    tools:context=".Admin.AdminCC8TS">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#3CFFFFFF"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/cc8_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/audiowide"
+            android:gravity="center"
+            android:shadowColor="@color/blue"
+            android:shadowRadius="10"
+            android:text="Add to Caribbean Cinema 8"
+            android:textColor="@color/blue"
+            android:textSize="36sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/adTime_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:fontFamily="@font/amaranth"
+            android:gravity="center_vertical"
+            android:drawableRight="@drawable/ic_baseline_search_24"
+            android:hint="Movie_Title_ + moviekey"
+            android:textColorHint="@color/black"
+            android:textColor="@color/blue"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/adTime_cc8_trincity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="#7C707070"
+            android:fontFamily="@font/amaranth"
+            android:gravity="center_vertical"
+            android:text="Trincity"
+            android:textColor="@color/blue"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <View
+            android:id="@+id/cc8_divider1"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/blue" />
+
+        <TextView
+            android:id="@+id/adTime_cc8_t_r"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
+            android:background="#7C707070"
+            android:fontFamily="@font/amaranth"
+            android:gravity="center_vertical"
+            android:text="      Regular"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/adTime_cc8_t_r_mf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
+            android:background="#7C707070"
+            android:fontFamily="@font/amaranth"
+            android:gravity="center_vertical"
+            android:text="          Mon-Fri"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/cc8_t_r_mf_LL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:orientation="vertical" />
+
+
+        <TextView
+            android:id="@+id/adTime_cc8_t_r_sat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
+            android:background="#7C707070"
+            android:fontFamily="@font/amaranth"
+            android:gravity="center_vertical"
+            android:text="          Sat"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/cc8_t_r_sat_LL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:orientation="vertical" />
+
+        <TextView
+            android:id="@+id/adTime_cc8_t_r_sunH"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
+            android:background="#7C707070"
+            android:fontFamily="@font/amaranth"
+            android:gravity="center_vertical"
+            android:text="          Sun + Holi"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/cc8_t_r_sunH_LL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:orientation="vertical" />
+
+        <View
+            android:id="@+id/cc8_divider2"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/blue" />
+
+
+        <TextView
+            android:id="@+id/AdTime_cc8_t_3d"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
+            android:background="#7C707070"
+            android:fontFamily="@font/amaranth"
+            android:gravity="center_vertical"
+            android:text="      3D"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold"
+
+            />
+
+        <TextView
+            android:id="@+id/adTime_cc8_t_3d_mf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
+            android:background="#7C707070"
+            android:fontFamily="@font/amaranth"
+            android:gravity="center_vertical"
+            android:text="          Mon-Fri"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/cc8_t_3d_mf_LL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:orientation="vertical" />
+
+        <TextView
+            android:id="@+id/adTime_cc8_t_3d_sat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
+            android:background="#7C707070"
+            android:fontFamily="@font/amaranth"
+            android:gravity="center_vertical"
+            android:text="          Sat"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/cc8_t_3d_sat_LL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:orientation="vertical" />
+
+        <TextView
+            android:id="@+id/adTime_cc8_t_3d_sunH"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
+            android:background="#7C707070"
+            android:fontFamily="@font/amaranth"
+            android:gravity="center_vertical"
+            android:text="          Sun + Holi"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/cc8_t_3d_sunH_LL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:orientation="vertical" />
+
+        <View
+            android:id="@+id/cc8_divider3"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/blue" />
+
+
+        <TextView
+            android:id="@+id/adTime_cc8_southpark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="#7C707070"
+            android:fontFamily="@font/amaranth"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:text="SouthPark"
+            android:textColor="@color/blue"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <View
+            android:id="@+id/cc8_divider4"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/blue" />
+
+        <TextView
+            android:id="@+id/adTime_cc8_sp_r"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
+            android:background="#7C707070"
+            android:fontFamily="@font/amaranth"
+            android:gravity="center_vertical"
+            android:text="      Regular"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/adTime_cc8_sp_r_mf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
+            android:background="#7C707070"
+            android:fontFamily="@font/amaranth"
+            android:gravity="center_vertical"
+            android:text="          Mon-Fri"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/cc8_sp_r_mf_LL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:orientation="vertical" />
+
+        <TextView
+            android:id="@+id/adTime_cc8_sp_r_sat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
+            android:background="#7C707070"
+            android:fontFamily="@font/amaranth"
+            android:gravity="center_vertical"
+            android:text="          Sat"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/cc8_sp_r_sat_LL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:orientation="vertical" />
+
+        <TextView
+            android:id="@+id/adTime_cc8_sp_r_sunH"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
+            android:background="#7C707070"
+            android:fontFamily="@font/amaranth"
+            android:gravity="center_vertical"
+            android:text="          Sun + Holi"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/cc8_sp_r_sunH_LL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:orientation="vertical" />
+
+        <View
+            android:id="@+id/cc8_divider5"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/blue" />
+
+
+        <TextView
+            android:id="@+id/adTime_cc8_sp_3d"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
+            android:background="#7C707070"
+            android:fontFamily="@font/amaranth"
+            android:gravity="center_vertical"
+            android:text="      3D"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold"
+
+            />
+
+        <TextView
+            android:id="@+id/adTime_cc8_sp_3d_mf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
+            android:background="#7C707070"
+            android:fontFamily="@font/amaranth"
+            android:gravity="center_vertical"
+            android:text="          Mon-Fri"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/cc8_sp_3d_mf_LL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:orientation="vertical" />
+
+        <TextView
+            android:id="@+id/adTime_cc8_sp_3d_sat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
+            android:background="#7C707070"
+            android:fontFamily="@font/amaranth"
+            android:gravity="center_vertical"
+            android:text="          Sat"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/cc8_sp_3d_sat_LL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:orientation="vertical" />
+
+        <TextView
+            android:id="@+id/adTime_cc8_sp_3d_sunH"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
+            android:background="#7C707070"
+            android:fontFamily="@font/amaranth"
+            android:gravity="center_vertical"
+            android:text="          Sun + Holi"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/cc8_sp_3d_sunH_LL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:orientation="vertical" />
+
+        <View
+            android:id="@+id/cc8_divider6"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/blue" />
+
+        <TextView
+            android:id="@+id/adTime_cc8_sp_4dx"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
+            android:background="#7C707070"
+            android:fontFamily="@font/amaranth"
+            android:gravity="center_vertical"
+            android:text="      4DX"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/adTime_cc8_sp_4dx_mf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
+            android:background="#7C707070"
+            android:fontFamily="@font/amaranth"
+            android:gravity="center_vertical"
+            android:text="          Mon-Fri"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/cc8_sp_4dx_mf_LL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:orientation="vertical" />
+
+        <TextView
+            android:id="@+id/adTime_cc8_sp_4dx_sat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
+            android:background="#7C707070"
+            android:fontFamily="@font/amaranth"
+            android:gravity="center_vertical"
+            android:text="          Sat"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/cc8_sp_4dx_sat_LL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:orientation="vertical" />
+
+        <TextView
+            android:id="@+id/adTime_cc8_sp_4dx_sunH"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
+            android:background="#7C707070"
+            android:fontFamily="@font/amaranth"
+            android:gravity="center_vertical"
+            android:text="          Sun + Holi"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/cc8_sp_4dx_sunH_LL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:orientation="vertical" />
+
+        <View
+            android:id="@+id/cc8_divider7"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/blue" />
+
+
+        <TextView
+            android:id="@+id/adTime_cc8_sp_cxc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
+            android:background="#7C707070"
+            android:fontFamily="@font/amaranth"
+            android:gravity="center_vertical"
+            android:text="      CXC"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold"
+
+            />
+
+        <TextView
+            android:id="@+id/adTime_cc8_sp_cxc_mf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
+            android:background="#7C707070"
+            android:fontFamily="@font/amaranth"
+            android:gravity="center_vertical"
+            android:text="          Mon-Fri"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/cc8_sp_cxc_mf_LL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:orientation="vertical" />
+
+        <TextView
+            android:id="@+id/adTime_cc8_sp_cxc_sat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
+            android:background="#7C707070"
+            android:fontFamily="@font/amaranth"
+            android:gravity="center_vertical"
+            android:text="          Sat"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/cc8_sp_cxc_sat_LL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:orientation="vertical" />
+
+        <TextView
+            android:id="@+id/adTime_cc8_sp_cxc_sunH"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="16dp"
+            android:background="#7C707070"
+            android:fontFamily="@font/amaranth"
+            android:gravity="center_vertical"
+            android:text="          Sun + Holi"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/cc8_sp_cxc_sunH_LL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:orientation="vertical" />
+
+        <View
+            android:id="@+id/cc8_divider8"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/blue" />
+
+        <Button
+            android:id="@+id/adTime_saveB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:fontFamily="@font/audiowide"
+            android:text="Save"
+            android:textColor="@color/orange"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:backgroundTint="@color/blue"
+            android:cornerRadius="10dp"
+            app:elevation="10dp"
+            app:icon="@drawable/add_movie"
+            app:iconTint="@color/orange"
+            app:strokeColor="@color/orange"
+            app:strokeWidth="3dp" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

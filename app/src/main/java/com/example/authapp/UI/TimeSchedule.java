@@ -25,6 +25,8 @@ import com.example.authapp.adapters.DateItemClickListener;
 import com.example.authapp.adapters.RecycleViewAdapterCalendar;
 import com.example.authapp.adapters.RecycleViewScheduleAdapter;
 import com.example.authapp.adapters.TimeItemClickListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -64,7 +66,8 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
     private RecyclerView ts_imax_recycleR, ts_gemstone_recycleR, ts_4DX_recycleV;
 
-
+    private FirebaseAuth mAuth;
+    private FirebaseUser currentuser;
 
     private String title, id, movieid, thumbnail;
     private List<TimeOfMovie> mtList, cc8List, cOneList;
@@ -81,7 +84,8 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
         setContentView(R.layout.activity_time_schedule);
 
         timeReference = FirebaseDatabase.getInstance().getReference().child("TimeSchedule");
-
+        mAuth = FirebaseAuth.getInstance();
+        currentuser = mAuth.getCurrentUser();
         currentdate = new Date();
 
         init();
@@ -121,7 +125,8 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(TimeSchedule.this, MovieDetailsActivity.class) );
+//                startActivity(new Intent(TimeSchedule.this, MovieDetailsActivity.class) );
+                onBackPressed();
             }
         });
 
@@ -2150,15 +2155,22 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
     @Override
     public void onTimeClick(TimeOfMovie timeOfMovie) {
 
-        Intent intent = new Intent(TimeSchedule.this, SelectTickets.class );
+        Intent intent;
+        if(currentuser == null) {
+
+            intent = new Intent(TimeSchedule.this, MainActivity.class);
+            intent.putExtra("Screen", "Select Tickets");
+
+        }else{
+
+            intent = new Intent(TimeSchedule.this, SelectTickets.class);
+
+        }
         intent.putExtra("currentMovie", movie);
         intent.putExtra("selectDate", selectedDate);
-        intent.putExtra("title", title);
-        intent.putExtra("thumbnail", thumbnail);
         intent.putExtra("time", timeOfMovie.getT());
         intent.putExtra("theater_type", timeOfMovie.getType());
         startActivity(intent);
-
 
     }
 

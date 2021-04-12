@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.authapp" >
+    package="com.example.authapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -10,8 +10,12 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <uses-feature android:name="android.hardware.camera" android:required="false"/>
-    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
 
     <permission
         android:name="com.example.permission.MAPS_RECEIVE"
@@ -31,7 +35,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AuthApp"
         android:usesCleartextTraffic="true">
-        <activity android:name=".DisplayQRCode"/>
+        <activity android:name=".Admin.AdminConeTS"></activity>
+        <activity android:name=".Admin.AdminMTTS" />
+        <activity android:name=".Admin.AdminCC8TS" />
+        <activity android:name=".Admin.AdminUpdateMovie" />
+        <activity android:name=".Admin.AdminTimeSchedule" />
+        <activity android:name=".Admin.AdminAddMovie" />
+        <activity android:name=".Admin.AdminDisplayMovies" />
+        <activity android:name=".Admin.AdminDash" />
+        <activity android:name=".DisplayQRCode" />
         <activity android:name=".UI.Purchases" />
         <activity android:name=".UI.Search" />
         <activity android:name=".UI.Theaters" />
@@ -43,13 +55,13 @@
             android:theme="@style/Theme.AuthApp.CustomThemePopUp" />
         <activity android:name=".UI.RegisterUser" />
         <activity android:name=".UI.MainActivity" />
-
-        <activity android:name=".Admin.MovieUpload" />
         <activity android:name=".UI.TimeSchedule" />
         <activity android:name=".UI.UpcomingMovies" />
         <activity android:name=".UI.SelectTickets" />
-        <activity android:name=".UI.Home"/>
-        <activity android:name=".UI.Logo" >
+        <activity android:name=".UI.Home" />
+        <activity android:name=".UI.Logo" />
+        <activity android:name=".SingleTheaterMovies" />
+        <activity android:name=".Admin.AdminLogin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

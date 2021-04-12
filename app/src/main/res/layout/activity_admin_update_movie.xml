@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ombrebg"
+    tools:context=".Admin.AdminUpdateMovie">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#5B707070"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/upd_movieUpdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/audiowide"
+            android:gravity="center"
+            android:shadowColor="@color/blue"
+            android:shadowRadius="10"
+            android:text="Update Movie"
+            android:textAllCaps="true"
+            android:textColor="@color/blue"
+            android:textSize="36sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/upd_movie_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:fontFamily="@font/marko_one"
+            android:hint="Movie ID"
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/teal_200"
+            android:textColorHint="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/upd_movie_display"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/marko_one"
+            android:text="Display"
+            android:textColor="@color/orange"
+            android:textSize="18sp"
+            app:backgroundTint="@color/blue"
+            app:cornerRadius="10dp"
+            app:layout_constraintEnd_toStartOf="@+id/movie_cover"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/orange"
+            app:strokeWidth="3dp" />
+
+        <EditText
+            android:id="@+id/upd_movie_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:fontFamily="@font/marko_one"
+            android:hint="Title"
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/teal_200"
+            android:textColorHint="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/upd_movie_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:fontFamily="@font/marko_one"
+            android:hint="Description"
+            android:inputType="textMultiLine|text"
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/teal_200"
+            android:textColorHint="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/upd_movie_genre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:fontFamily="@font/marko_one"
+            android:hint="Genre"
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/teal_200"
+            android:textColorHint="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/upd_movie_length"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:fontFamily="@font/marko_one"
+            android:hint="Running Time"
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/teal_200"
+            android:textColorHint="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/upd_movie_rating"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:fontFamily="@font/marko_one"
+            android:hint="Rating"
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/teal_200"
+            android:textColorHint="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/udp_movie_starring"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:fontFamily="@font/marko_one"
+            android:hint="Starring"
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/teal_200"
+            android:textColorHint="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/udp_movie_directors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:fontFamily="@font/marko_one"
+            android:hint="Directors"
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/teal_200"
+            android:textColorHint="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/upd_movie_trailer_link"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:fontFamily="@font/marko_one"
+            android:hint="Trailer Link"
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/teal_200"
+            android:textColorHint="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/upd_movie_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:fontFamily="@font/marko_one"
+            android:hint="'current' Or 'upcoming'"
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/teal_200"
+            android:textColorHint="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp">
+
+            <Button
+                android:id="@+id/upd_movie_upload_thumbnail"
+                android:layout_width="166dp"
+                android:layout_height="66dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/marko_one"
+                android:text="Upload Thumbnail"
+                android:textColor="@color/orange"
+                android:textSize="18sp"
+                app:backgroundTint="@color/blue"
+                app:cornerRadius="10dp"
+                app:elevation="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeColor="@color/orange"
+                app:strokeWidth="3dp" />
+
+            <ImageView
+                android:id="@+id/upd_movie_thumbnail"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <EditText
+                android:id="@+id/upd_movie_thumbnail_title"
+                android:layout_width="0dp"
+                android:layout_height="49dp"
+                android:layout_marginTop="16dp"
+                android:ems="10"
+                android:fontFamily="@font/marko_one"
+                android:hint="Thumbnail"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/teal_200"
+                android:textColorHint="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/upd_movie_thumbnail" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp">
+
+            <Button
+                android:id="@+id/upd_movie_upload_cover"
+                android:layout_width="129dp"
+                android:layout_height="77dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/marko_one"
+                android:text="Upload Cover"
+                android:textColor="@color/orange"
+                android:textSize="18sp"
+                app:backgroundTint="@color/blue"
+                app:cornerRadius="10dp"
+                app:elevation="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeColor="@color/orange"
+                app:strokeWidth="3dp" />
+
+            <ImageView
+                android:id="@+id/upd_movie_cover"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <EditText
+                android:id="@+id/upd_movie_cover_title"
+                android:layout_width="0dp"
+                android:layout_height="49dp"
+                android:layout_marginTop="16dp"
+                android:ems="10"
+                android:fontFamily="@font/marko_one"
+                android:hint="CoverPhoto"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/teal_200"
+                android:textColorHint="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/upd_movie_cover" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/upd_movie_update"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/marko_one"
+            android:text="Update"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:backgroundTint="@color/green"
+            app:cornerRadius="10dp"
+            app:elevation="10dp"
+            app:layout_constraintEnd_toStartOf="@+id/movie_cover"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/black"
+            app:strokeWidth="3dp" />
+
+        <Button
+            android:id="@+id/upd_movie_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/marko_one"
+            android:text="Delete"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:backgroundTint="#C30422"
+            app:cornerRadius="10dp"
+            app:elevation="10dp"
+            app:layout_constraintEnd_toStartOf="@+id/movie_cover"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/black"
+            app:strokeWidth="3dp" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

@@ -1,8 +1,5 @@
 package com.example.authapp.UI;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -13,17 +10,22 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.authapp.Model.User;
 import com.example.authapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterUser extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    private DatabaseReference adminDb;
     private TextView login;
     private EditText fn, ln, email, pwd1, pwd2;
     private ProgressBar progressB;
@@ -112,6 +114,7 @@ public class RegisterUser extends AppCompatActivity {
 
         progressB.setVisibility(View.VISIBLE);
 
+
         mAuth.createUserWithEmailAndPassword(e, p1)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -151,6 +154,8 @@ public class RegisterUser extends AppCompatActivity {
                 });
 
     }
+
+
 
 
 }

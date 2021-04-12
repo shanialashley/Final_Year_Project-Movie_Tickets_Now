@@ -28,6 +28,7 @@ import com.example.authapp.adapters.SliderPagerAdapter;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -50,9 +51,11 @@ public class Home extends AppCompatActivity implements MovieItemClickListener, N
     private NavigationView navigationView;
     private Toolbar toolbar;
     private FirebaseAuth mAuth;
+    private FirebaseUser currentuser;
     Query currentMoviesQ;
     List<Movies> MovieList;
     List<String> Moviekey;
+    Menu menu;
 
 
     @Override
@@ -74,13 +77,25 @@ public class Home extends AppCompatActivity implements MovieItemClickListener, N
         CurrentMoviesInfor();
 
 
-
-//        hideActionBar();
-
     }
 
     private void hideActionBar() {
         getSupportActionBar().hide();
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        currentuser = mAuth.getCurrentUser();
+        if(currentuser == null) {
+            menu.findItem(R.id.nav_logout).setVisible(false);
+
+        }else{
+            menu.findItem(R.id.nav_login).setVisible(false);
+
+        }
 
     }
 
@@ -94,9 +109,11 @@ public class Home extends AppCompatActivity implements MovieItemClickListener, N
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Movie Tickets Now");
 
+
+
+
         //Hide or show item in Menu
-        Menu menu = navigationView.getMenu();
-//        menu.findItem(R.id.nav_login).setVisible(false);
+        menu = navigationView.getMenu();
 
 
         navigationView.bringToFront();
@@ -149,7 +166,11 @@ public class Home extends AppCompatActivity implements MovieItemClickListener, N
             case R.id.nav_logout:
                 mAuth.getInstance().signOut();
                 finish();
-                startActivity(new Intent(Home.this, MainActivity.class));
+                startActivity(new Intent(Home.this, Home.class));
+                break;
+
+            case R.id.nav_login:
+                startActivity(new Intent(Home.this, MainActivity.class).putExtra("Screen", "home"));
                 break;
 
 

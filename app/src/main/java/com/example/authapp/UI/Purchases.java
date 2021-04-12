@@ -8,26 +8,38 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.authapp.Config.Config;
 import com.example.authapp.DisplayQRCode;
+import com.example.authapp.Model.ReportInfo;
 import com.example.authapp.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
 import com.paypal.android.sdk.payments.PaymentActivity;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Purchases extends AppCompatActivity {
 
     private Toolbar toolbar;
     private TextView p_theater, p_title, p_date, p_time, p_seniorT, p_adultT, p_childT, p_total;
     private Button paypayB, creditB;
-    private String title, date, time, theater_title;
+    private DatabaseReference reports;
+    private String title = "", date = "", time = "", theater_title = "", key = "", theater = " ", location = " ", movie_type= " ";
+    int total_tickets = 0;
+     int newTotal = 0;
     private int seniorT, adultT, childT, totalA;
 
     private int PAYPAL_REQ_CODE = 123;
@@ -75,6 +87,9 @@ public class Purchases extends AppCompatActivity {
         theater_title = getIntent().getExtras().getString("theater_title");
         p_theater.setText("Theater: " + theater_title);
 
+        theater = getIntent().getExtras().getString("theater");
+        location = getIntent().getExtras().getString("location");
+        movie_type = getIntent().getExtras().getString("movie_type");
 
         p_title = findViewById(R.id.p_title);
         title = getIntent().getExtras().getString("title");
@@ -90,7 +105,7 @@ public class Purchases extends AppCompatActivity {
 
         p_seniorT = findViewById(R.id.p_seniorT);
         seniorT = getIntent().getExtras().getInt("senior_tickets", 0);
-        p_seniorT.setText("Number of Senior Tickets: " + seniorT);
+        p_seniorT.setText("Number of Senior Tickets: " + seniorT );
 
         p_adultT = findViewById(R.id.p_adultT);
         adultT = getIntent().getExtras().getInt("adult_tickets", 0);
@@ -104,13 +119,16 @@ public class Purchases extends AppCompatActivity {
         totalA = getIntent().getExtras().getInt("Total", 0);
         p_total.setText("Total Cost: $" + totalA + ".00");
 
+        total_tickets = getIntent().getExtras().getInt("max_tickets" , 0);
+
+
         paypayB = findViewById(R.id.p_paypalB);
 
         creditB = findViewById(R.id.p_creditB);
         creditB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                UpdateReport();
                 Intent display = new Intent(Purchases.this, DisplayQRCode.class);
                 display.putExtra("theater_title", theater_title);
                 display.putExtra("title", title);
@@ -120,6 +138,7 @@ public class Purchases extends AppCompatActivity {
                 display.putExtra("adultT", adultT);
                 display.putExtra("childT", childT);
                 startActivity(display);
+
 
             }
         });
@@ -133,6 +152,7 @@ public class Purchases extends AppCompatActivity {
                 PayPalPaymentMethod();
             }
         });
+
 
 
     }
@@ -163,6 +183,9 @@ public class Purchases extends AppCompatActivity {
 
                 Intent display = new Intent(Purchases.this, DisplayQRCode.class);
                 display.putExtra("theater_title", theater_title);
+                display.putExtra("theater", theater);
+                display.putExtra("location", location);
+                display.putExtra("movie_type", movie_type);
                 display.putExtra("title", title);
                 display.putExtra("date", date);
                 display.putExtra("time", time);
@@ -170,7 +193,7 @@ public class Purchases extends AppCompatActivity {
                 display.putExtra("adultT", adultT);
                 display.putExtra("childT", childT);
                 startActivity(display);
-
+                UpdateReport();
                 Toast.makeText(this, "Payment was successful!", Toast.LENGTH_SHORT).show();
 
             }else{
@@ -184,4 +207,66 @@ public class Purchases extends AppCompatActivity {
         stopService(new Intent(Purchases.this, PayPalService.class));
         super.onDestroy();
     }
+
+    public void UpdateReport(){
+
+        List<ReportInfo> rlist = new ArrayList<>();
+        List<String> keylist = new ArrayList<>();
+
+        reports = FirebaseDatabase.getInstance().getReference().child("Reports");
+        reports.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if(snapshot.exists()){
+
+                    for(DataSnapshot ss: snapshot.getChildren()){
+                        ReportInfo rp = ss.getValue(ReportInfo.class);
+                                rlist.add(rp);
+                                keylist.add(ss.getKey());
+
+                    }
+
+
+            }else{
+                    DatabaseReference addReport = reports.push();
+                    addReport.setValue(new ReportInfo(title, date, time, total_tickets,
+                            theater, location, movie_type));
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+
+        });
+
+//        if(rlist.isEmpty() && keylist.isEmpty()){
+//            DatabaseReference addReport = reports.push();
+//            addReport.setValue(new ReportInfo(title, date, time, total_tickets,
+//                    theater, location, movie_type));
+//        }else{
+//            for(int i = 0; i<rlist.size(); i++) {
+//                ReportInfo rp = rlist.get(i);
+//
+//                if (rp.getTitle().equals(title) && rp.getTime().equals(time) &&
+//                        rp.getDate().equals(date) && rp.getTheater().equals(theater) &&
+//                        rp.getLocation().equals(location) && rp.getMovie_type().equals(movie_type)) {
+//                    newTotal = total_tickets + rp.getNum_of_tickets();
+//                    Map<String, Object> update = new HashMap<>();
+//                    update.put("num_of_tickets", newTotal);
+//                    DatabaseReference newupdate = reports.child(keylist.get(i));
+//                    newupdate.updateChildren(update);
+//                }
+//            }
+//        }
+
+
+
+    }
+
+
 }

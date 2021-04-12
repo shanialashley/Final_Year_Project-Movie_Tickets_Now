@@ -8,8 +8,8 @@
     android:id="@+id/drawer_layout"
     android:fitsSystemWindows="true"
     tools:context=".UI.Theaters"
-    tools:openDrawer="start">
-
+    >
+<!--    tools:openDrawer="start"-->
 
     <com.google.android.material.navigation.NavigationView
         android:layout_width="match_parent"
