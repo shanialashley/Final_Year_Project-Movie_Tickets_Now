@@ -28,7 +28,7 @@ public class AdminMTTS extends AppCompatActivity {
     private LinearLayout chag_r_mf, chag_r_sat, chag_r_sunH, chag_3D_mf, chag_3D_sat, chag_3D_sunH;
     private LinearLayout sdo_r_mf, sdo_r_sat, sdo_r_sunH, sdo_3D_mf, sdo_3D_sat, sdo_3D_sunH;
     private LinearLayout tgo_r_mf, tgo_r_sat, tgo_r_sunH;
-    private EditText timeS_id;
+    private EditText mt_timeS_id;
     private Button mt_saveB;
 
     private List<String> pos_r_mf_list, pos_r_sat_list, pos_r_sun_list;
@@ -71,21 +71,21 @@ public class AdminMTTS extends AppCompatActivity {
         String key = getIntent().getExtras().getString("TimeS_Key");
 
         if(key != null){
-            timeS_id.setText(key);
+            mt_timeS_id.setText(key);
         }
     }
 
     private void init() {
 
-        timeS_id = findViewById(R.id.adTime_id);
-        timeS_id.setOnKeyListener(new View.OnKeyListener() {
+        mt_timeS_id = findViewById(R.id.adTime_mt_id);
+        mt_timeS_id.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
 
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
 
-                    SearchDisplay(timeS_id.getText().toString().trim());
+                    SearchDisplay(mt_timeS_id.getText().toString().trim());
 
                     return true;
                 }
@@ -123,7 +123,7 @@ public class AdminMTTS extends AppCompatActivity {
         tgo_r_sat = findViewById(R.id.mt_tgo_r_sat_LL);
         tgo_r_sunH = findViewById(R.id.mt_tgo_r_sunH_LL);
 
-        mt_saveB = findViewById(R.id.adTime_saveBCONE);
+        mt_saveB = findViewById(R.id.adTime_saveBMT);
 
         mt_saveB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -814,7 +814,7 @@ public class AdminMTTS extends AppCompatActivity {
 
     private void SaveTimes() {
 
-        timeSid = timeS_id.getText().toString().trim();
+        timeSid = mt_timeS_id.getText().toString().trim();
         POS_R_saveTimes(timeSid);
         POS_3D_saveTimes(timeSid);
 
@@ -1525,7 +1525,7 @@ public class AdminMTTS extends AppCompatActivity {
                         }
                     });
 
-                    pos_r_sat.addView( sat_DV);
+                    pos_r_sat.addView(sat_DV);
 
                 }
 
@@ -1539,7 +1539,7 @@ public class AdminMTTS extends AppCompatActivity {
 
 
         pos_r_sun_list.clear();
-        Query r_sun = scheduleTimes.child("MT").child(" pos").child("regular").child("sun+hol").orderByKey();
+        Query r_sun = scheduleTimes.child("MT").child("pos").child("regular").child("sun+hol").orderByKey();
         r_sun.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -2407,7 +2407,7 @@ public class AdminMTTS extends AppCompatActivity {
                         sdo_3d_sat_list.add(time);
                     }
                 }else{
-                    CHAG_3D_sat_AT();
+                    SDO_3D_sat_AT();
                 }
 
                 int size = sdo_3d_sat_list.size();
@@ -2467,7 +2467,7 @@ public class AdminMTTS extends AppCompatActivity {
                         sdo_3d_sun_list.add(time);
                     }
                 }else{
-                    CHAG_3D_sun_AT();
+                    SDO_3D_sun_AT();
                 }
 
                 int size = sdo_3d_sun_list.size();

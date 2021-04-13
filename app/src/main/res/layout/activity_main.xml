@@ -97,12 +97,12 @@
         android:layout_width="55dp"
         android:layout_height="50dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="268dp"
         android:background="@color/blue"
-        android:scaleType="fitXY"
+        android:scaleType="centerInside"
         app:layout_constraintStart_toEndOf="@+id/password"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@drawable/ic_baseline_remove_red_eye_24" />
 
     <ImageView
         android:id="@+id/main_logo"
@@ -117,5 +117,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/movie_tickets_now__1_" />
+
+    <TextView
+        android:id="@+id/adminlogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="28dp"
+        android:fontFamily="@font/amaranth"
+        android:padding="20dp"
+        android:singleLine="false"
+        android:text="Admin?"
+        android:textAllCaps="true"
+        android:textColor="@color/orange"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

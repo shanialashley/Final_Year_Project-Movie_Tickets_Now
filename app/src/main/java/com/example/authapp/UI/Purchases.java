@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.authapp.Config.Config;
-import com.example.authapp.DisplayQRCode;
 import com.example.authapp.Model.ReportInfo;
 import com.example.authapp.R;
 import com.google.firebase.database.DataSnapshot;

@@ -75,11 +75,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if(show == false){
-                    showp.setImageResource(R.drawable.hide);
+                    showp.setImageResource(R.drawable.ic_baseline_visibility_off_24);
                     pwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                     show = true;
                 }else{
-                    showp.setImageResource(R.drawable.show);
+                    showp.setImageResource(R.drawable.ic_baseline_remove_red_eye_24);
                     pwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
                     show = false;
                 }

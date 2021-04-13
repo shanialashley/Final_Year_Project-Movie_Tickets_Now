@@ -1,4 +1,4 @@
-package com.example.authapp;
+package com.example.authapp.UI;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.authapp.Model.QRCode;
-import com.example.authapp.UI.Home;
+import com.example.authapp.R;
 import com.example.authapp.adapters.RecycleViewQRCode;
 
 import java.util.ArrayList;

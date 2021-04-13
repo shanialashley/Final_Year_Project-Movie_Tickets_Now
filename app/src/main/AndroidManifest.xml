@@ -3,7 +3,7 @@
     package="com.example.authapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+<!--    <uses-permission android:name="android.permission.CAMERA"/>-->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
@@ -45,7 +45,7 @@
         <activity android:name=".Admin.AdminAddMovie" />
         <activity android:name=".Admin.AdminDisplayMovies" />
         <activity android:name=".Admin.AdminDash" />
-        <activity android:name=".DisplayQRCode" />
+        <activity android:name=".UI.DisplayQRCode" />
         <activity android:name=".UI.Purchases" />
         <activity android:name=".UI.Search" />
         <activity android:name=".UI.Theaters" />
@@ -62,8 +62,8 @@
         <activity android:name=".UI.SelectTickets" />
         <activity android:name=".UI.Home" />
         <activity android:name=".UI.Logo" />
-        <activity android:name=".SingleTheaterMovies" />
-        <activity android:name=".Admin.AdminLogin">
+        <activity android:name=".Admin.AdminLogin"/>
+        <activity android:name=".UI.SingleTheaterMovies" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

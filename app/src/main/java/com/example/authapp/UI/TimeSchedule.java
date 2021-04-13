@@ -125,7 +125,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                startActivity(new Intent(TimeSchedule.this, MovieDetailsActivity.class) );
                 onBackPressed();
             }
         });

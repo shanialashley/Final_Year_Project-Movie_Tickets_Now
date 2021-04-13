@@ -8,9 +8,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.authapp.Model.Movies;
 import com.example.authapp.R;
@@ -32,9 +32,30 @@ public class MovieDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie_details);
 
 
-
-
         iniViews();
+
+
+
+
+
+
+    }
+
+    public void ToolbarInfo(String title){
+
+
+        toolbar = findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(title);
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
 
 
     }
@@ -45,6 +66,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         movie = (Movies) getIntent().getExtras().getSerializable("currentMovie");
 
         String movieTitle = movie.getTitle();
+        ToolbarInfo(movieTitle);
         String thumbnail = movie.getThumbnail_url();
         String cover = movie.getCover_url();
         String descrip = movie.getDescription();

@@ -1,15 +1,5 @@
 package com.example.authapp.UI;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.graphics.drawable.DrawerArrowDrawable;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -21,14 +11,22 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.graphics.drawable.DrawerArrowDrawable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.authapp.R;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.muddzdev.styleabletoastlibrary.StyleableToast;
-
-import java.net.Inet4Address;
 
 public class Theaters extends AppCompatActivity {
 
@@ -48,6 +46,9 @@ public class Theaters extends AppCompatActivity {
     private Toolbar toolbar;
 
     private static final int REQUEST_CALL = 1;
+    private Menu menu;
+    private FirebaseAuth mAuth;
+    private FirebaseUser currentuser;
 
 
     @Override
@@ -55,33 +56,9 @@ public class Theaters extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_theaters);
 
-        divider3 = findViewById(R.id.divider3);
-        cabcin_title = findViewById(R.id.theater_cabcin_title);
-        cabcin_address = findViewById(R.id.theater_cabcin_loc_addr);
-        cabcin_num = findViewById(R.id.theater_cabcin_loc_num);
-        img1 = findViewById(R.id.img1);
-        img2 = findViewById(R.id.img2);
-        img3 = findViewById(R.id.img3);
-        img4 = findViewById(R.id.img4);
-        img5 = findViewById(R.id.img5);
-        cabcin_map = findViewById(R.id.theater_cabcin_map);
-        cabcin_phone_call = findViewById(R.id.theater_cabcin_call);
+        mAuth = FirebaseAuth.getInstance();
 
-        mt_title = findViewById(R.id.theater_mt_title);
-        mt_address = findViewById(R.id.theaters_mt_loc_addr);
-        mt_num = findViewById(R.id.theater_mt_loc_num);
-        mt_map = findViewById(R.id.theater_mt_map);
-        mt_call = findViewById(R.id.theater_mt_call);
-        divider5 = findViewById(R.id.divider5);
-
-        imax_title = findViewById(R.id.theaters_imax_title);
-        imax_address = findViewById(R.id.theaters_imax_loc_addr);
-        imax_num = findViewById(R.id.theaters_imax_loc_num);
-        imax_map = findViewById(R.id.theater_imax_map);
-        imax_call = findViewById(R.id.theater_imax_call);
-        imax_icon = findViewById(R.id.theaters_imax_locations_icon);
-        divider7 = findViewById(R.id.divider7);
-
+        init();
 
         CaribCin_ViewGone();
 
@@ -99,6 +76,35 @@ public class Theaters extends AppCompatActivity {
 
     }
 
+    private void init() {
+
+        cabcin_title = findViewById(R.id.theater_cabcin_title);
+        cabcin_address = findViewById(R.id.theater_cabcin_loc_addr);
+        cabcin_num = findViewById(R.id.theater_cabcin_loc_num);
+        img1 = findViewById(R.id.img1);
+        img2 = findViewById(R.id.img2);
+        img3 = findViewById(R.id.img3);
+        img4 = findViewById(R.id.img4);
+        img5 = findViewById(R.id.img5);
+        cabcin_map = findViewById(R.id.theater_cabcin_map);
+        cabcin_phone_call = findViewById(R.id.theater_cabcin_call);
+
+        mt_title = findViewById(R.id.theater_mt_title);
+        mt_address = findViewById(R.id.theaters_mt_loc_addr);
+        mt_num = findViewById(R.id.theater_mt_loc_num);
+        mt_map = findViewById(R.id.theater_mt_map);
+        mt_call = findViewById(R.id.theater_mt_call);
+
+
+        imax_title = findViewById(R.id.theaters_imax_title);
+        imax_address = findViewById(R.id.theaters_imax_loc_addr);
+        imax_num = findViewById(R.id.theaters_imax_loc_num);
+        imax_map = findViewById(R.id.theater_imax_map);
+        imax_call = findViewById(R.id.theater_imax_call);
+        imax_icon = findViewById(R.id.theaters_imax_locations_icon);
+
+    }
+
     public void NavInfo(){
 
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -111,7 +117,7 @@ public class Theaters extends AppCompatActivity {
 
 
 
-        Menu menu = navigationView.getMenu();
+        menu = navigationView.getMenu();
 //        menu.findItem(R.id.nav_login).setVisible(false);
 
         navigationView.bringToFront();
@@ -142,6 +148,16 @@ public class Theaters extends AppCompatActivity {
                         startActivity(new Intent(Theaters.this, Search.class));
                         break;
 
+                    case R.id.nav_logout:
+                        mAuth.getInstance().signOut();
+                        finish();
+                        startActivity(new Intent(Theaters.this, Home.class));
+                        break;
+
+                    case R.id.nav_login:
+                        startActivity(new Intent(Theaters.this, MainActivity.class).putExtra("Screen", "home"));
+                        break;
+
 
                 }
 
@@ -156,7 +172,31 @@ public class Theaters extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
 
+        currentuser = mAuth.getCurrentUser();
+        if(currentuser == null) {
+            menu.findItem(R.id.nav_logout).setVisible(false);
+
+        }else{
+            menu.findItem(R.id.nav_login).setVisible(false);
+
+        }
+
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+        else {
+            super.onBackPressed();
+        }
+    }
 
 
     public void CaribCin_ViewGone(){
