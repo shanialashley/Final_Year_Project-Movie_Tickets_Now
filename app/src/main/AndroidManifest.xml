@@ -61,9 +61,10 @@
         <activity android:name=".UI.UpcomingMovies" />
         <activity android:name=".UI.SelectTickets" />
         <activity android:name=".UI.Home" />
-        <activity android:name=".UI.Logo" />
+<!--        <activity android:name=".UI.Logo" />-->
         <activity android:name=".Admin.AdminLogin"/>
-        <activity android:name=".UI.SingleTheaterMovies" >
+        <activity android:name=".UI.SingleTheaterMovies"/>
+        <activity android:name=".UI.Logo" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

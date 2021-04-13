@@ -46,7 +46,7 @@ public class SingleTheaterMovies extends AppCompatActivity implements MovieItemC
         movies_Ref = FirebaseDatabase.getInstance().getReference("Movies");
         mLt = new ArrayList<>();
         ToolbarInfo();
-        String screen = getIntent().getExtras().toString();
+        String screen = getIntent().getExtras().getString("screen");
 
         if(screen.equals("CC8")) {
             CC8_Movies();

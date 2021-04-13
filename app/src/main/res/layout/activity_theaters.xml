@@ -70,6 +70,7 @@
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="10dp"
                             android:background="#00FFFFFF"
+                            android:onClick="CC8_Theaters"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:srcCompat="@drawable/caribcin" />
@@ -276,6 +277,7 @@
                             android:layout_height="71dp"
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="20dp"
+                            android:onClick="MT_Theaters"
                             android:scaleType="centerInside"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -424,6 +426,7 @@
                            android:layout_height="89dp"
                            android:layout_marginStart="20dp"
                            android:layout_marginTop="20dp"
+                           android:onClick="CONE_Theaters"
                            android:scaleType="centerCrop"
                            app:layout_constraintStart_toStartOf="parent"
                            app:layout_constraintTop_toTopOf="parent"

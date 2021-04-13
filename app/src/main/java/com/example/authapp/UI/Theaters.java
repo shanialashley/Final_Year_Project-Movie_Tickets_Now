@@ -39,8 +39,7 @@ public class Theaters extends AppCompatActivity {
     private TextView imax_title, imax_num, imax_address;
     private ImageView imax_map, imax_call, imax_icon;
 
-
-    private View divider3, divider5, divider7;
+    private View d2, d4, d6;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
@@ -78,6 +77,7 @@ public class Theaters extends AppCompatActivity {
 
     private void init() {
 
+        d2 = findViewById(R.id.divider2);
         cabcin_title = findViewById(R.id.theater_cabcin_title);
         cabcin_address = findViewById(R.id.theater_cabcin_loc_addr);
         cabcin_num = findViewById(R.id.theater_cabcin_loc_num);
@@ -89,13 +89,14 @@ public class Theaters extends AppCompatActivity {
         cabcin_map = findViewById(R.id.theater_cabcin_map);
         cabcin_phone_call = findViewById(R.id.theater_cabcin_call);
 
+        d4 = findViewById(R.id.divider4);
         mt_title = findViewById(R.id.theater_mt_title);
         mt_address = findViewById(R.id.theaters_mt_loc_addr);
         mt_num = findViewById(R.id.theater_mt_loc_num);
         mt_map = findViewById(R.id.theater_mt_map);
         mt_call = findViewById(R.id.theater_mt_call);
 
-
+        d6 = findViewById(R.id.divider6);
         imax_title = findViewById(R.id.theaters_imax_title);
         imax_address = findViewById(R.id.theaters_imax_loc_addr);
         imax_num = findViewById(R.id.theaters_imax_loc_num);
@@ -103,6 +104,25 @@ public class Theaters extends AppCompatActivity {
         imax_call = findViewById(R.id.theater_imax_call);
         imax_icon = findViewById(R.id.theaters_imax_locations_icon);
 
+    }
+
+
+    public void CC8_Theaters(View v){
+        Intent in = new Intent(Theaters.this, SingleTheaterMovies.class);
+        in.putExtra("screen", "CC8");
+        startActivity(in);
+    }
+
+    public void MT_Theaters(View v){
+        Intent in = new Intent(Theaters.this, SingleTheaterMovies.class);
+        in.putExtra("screen", "MT");
+        startActivity(in);
+    }
+
+    public void CONE_Theaters(View v){
+        Intent in = new Intent(Theaters.this, SingleTheaterMovies.class);
+        in.putExtra("screen", "CONE");
+        startActivity(in);
     }
 
     public void NavInfo(){
@@ -200,6 +220,7 @@ public class Theaters extends AppCompatActivity {
 
 
     public void CaribCin_ViewGone(){
+        d2.setVisibility(View.GONE);
         cabcin_title.setVisibility(View.GONE);
         cabcin_address.setVisibility(View.GONE);
         cabcin_num.setVisibility(View.GONE);
@@ -210,40 +231,40 @@ public class Theaters extends AppCompatActivity {
         img5.setVisibility(View.GONE);
         cabcin_map.setVisibility(View.GONE);
         cabcin_phone_call.setVisibility(View.GONE);
-        divider3.setVisibility(View.GONE);
+
 
     }
 
     public void Mt_ViewGone() {
 
+        d4.setVisibility(View.GONE);
         mt_title.setVisibility(View.GONE);
         mt_address.setVisibility(View.GONE);
         mt_num.setVisibility(View.GONE);
         mt_map.setVisibility(View.GONE);
         mt_call.setVisibility(View.GONE);
-        divider5.setVisibility(View.GONE);
 
     }
 
     public void Mt_View() {
-
+        d4.setVisibility(View.VISIBLE);
         mt_title.setVisibility(View.VISIBLE);
         mt_address.setVisibility(View.VISIBLE);
         mt_num.setVisibility(View.VISIBLE);
         mt_map.setVisibility(View.VISIBLE);
         mt_call.setVisibility(View.VISIBLE);
-        divider5.setVisibility(View.VISIBLE);
+
 
     }
 
     public void Imax_ViewGone() {
-
+        d6.setVisibility(View.GONE);
         imax_title.setVisibility(View.GONE);
         imax_address.setVisibility(View.GONE);
         imax_num.setVisibility(View.GONE);
         imax_map.setVisibility(View.GONE);
         imax_call.setVisibility(View.GONE);
-        divider7.setVisibility(View.GONE);
+
 
     }
 
@@ -307,7 +328,8 @@ public class Theaters extends AppCompatActivity {
                         img3.setVisibility(View.VISIBLE);
                         cabcin_map.setVisibility(View.VISIBLE);
                         cabcin_phone_call.setVisibility(View.VISIBLE);
-                        divider3.setVisibility(View.VISIBLE);
+                        d2.setVisibility(View.VISIBLE);
+
 
                         return true;
 
@@ -386,7 +408,8 @@ public class Theaters extends AppCompatActivity {
                         img5.setVisibility(View.VISIBLE);
                         cabcin_map.setVisibility(View.VISIBLE);
                         cabcin_phone_call.setVisibility(View.VISIBLE);
-                        divider3.setVisibility(View.VISIBLE);
+                        d2.setVisibility(View.VISIBLE);
+
 
                         return true;
                     default:
@@ -596,7 +619,6 @@ public class Theaters extends AppCompatActivity {
         imax_num.setVisibility(View.VISIBLE);
         imax_map.setVisibility(View.VISIBLE);
         imax_call.setVisibility(View.VISIBLE);
-        divider7.setVisibility(View.VISIBLE);
 
     }
 
