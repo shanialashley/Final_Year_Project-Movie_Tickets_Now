@@ -666,13 +666,7 @@
             android:textColor="@color/orange"
             android:textSize="24sp"
             android:textStyle="bold"
-            app:backgroundTint="@color/blue"
-            android:cornerRadius="10dp"
-            app:elevation="10dp"
-            app:icon="@drawable/add_movie"
-            app:iconTint="@color/orange"
-            app:strokeColor="@color/orange"
-            app:strokeWidth="3dp" />
+            android:background="@drawable/button_bg"/>
 
     </LinearLayout>
 

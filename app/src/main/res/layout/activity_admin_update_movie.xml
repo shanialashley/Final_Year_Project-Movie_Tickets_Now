@@ -52,12 +52,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:background="@drawable/button_bg"
             android:fontFamily="@font/marko_one"
             android:text="Display"
+
             android:textColor="@color/orange"
             android:textSize="18sp"
-            app:backgroundTint="@color/blue"
-            app:cornerRadius="10dp"
             app:layout_constraintEnd_toStartOf="@+id/movie_cover"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -235,13 +235,10 @@
                 android:text="Upload Thumbnail"
                 android:textColor="@color/orange"
                 android:textSize="18sp"
-                app:backgroundTint="@color/blue"
-                app:cornerRadius="10dp"
-                app:elevation="10dp"
+                android:background="@drawable/button_bg"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:strokeColor="@color/orange"
-                app:strokeWidth="3dp" />
+                />
 
             <ImageView
                 android:id="@+id/upd_movie_thumbnail"
@@ -290,14 +287,12 @@
                 android:fontFamily="@font/marko_one"
                 android:text="Upload Cover"
                 android:textColor="@color/orange"
+                android:background="@drawable/button_bg"
                 android:textSize="18sp"
-                app:backgroundTint="@color/blue"
-                app:cornerRadius="10dp"
                 app:elevation="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:strokeColor="@color/orange"
-                app:strokeWidth="3dp" />
+                />
 
             <ImageView
                 android:id="@+id/upd_movie_cover"
@@ -341,8 +336,7 @@
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:backgroundTint="@color/green"
-            app:cornerRadius="10dp"
+            android:background="@drawable/greenbutton_bg"
             app:elevation="10dp"
             app:layout_constraintEnd_toStartOf="@+id/movie_cover"
             app:layout_constraintStart_toStartOf="parent"
@@ -360,14 +354,12 @@
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:backgroundTint="#C30422"
-            app:cornerRadius="10dp"
+            android:background="@drawable/redbutton_bg"
             app:elevation="10dp"
             app:layout_constraintEnd_toStartOf="@+id/movie_cover"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:strokeColor="@color/black"
-            app:strokeWidth="3dp" />
+            />
 
     </LinearLayout>
 

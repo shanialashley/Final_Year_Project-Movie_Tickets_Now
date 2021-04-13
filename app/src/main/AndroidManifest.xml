@@ -3,6 +3,7 @@
     package="com.example.authapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
@@ -35,7 +36,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AuthApp"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Admin.AdminConeTS"></activity>
+        <activity android:name=".Admin.AdminQRCScanner"></activity>
+        <activity android:name=".Admin.AdminConeTS" />
         <activity android:name=".Admin.AdminMTTS" />
         <activity android:name=".Admin.AdminCC8TS" />
         <activity android:name=".Admin.AdminUpdateMovie" />

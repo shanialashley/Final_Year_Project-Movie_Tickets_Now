@@ -65,11 +65,11 @@
             android:textSize="24sp"
             android:textStyle="bold"
             app:backgroundTint="#0AFFFFFF"
-            android:cornerRadius="10dp"
             app:elevation="20dp"
             app:iconSize="120dp"
             app:strokeColor="@color/blue"
-            app:strokeWidth="5dp" />
+            app:strokeWidth="5dp"
+            tools:ignore="MissingPrefix" />
 
         <Button
             android:id="@+id/ct_mt"
@@ -83,17 +83,16 @@
             android:drawingCacheQuality="auto"
             android:fitsSystemWindows="true"
             android:fontFamily="@font/amaranth"
-
             android:padding="10dp"
             android:text="Movie Towne"
             android:textColor="@color/green"
             android:textSize="24sp"
             android:textStyle="bold"
             app:backgroundTint="#0AFFFFFF"
-            android:cornerRadius="10dp"
             app:elevation="20dp"
             app:strokeColor="@color/blue"
-            app:strokeWidth="5dp" />
+            app:strokeWidth="5dp"
+            tools:ignore="MissingPrefix" />
 
         <Button
             android:id="@+id/ct_cone"
@@ -110,10 +109,10 @@
             android:textSize="24sp"
             android:textStyle="bold"
             app:backgroundTint="#0AFFFFFF"
-            android:cornerRadius="10dp"
             app:elevation="20dp"
             app:strokeColor="@color/blue"
-            app:strokeWidth="5dp" />
+            app:strokeWidth="5dp"
+            tools:ignore="MissingPrefix" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

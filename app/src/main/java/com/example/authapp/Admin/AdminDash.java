@@ -57,8 +57,8 @@ public class AdminDash extends AppCompatActivity {
         timeSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, AddTime.class);
-//                startActivity(intent);
+                Intent intent = new Intent(AdminDash.this, AdminTimeSchedule.class);
+                startActivity(intent);
             }
         });
 
@@ -67,6 +67,8 @@ public class AdminDash extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                Intent intent = new Intent(AdminDash.this, AdminQRCScanner.class);
+                startActivity(intent);
             }
         });
 

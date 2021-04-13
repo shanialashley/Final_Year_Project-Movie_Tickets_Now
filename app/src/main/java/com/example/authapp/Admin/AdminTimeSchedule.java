@@ -47,7 +47,27 @@ public class AdminTimeSchedule extends AppCompatActivity {
         });
 
         mt_B = findViewById(R.id.ct_mt);
+        mt_B.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                Intent intent = new Intent(AdminTimeSchedule.this, AdminMTTS.class);
+                intent.putExtra("TimeS_Key", id.getText().toString().trim());
+                startActivity(intent);
+            }
+        });
         cone_B = findViewById(R.id.ct_cone);
+        cone_B.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                Intent intent = new Intent(AdminTimeSchedule.this, AdminConeTS.class);
+                intent.putExtra("TimeS_Key", id.getText().toString().trim());
+                startActivity(intent);
+            }
+        });
 
     }
 }
