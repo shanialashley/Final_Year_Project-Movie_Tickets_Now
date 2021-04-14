@@ -65,7 +65,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         movie = (Movies) getIntent().getExtras().getSerializable("currentMovie");
 
         String movieTitle = movie.getTitle();
-        setTitle(movieTitle);
+        getSupportActionBar().setTitle(movieTitle);
         String thumbnail = movie.getThumbnail_url();
         String cover = movie.getCover_url();
         String descrip = movie.getDescription();

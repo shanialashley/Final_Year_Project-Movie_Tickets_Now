@@ -242,7 +242,7 @@ public class AdminAddMovie extends AppCompatActivity {
                 GetInfo();
                 Movies movie = new Movies();
 
-                StorageReference Ref = mstorageRef.child("Thumbnails/" + imageN + "_thumbnail");
+                StorageReference Ref = mstorageRef.child("Thumbnail/" + imageN + "_thumbnail");
                 mUplpoadTask = Ref.putFile(thumbnailUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
