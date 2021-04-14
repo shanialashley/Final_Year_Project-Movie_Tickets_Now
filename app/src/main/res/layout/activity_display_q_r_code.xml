@@ -12,10 +12,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar"/>
 
             <View
                 android:id="@+id/ds_divider1"
@@ -42,11 +48,11 @@
 
             <ImageView
                 android:id="@+id/imageView2"
-                android:layout_width="300dp"
-                android:layout_height="300dp"
+                android:layout_width="304dp"
+                android:layout_height="233dp"
                 android:layout_gravity="center"
-                android:layout_weight="1"
                 android:layout_marginBottom="20dp"
+                android:layout_weight="1"
                 app:srcCompat="@drawable/movie_tickets_now__1_" />
 
             <View
@@ -67,8 +73,12 @@
                 android:id="@+id/d_qrc_return"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_weight="1"
-                android:text="Button" />
+                android:background="@drawable/button_bg"
+                android:text="Save Tickets" />
 
 
         </LinearLayout>
