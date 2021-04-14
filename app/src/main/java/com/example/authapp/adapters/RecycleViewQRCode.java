@@ -57,7 +57,8 @@ public class RecycleViewQRCode extends RecyclerView.Adapter<RecycleViewQRCode.My
                  value += qrc_list.get(position).getTitle()+ "\n";
                  value += qrc_list.get(position).getDate()+ "\n";
                  value += qrc_list.get(position).getTime()+ "\n";
-                 value += qrc_list.get(position).getTicket_type();
+                 value += qrc_list.get(position).getTicket_type() + "\n";
+                 value += "Access Granted";
 
 
 

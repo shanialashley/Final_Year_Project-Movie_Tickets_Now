@@ -135,7 +135,7 @@ public class DisplayQRCode extends AppCompatActivity implements SaveQRCClickList
             e.printStackTrace();
         }
 
-//        return b;
+
     }
 
 

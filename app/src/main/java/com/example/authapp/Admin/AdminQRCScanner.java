@@ -49,6 +49,7 @@ public class AdminQRCScanner extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
                         qrc_result.setText(result.getText());
                     }
                 });
