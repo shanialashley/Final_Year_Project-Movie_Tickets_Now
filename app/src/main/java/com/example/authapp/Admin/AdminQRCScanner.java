@@ -84,6 +84,7 @@ public class AdminQRCScanner extends AppCompatActivity {
             @Override
             public void onPermissionGranted(PermissionGrantedResponse response) {
                 codeScanner.startPreview();
+                qrc_result.setText("Start New Scan");
             }
 
             @Override

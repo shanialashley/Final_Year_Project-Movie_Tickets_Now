@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.authapp.Admin.AdminDash;
 import com.example.authapp.Model.Movies;
 import com.example.authapp.Model.Slide;
 import com.example.authapp.R;
@@ -130,6 +131,39 @@ public class Home extends AppCompatActivity implements MovieItemClickListener, N
 
 
 
+
+
+    }
+
+    private void AdminView(String e) {
+
+        Query q = FirebaseDatabase.getInstance().getReference("Admin")
+                .orderByChild("email").equalTo(e);
+        q.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String email = ss.child("email").getValue(String.class);
+                        if (email != null) {
+                            if (!email.equalsIgnoreCase(e)) {
+                                menu.findItem(R.id.nav_admin).setVisible(false);
+                            }
+
+                        }
+                    }
+
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     @Override
@@ -172,6 +206,9 @@ public class Home extends AppCompatActivity implements MovieItemClickListener, N
             case R.id.nav_login:
                 startActivity(new Intent(Home.this, MainActivity.class).putExtra("Screen", "home"));
                 break;
+
+            case R.id.nav_admin:
+                startActivity(new Intent(Home.this, AdminDash.class));
 
 
         }

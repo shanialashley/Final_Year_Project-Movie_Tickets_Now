@@ -123,26 +123,6 @@ public class Purchases extends AppCompatActivity {
 
         paypayB = findViewById(R.id.p_paypalB);
 
-        creditB = findViewById(R.id.p_creditB);
-        creditB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                UpdateReport();
-                Intent display = new Intent(Purchases.this, DisplayQRCode.class);
-                display.putExtra("theater_title", theater_title);
-                display.putExtra("title", title);
-                display.putExtra("date", date);
-                display.putExtra("time", time);
-                display.putExtra("seniorT", seniorT);
-                display.putExtra("adultT", adultT);
-                display.putExtra("childT", childT);
-                startActivity(display);
-
-
-            }
-        });
-
-
 
 
         paypayB.setOnClickListener(new View.OnClickListener() {

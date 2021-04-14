@@ -166,6 +166,8 @@ public class SingleTheaterMovies extends AppCompatActivity implements MovieItemC
     public void onMovieClick(Movies movie, ImageView movieImageView) {
         Intent intent = new Intent(this, MovieDetailsActivity.class);
         intent.putExtra("currentMovie", movie);
+        int k = MovieList.indexOf(movie);
+        intent.putExtra("key", Moviekey.get(k));
 
         @SuppressLint({"NewApi", "LocalSuppress"})
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SingleTheaterMovies.this, movieImageView, "sharedTransName");

@@ -89,9 +89,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
         movieDTitle = findViewById(R.id.detail_movie_title);
         movieDTitle.setText(movieTitle);
 
-        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(movieTitle);
 
         movieDDescription = findViewById(R.id.detail_movie_description);
         movieDDescription.setText(descrip);

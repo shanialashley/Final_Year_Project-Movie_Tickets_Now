@@ -1,9 +1,12 @@
 package com.example.authapp.Admin;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -52,6 +55,29 @@ public class AdminDisplayMovies extends AppCompatActivity {
         DisplayAll();
 
         ds_search = findViewById(R.id.ds_search);
+        ds_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.toString() != null || s.toString() != "" ){
+                    SearchDisplay(s.toString());
+                }else{
+                    SearchDisplay("");
+                    Toast.makeText(AdminDisplayMovies.this, "", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
         ds_search.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -105,7 +131,7 @@ public class AdminDisplayMovies extends AppCompatActivity {
 
         if(!text.isEmpty()){
             currentMoviesQ = FirebaseDatabase.getInstance().getReference("Movies")
-                    .orderByChild("title").equalTo(text);
+                    .orderByChild("title").startAt(text).endAt(text + "\uf8ff");
             currentMoviesQ.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -137,7 +163,7 @@ public class AdminDisplayMovies extends AppCompatActivity {
             if(moviesList.isEmpty()){
 
                 currentMoviesQ = FirebaseDatabase.getInstance().getReference("Movies")
-                        .orderByKey().equalTo(text);
+                        .orderByKey().startAt(text);
                 currentMoviesQ.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -151,9 +177,16 @@ public class AdminDisplayMovies extends AppCompatActivity {
                                 moviesList.add(m);
                             }
 
-                            RecycleViewDisplayAdp mAdp = new RecycleViewDisplayAdp(AdminDisplayMovies.this, moviesList, movieKey);
-                            ds_recycleV.setAdapter(mAdp);
-                            ds_recycleV.setLayoutManager(new LinearLayoutManager(AdminDisplayMovies.this, LinearLayoutManager.VERTICAL, false));
+                            if(!moviesList.isEmpty()){
+                                RecycleViewDisplayAdp mAdp = new RecycleViewDisplayAdp(AdminDisplayMovies.this, moviesList, movieKey);
+                                ds_recycleV.setAdapter(mAdp);
+                                ds_recycleV.setLayoutManager(new LinearLayoutManager(AdminDisplayMovies.this, LinearLayoutManager.VERTICAL, false));
+                                moviesList.clear();
+                                mAdp.notifyDataSetChanged();
+
+                            }
+
+
                         }
 
                     }

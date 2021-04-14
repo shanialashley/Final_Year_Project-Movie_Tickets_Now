@@ -43,6 +43,11 @@
                 android:icon="@drawable/login"
                 android:title="Log In" />
 
+            <item
+                android:id="@+id/nav_admin"
+                android:icon="@drawable/ic_baseline_admin_panel_settings_24"
+                android:title="Admin View" />
+
 
         </menu>
 
