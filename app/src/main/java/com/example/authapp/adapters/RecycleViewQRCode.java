@@ -18,6 +18,7 @@ import com.example.authapp.Model.QRCode;
 import com.example.authapp.R;
 
 import java.util.List;
+import java.util.Random;
 
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
@@ -27,6 +28,8 @@ public class RecycleViewQRCode extends RecyclerView.Adapter<RecycleViewQRCode.My
     private Context context;
     private List<QRCode> qrc_list;
     private SaveQRCClickListener listener;
+    Random rand = new Random();
+
 
     public RecycleViewQRCode(Context context, List<QRCode> qrc_list, SaveQRCClickListener listener) {
         this.context = context;
@@ -47,17 +50,21 @@ public class RecycleViewQRCode extends RecyclerView.Adapter<RecycleViewQRCode.My
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
+        int num =  rand.nextInt(1999999 + 12300) + 12300;
         holder.theater_title.setText(qrc_list.get(position).getTheater_title());
         holder.title.setText(qrc_list.get(position).getTitle());
         holder.date.setText(qrc_list.get(position).getDate());
         holder.time.setText(qrc_list.get(position).getTime());
         holder.ticket_type.setText(qrc_list.get(position).getTicket_type());
+        holder.id_code.setText(String.valueOf(num));
 
+        qrc_list.get(position).setId_code(String.valueOf(num));
             String value = qrc_list.get(position).getTheater_title() + "\n";
                  value += qrc_list.get(position).getTitle()+ "\n";
                  value += qrc_list.get(position).getDate()+ "\n";
                  value += qrc_list.get(position).getTime()+ "\n";
                  value += qrc_list.get(position).getTicket_type() + "\n";
+                 value +=  num + "\n";
                  value += "Access Granted";
 
 
@@ -74,8 +81,6 @@ public class RecycleViewQRCode extends RecyclerView.Adapter<RecycleViewQRCode.My
                      Toast.makeText(context, value, Toast.LENGTH_SHORT).show();
                  }
 
-//             Bitmap b = ScreenShot.takeScreenShotOfQRC(holder.cardV_qrc);
-//             Bitmap
 
         String k = qrc_list.get(position).getTicket_type() + ".png";
 
@@ -84,12 +89,16 @@ public class RecycleViewQRCode extends RecyclerView.Adapter<RecycleViewQRCode.My
             @Override
             public void onClick(View v) {
                 listener.onSave(k, holder.qrc_ll);
+
+
             }
         });
 
 
 
+
     }
+
 
 
 
@@ -103,7 +112,7 @@ public class RecycleViewQRCode extends RecyclerView.Adapter<RecycleViewQRCode.My
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
         CardView cardV_qrc;
-        TextView theater_title, title, date, time, ticket_type;
+        TextView theater_title, title, date, time, ticket_type, id_code;
         ImageView qrcImg;
         LinearLayout qrc_ll;
 
@@ -118,6 +127,8 @@ public class RecycleViewQRCode extends RecyclerView.Adapter<RecycleViewQRCode.My
             ticket_type = itemView.findViewById(R.id.ds_ticket_type);
             qrcImg = itemView.findViewById(R.id.ds_qrImage);
             qrc_ll = itemView.findViewById(R.id.qrc_ll);
+            id_code = itemView.findViewById(R.id.ds_id_code);
+
 
 
         }

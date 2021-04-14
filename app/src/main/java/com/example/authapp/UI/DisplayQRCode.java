@@ -138,5 +138,14 @@ public class DisplayQRCode extends AppCompatActivity implements SaveQRCClickList
 
     }
 
+    @Override
+    public void saveToDB(Bitmap bm, QRCode qrCode) {
+
+//        DatabaseReference addR = FirebaseDatabase.getInstance().getReference("QRC_Purchased").child(qrCode.getId_code());
+//        StorageReference storeR = FirebaseStorage.getInstance().getReference("QRC").child("QRC_Purchased");
+
+    }
+
 
 }
+
