@@ -52,6 +52,8 @@ public class Search extends AppCompatActivity  implements MovieItemClickListener
     private Query searchQ;
     private FirebaseAuth mAuth;
     private FirebaseUser currentuser;
+    List<Movies> MovieList;
+    List<String> Moviekey;
     Menu menu;
 
     @Override
@@ -185,7 +187,9 @@ public class Search extends AppCompatActivity  implements MovieItemClickListener
 
     private void SearchDisplay(String title) {
 
-        List<Movies> mlist = new ArrayList<>();
+        MovieList = new ArrayList<>();
+        Moviekey = new ArrayList<>();
+
             if(!title.equals("")) {
                 DatabaseReference result = FirebaseDatabase.getInstance().getReference().child("Movies");
                 searchQ = result.orderByChild("title").startAt(title).endAt(title + "\uf8ff");
@@ -195,10 +199,12 @@ public class Search extends AppCompatActivity  implements MovieItemClickListener
                         if (snapshot.exists()) {
                             for (DataSnapshot ss : snapshot.getChildren()) {
                                 Movies m = ss.getValue(Movies.class);
-                                mlist.add(m);
+                                String temp = ss.getKey();
+                                Moviekey.add(temp);
+                                MovieList.add(m);
                             }
                             searchRV.setVisibility(View.VISIBLE);
-                            RecycleViewAdapterUpMovies resultDAdp = new RecycleViewAdapterUpMovies(Search.this, mlist, Search.this);
+                            RecycleViewAdapterUpMovies resultDAdp = new RecycleViewAdapterUpMovies(Search.this, MovieList, Search.this);
                             searchRV.setLayoutManager(new GridLayoutManager(Search.this, 3));
                             searchRV.setAdapter(resultDAdp);
                         }
@@ -211,7 +217,7 @@ public class Search extends AppCompatActivity  implements MovieItemClickListener
                 });
 
             }else{
-                mlist.clear();
+                MovieList.clear();
                 searchRV.setVisibility(View.INVISIBLE);
             }
 
@@ -223,6 +229,9 @@ public class Search extends AppCompatActivity  implements MovieItemClickListener
 
         Intent intent = new Intent(this, MovieDetailsActivity.class);
         intent.putExtra("currentMovie", movie);
+        int k = MovieList.indexOf(movie);
+        intent.putExtra("key", Moviekey.get(k));
+
         @SuppressLint({"NewApi", "LocalSuppress"})
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Search.this, movieImageView, "sharedTransName");
         startActivity(intent, options.toBundle());

@@ -57,7 +57,7 @@ public class DisplayQRCode extends AppCompatActivity implements SaveQRCClickList
         d_qr_return.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onSave("Tickets", qrc_recycleV );
+                startActivity(new Intent(DisplayQRCode.this, Home.class));
 
             }
         });

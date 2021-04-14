@@ -18,25 +18,12 @@
             android:id="@+id/toolbar"
             layout="@layout/toolbar" />
 
-        <TextView
-            android:id="@+id/p_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Payment Information"
-            android:fontFamily="@font/amaranth"
-            android:textColor="@color/orange"
-            android:textSize="30sp"
-            android:gravity="center"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            />
 
         <View
             android:id="@+id/p_divider"
             android:layout_width="match_parent"
             android:layout_height="5dp"
-            android:background="@color/grey" />
+            android:background="@color/orange" />
 
         <TextView
             android:id="@+id/p_theater"
@@ -173,14 +160,12 @@
             android:background="@color/orange" />
 
 
-
-
             <Button
                 android:id="@+id/p_paypalB"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_weight="1"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="60dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"
@@ -191,22 +176,6 @@
                 android:textStyle="bold"
                 android:text="Pay VIA PayPal" />
 
-        <Button
-            android:id="@+id/p_creditB"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="20dp"
-            android:layout_weight="1"
-            android:background="@color/black"
-            android:padding="5dp"
-            android:elevation="20dp"
-            android:text="Pay VIA Credit Card"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
 
 
 

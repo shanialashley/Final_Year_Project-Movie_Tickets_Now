@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.authapp.Admin.AdminLogin;
 import com.example.authapp.Model.Movies;
 import com.example.authapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,7 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView signup, forgetPwd;
+    private TextView signup, forgetPwd, adminlogin;
     private EditText username, pwd;
     private Button login;
     private ImageButton showp;
@@ -39,6 +40,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
+
+        adminlogin = findViewById(R.id.adminlogin);
+        adminlogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, AdminLogin.class));
+            }
+        });
+
 
         forgetPwd = findViewById(R.id.forgetPwd);
         forgetPwd.setOnClickListener(new View.OnClickListener() {

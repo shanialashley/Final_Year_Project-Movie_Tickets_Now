@@ -14,7 +14,7 @@
         android:layout_height="match_parent">
 
         <include
-            android:id="@+id/toolbar"
+            android:id="@+id/toolbar_md"
             layout="@layout/toolbar"/>
 
         <ImageView

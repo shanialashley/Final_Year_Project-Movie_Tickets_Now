@@ -183,14 +183,12 @@ public class Home extends AppCompatActivity implements MovieItemClickListener, N
     public void SlidesInfor(){
 
         Slides_list = new ArrayList<>();
-        Slides_list.add(new Slide(R.drawable.tom_and_jerry, "Tom And Jerry"));
-        Slides_list.add(new Slide(R.drawable.monster_hunter, "Monster Hunter"));
-        Slides_list.add(new Slide(R.drawable.the_marksman, "The Marksman"));
-        Slides_list.add(new Slide(R.drawable.the_mauritanian, "The Mauritanian"));
+        Slides_list.add(new Slide(R.drawable.mortal, "Mortal Kombat (This Friday)"));
+        Slides_list.add(new Slide(R.drawable.godzilla_vs_kong, "Kong VS Godzilla"));
+        Slides_list.add(new Slide(R.drawable.raya, "Raya And The Last Dragon"));
+        Slides_list.add(new Slide(R.drawable.fatale, "Fatale"));
         Slides_list.add(new Slide(R.drawable.the_little_things, "The Little Things"));
         Slides_list.add(new Slide(R.drawable.greenland, "Greenland"));
-        Slides_list.add(new Slide(R.drawable.judas, "Judas and the Black Messiah"));
-        Slides_list.add(new Slide(R.drawable.wrong_turn, "Wrong Turn"));
 
         adp = new SliderPagerAdapter(Home.this, Slides_list);
 

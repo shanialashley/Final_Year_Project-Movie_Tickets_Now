@@ -25,16 +25,16 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private FloatingActionButton play_fab;
     private Toolbar toolbar;
     Movies movie;
+    String movieTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
 
-        ToolbarInfo();
+
         iniViews();
-
-
+        ToolbarInfo();
 
 
 
@@ -44,9 +44,9 @@ public class MovieDetailsActivity extends AppCompatActivity {
     public void ToolbarInfo(){
 
 
-        toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar_md);
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setTitle(movieTitle);
         toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,8 +64,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         movie = (Movies) getIntent().getExtras().getSerializable("currentMovie");
 
-        String movieTitle = movie.getTitle();
-        getSupportActionBar().setTitle(movieTitle);
+        movieTitle = movie.getTitle();
         String thumbnail = movie.getThumbnail_url();
         String cover = movie.getCover_url();
         String descrip = movie.getDescription();

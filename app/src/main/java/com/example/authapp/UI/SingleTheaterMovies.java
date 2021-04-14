@@ -35,6 +35,8 @@ public class SingleTheaterMovies extends AppCompatActivity implements MovieItemC
     private DatabaseReference movies_Ref;
     private RecycleViewAdapterUpMovies stmAdp;
     private Toolbar toolbar;
+    List<Movies> MovieList;
+    List<String> Moviekey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +84,9 @@ public class SingleTheaterMovies extends AppCompatActivity implements MovieItemC
 
     private void CC8_Movies() {
 
+        MovieList = new ArrayList<>();
+        Moviekey = new ArrayList<>();
+
        Query ref = FirebaseDatabase.getInstance().getReference("Movies").orderByChild("type").equalTo("current");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -93,13 +98,15 @@ public class SingleTheaterMovies extends AppCompatActivity implements MovieItemC
                             String t = ss.child("theaters").child("T_CC8").getValue(String.class);
                             if(t != null){
                                 if(t.equals("true")) {
-                                    mLt.add(m);
+                                    String temp = ss.getKey();
+                                    Moviekey.add(temp);
+                                    MovieList.add(m);
                                 }
                             }
                     }
                 }
 
-                stmAdp = new RecycleViewAdapterUpMovies(SingleTheaterMovies.this, mLt, SingleTheaterMovies.this);
+                stmAdp = new RecycleViewAdapterUpMovies(SingleTheaterMovies.this, MovieList, SingleTheaterMovies.this);
                 stm_RV.setLayoutManager(new GridLayoutManager(SingleTheaterMovies.this, 3));
                 stm_RV.setAdapter(stmAdp);
 
@@ -117,6 +124,9 @@ public class SingleTheaterMovies extends AppCompatActivity implements MovieItemC
 
     private void MT_Movies() {
 
+        MovieList = new ArrayList<>();
+        Moviekey = new ArrayList<>();
+
         Query ref = FirebaseDatabase.getInstance().getReference("Movies").orderByChild("type").equalTo("current");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -128,13 +138,15 @@ public class SingleTheaterMovies extends AppCompatActivity implements MovieItemC
                         String t = ss.child("theaters").child("T_MT").getValue(String.class);
                         if(t != null){
                             if(t.equals("true")) {
-                                mLt.add(m);
+                                String temp = ss.getKey();
+                                Moviekey.add(temp);
+                                MovieList.add(m);
                             }
                         }
                     }
                 }
 
-                stmAdp = new RecycleViewAdapterUpMovies(SingleTheaterMovies.this, mLt, SingleTheaterMovies.this);
+                stmAdp = new RecycleViewAdapterUpMovies(SingleTheaterMovies.this, MovieList, SingleTheaterMovies.this);
                 stm_RV.setLayoutManager(new GridLayoutManager(SingleTheaterMovies.this, 3));
                 stm_RV.setAdapter(stmAdp);
 
@@ -163,6 +175,9 @@ public class SingleTheaterMovies extends AppCompatActivity implements MovieItemC
 
     private void CONE_Movies() {
 
+        MovieList = new ArrayList<>();
+        Moviekey = new ArrayList<>();
+
         Query ref = FirebaseDatabase.getInstance().getReference("Movies").orderByChild("type").equalTo("current");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -174,13 +189,15 @@ public class SingleTheaterMovies extends AppCompatActivity implements MovieItemC
                         String t = ss.child("theaters").child("T_CONE").getValue(String.class);
                         if(t != null){
                             if(t.equals("true")) {
-                                mLt.add(m);
+                                String temp = ss.getKey();
+                                Moviekey.add(temp);
+                                MovieList.add(m);
                             }
                         }
                     }
                 }
 
-                stmAdp = new RecycleViewAdapterUpMovies(SingleTheaterMovies.this, mLt, SingleTheaterMovies.this);
+                stmAdp = new RecycleViewAdapterUpMovies(SingleTheaterMovies.this, MovieList, SingleTheaterMovies.this);
                 stm_RV.setLayoutManager(new GridLayoutManager(SingleTheaterMovies.this, 3));
                 stm_RV.setAdapter(stmAdp);
 
