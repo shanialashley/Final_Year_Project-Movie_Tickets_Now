@@ -66,7 +66,7 @@ public class AdminCC8TS extends AppCompatActivity {
 
     private void init() {
 
-        timeS_id = findViewById(R.id.adTime_id);
+        timeS_id = findViewById(R.id.adTime_idCONE);
         timeS_id.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {

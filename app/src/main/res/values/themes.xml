@@ -50,8 +50,11 @@
     </style>
 
     <style name="CustomSpinner">
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/blue</item>
         <item name="android:textSize">18dp</item>
+        <item name="textSize">18dp</item>
+        <item name="textColor">@color/white</item>
+        <item name="android:background">@color/orange</item>
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">@font/marko_one</item>
     </style>
