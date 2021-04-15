@@ -2,7 +2,7 @@ package com.example.authapp.Model;
 
 public class QRCode {
 
-    String theater_title, title, date, time, ticket_type, id_code;
+    String theater_title, title, date, time, ticket_type, id_code, qrc_img;
 
     public QRCode(String theater_title, String title, String date, String time, String ticket_type) {
         this.theater_title = theater_title;
@@ -15,13 +15,14 @@ public class QRCode {
     public QRCode() {
     }
 
-    public QRCode(String theater_title, String title, String date, String time, String ticket_type, String id_code) {
+    public QRCode(String theater_title, String title, String date, String time, String ticket_type, String id_code, String qrc_img) {
         this.theater_title = theater_title;
         this.title = title;
         this.date = date;
         this.time = time;
         this.ticket_type = ticket_type;
         this.id_code = id_code;
+        this.qrc_img = qrc_img;
     }
 
     public String getTheater_title() {
@@ -70,5 +71,13 @@ public class QRCode {
 
     public void setId_code(String id_code) {
         this.id_code = id_code;
+    }
+
+    public String getQrc_img() {
+        return qrc_img;
+    }
+
+    public void setQrc_img(String qrc_img) {
+        this.qrc_img = qrc_img;
     }
 }

@@ -128,9 +128,9 @@ public class MainActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
 
 //                    Bundle data = ;
-                    String s =getIntent().getExtras().getString("Screen");
+                    String s = getIntent().getExtras().getString("Screen");
 
-                    if(s.equals("Select_Tickets")) {
+                    if(s.equals("Select Tickets")) {
 
                         movie = (Movies) getIntent().getExtras().getSerializable("currentMovie");
                         selectedDate = getIntent().getExtras().getString("selectedDate");
@@ -145,10 +145,9 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(in);
                     }else{
                         startActivity(new Intent(MainActivity.this, Home.class));
-
-
-
                     }
+
+
                 }else{
                     Toast.makeText(MainActivity.this, "Failed to login! Please check your credentials", Toast.LENGTH_LONG).show();
                 }

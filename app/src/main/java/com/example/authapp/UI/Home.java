@@ -92,6 +92,7 @@ public class Home extends AppCompatActivity implements MovieItemClickListener, N
         currentuser = mAuth.getCurrentUser();
         if(currentuser == null) {
             menu.findItem(R.id.nav_logout).setVisible(false);
+            menu.findItem(R.id.nav_admin).setVisible(false);
 
         }else{
             menu.findItem(R.id.nav_login).setVisible(false);

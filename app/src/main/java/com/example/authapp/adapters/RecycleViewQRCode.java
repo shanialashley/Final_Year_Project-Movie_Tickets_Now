@@ -29,6 +29,7 @@ public class RecycleViewQRCode extends RecyclerView.Adapter<RecycleViewQRCode.My
     private List<QRCode> qrc_list;
     private SaveQRCClickListener listener;
     Random rand = new Random();
+    Bitmap qrBits;
 
 
     public RecycleViewQRCode(Context context, List<QRCode> qrc_list, SaveQRCClickListener listener) {
@@ -65,15 +66,16 @@ public class RecycleViewQRCode extends RecyclerView.Adapter<RecycleViewQRCode.My
                  value += qrc_list.get(position).getTime()+ "\n";
                  value += qrc_list.get(position).getTicket_type() + "\n";
                  value +=  num + "\n";
-                 value += "Access Granted";
+//                 value += "Access Granted";
 
 
 
                  if(value.length() >0) {
                      QRGEncoder qrgEncoder = new QRGEncoder(value, null, QRGContents.Type.TEXT, 500);
                      try {
-                         Bitmap qrBits = qrgEncoder.getBitmap();
+                            qrBits = qrgEncoder.getBitmap();
                          holder.qrcImg.setImageBitmap(qrBits);
+
                      } catch (Exception e) {
                          e.printStackTrace();
                      }
@@ -84,12 +86,13 @@ public class RecycleViewQRCode extends RecyclerView.Adapter<RecycleViewQRCode.My
 
         String k = qrc_list.get(position).getTicket_type() + ".png";
 
+
         //setting up listener
         holder.cardV_qrc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.onSave(k, holder.qrc_ll);
-
+                listener.saveToDB(qrBits, qrc_list.get(position));
 
             }
         });

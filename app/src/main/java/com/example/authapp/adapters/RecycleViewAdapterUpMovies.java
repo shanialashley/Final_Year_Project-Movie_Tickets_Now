@@ -75,13 +75,6 @@ public class RecycleViewAdapterUpMovies extends RecyclerView.Adapter<RecycleView
             m_thumbnail = itemView.findViewById(R.id.uMovie_img_id);
             m_cardView = itemView.findViewById(R.id.upm_cardView);
 
-//            m_cardView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    movieItemClickListener.onMovieClick(mlist.get(getAdapterPosition()), m_thumbnail);
-////
-//                }
-//            });
 
 
         }

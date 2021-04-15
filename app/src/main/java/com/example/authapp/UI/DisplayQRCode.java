@@ -1,4 +1,5 @@
 package com.example.authapp.UI;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,7 +21,16 @@ import com.example.authapp.Model.QRCode;
 import com.example.authapp.R;
 import com.example.authapp.adapters.RecycleViewQRCode;
 import com.example.authapp.adapters.SaveQRCClickListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -141,8 +152,41 @@ public class DisplayQRCode extends AppCompatActivity implements SaveQRCClickList
     @Override
     public void saveToDB(Bitmap bm, QRCode qrCode) {
 
-//        DatabaseReference addR = FirebaseDatabase.getInstance().getReference("QRC_Purchased").child(qrCode.getId_code());
-//        StorageReference storeR = FirebaseStorage.getInstance().getReference("QRC").child("QRC_Purchased");
+        DatabaseReference addR = FirebaseDatabase.getInstance().getReference("QRC_Purchased").child(qrCode.getTitle()).child(qrCode.getId_code());
+        StorageReference storeR = FirebaseStorage.getInstance().getReference("QRC").child("QRC_Purchased/" + qrCode.getTheater_title() + "/" + qrCode.getId_code());
+
+        ByteArrayOutputStream bao = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.PNG, 100, bao); // bmp is bitmap from user image file
+            bm.recycle();
+
+
+
+        byte[] byteArray = bao.toByteArray();
+
+        UploadTask uploadTask = storeR.putBytes(byteArray);
+        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Task<Uri> downloadUrl = taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        String url = task.getResult().toString();
+
+                        qrCode.setQrc_img(url);
+                        addR.child("qrc_img").setValue(url);
+
+                    }
+                });
+            }
+        });
+
+
+        addR.child("theater_title").setValue(qrCode.getTheater_title());
+        addR.child("title").setValue(qrCode.getTitle());
+        addR.child("date").setValue(qrCode.getDate());
+        addR.child("time").setValue(qrCode.getTime());
+        addR.child("ticket_type").setValue(qrCode.getTicket_type());
+        addR.child("id_code").setValue(qrCode.getId_code());
 
     }
 
