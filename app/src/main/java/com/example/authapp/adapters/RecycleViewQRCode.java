@@ -91,8 +91,8 @@ public class RecycleViewQRCode extends RecyclerView.Adapter<RecycleViewQRCode.My
         holder.cardV_qrc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onSave(k, holder.qrc_ll);
-                listener.saveToDB(qrBits, qrc_list.get(position));
+                listener.onSave(k, holder.qrc_ll, qrc_list.get(position));
+//                listener.saveToDB(qrBits, qrc_list.get(position));
 
             }
         });

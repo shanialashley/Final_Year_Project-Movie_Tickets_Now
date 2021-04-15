@@ -7,7 +7,7 @@ import com.example.authapp.Model.QRCode;
 
 public interface SaveQRCClickListener {
 
-    void onSave(String ticket_name, View v);
+    void onSave(String ticket_name, View v, QRCode qrCode);
     Bitmap getBitmapOfTickets(View v);
     void saveToDB(Bitmap bm, QRCode qrCode);
 }

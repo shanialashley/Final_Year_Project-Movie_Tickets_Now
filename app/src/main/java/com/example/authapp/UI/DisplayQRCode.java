@@ -30,7 +30,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -119,7 +118,7 @@ public class DisplayQRCode extends AppCompatActivity implements SaveQRCClickList
     }
 
     @Override
-    public void onSave(String ticket_name, View v){
+    public void onSave(String ticket_name, View v, QRCode qrCode){
         Bitmap b = getBitmapOfTickets(v);
         try{
             File file = new File(this.getExternalCacheDir(), ticket_name);
@@ -128,6 +127,7 @@ public class DisplayQRCode extends AppCompatActivity implements SaveQRCClickList
                     this,
                     BuildConfig.APPLICATION_ID + "." + getLocalClassName() + ".provider",
                     file);
+            Save(uri, qrCode);
             b.compress(Bitmap.CompressFormat.PNG, 100, fout);
             fout.flush();
             fout.close();
@@ -152,18 +152,51 @@ public class DisplayQRCode extends AppCompatActivity implements SaveQRCClickList
     @Override
     public void saveToDB(Bitmap bm, QRCode qrCode) {
 
+//        DatabaseReference addR = FirebaseDatabase.getInstance().getReference("QRC_Purchased").child(qrCode.getTitle()).child(qrCode.getId_code());
+//        StorageReference storeR = FirebaseStorage.getInstance().getReference("QRC").child("QRC_Purchased/" + qrCode.getTheater_title() + "/" + qrCode.getId_code());
+//
+//        ByteArrayOutputStream bao = new ByteArrayOutputStream();
+//        bm.compress(Bitmap.CompressFormat.PNG, 100, bao); // bmp is bitmap from user image file
+//            bm.recycle();
+//
+//
+//
+//        byte[] byteArray = bao.toByteArray();
+//
+//        UploadTask uploadTask = storeR.putBytes(byteArray);
+//        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//            @Override
+//            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                Task<Uri> downloadUrl = taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Uri> task) {
+//                        String url = task.getResult().toString();
+//
+//                        qrCode.setQrc_img(url);
+//                        addR.child("qrc_img").setValue(url);
+//
+//                    }
+//                });
+//            }
+//        });
+//
+//
+//        addR.child("theater_title").setValue(qrCode.getTheater_title());
+//        addR.child("title").setValue(qrCode.getTitle());
+//        addR.child("date").setValue(qrCode.getDate());
+//        addR.child("time").setValue(qrCode.getTime());
+//        addR.child("ticket_type").setValue(qrCode.getTicket_type());
+//        addR.child("id_code").setValue(qrCode.getId_code());
+
+    }
+
+    public void Save(Uri uri, QRCode qrCode){
+
         DatabaseReference addR = FirebaseDatabase.getInstance().getReference("QRC_Purchased").child(qrCode.getTitle()).child(qrCode.getId_code());
         StorageReference storeR = FirebaseStorage.getInstance().getReference("QRC").child("QRC_Purchased/" + qrCode.getTheater_title() + "/" + qrCode.getId_code());
 
-        ByteArrayOutputStream bao = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.PNG, 100, bao); // bmp is bitmap from user image file
-            bm.recycle();
 
-
-
-        byte[] byteArray = bao.toByteArray();
-
-        UploadTask uploadTask = storeR.putBytes(byteArray);
+        UploadTask uploadTask = storeR.putFile(uri);
         uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
