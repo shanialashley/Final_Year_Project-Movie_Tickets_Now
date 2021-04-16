@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,6 +35,7 @@ public class AdminDisplayMovies extends AppCompatActivity {
     private List<Movies> moviesList;
     private List<String> movieKey;
     private Query currentMoviesQ;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,27 @@ public class AdminDisplayMovies extends AppCompatActivity {
         movieKey = new ArrayList<>();
         moviesList = new ArrayList<>();
 
+        ToolbarInfo();
         init();
+
+    }
+
+    public void ToolbarInfo(){
+
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        String s = "Display Movies";
+        getSupportActionBar().setTitle(s);
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+
 
     }
 
@@ -85,8 +107,12 @@ public class AdminDisplayMovies extends AppCompatActivity {
                 // If the event is a key-down event on the "enter" button
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
-
-                    SearchDisplay(ds_search.getText().toString().trim());
+                    String text = ds_search.getText().toString().trim();
+                    if(text != null) {
+                        SearchDisplay(text);
+                    }else{
+                        Toast.makeText(AdminDisplayMovies.this, "Enter Movie Key ", Toast.LENGTH_SHORT).show();
+                    }
 
                     return true;
                 }

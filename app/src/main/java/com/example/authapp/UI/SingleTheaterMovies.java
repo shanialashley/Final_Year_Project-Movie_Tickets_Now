@@ -81,7 +81,7 @@ public class SingleTheaterMovies extends AppCompatActivity implements MovieItemC
 
 
     }
-
+    //Show only Cimema 8
     private void CC8_Movies() {
 
         MovieList = new ArrayList<>();
@@ -122,6 +122,7 @@ public class SingleTheaterMovies extends AppCompatActivity implements MovieItemC
 
     }
 
+    //Show only Movie Towne
     private void MT_Movies() {
 
         MovieList = new ArrayList<>();
@@ -162,6 +163,7 @@ public class SingleTheaterMovies extends AppCompatActivity implements MovieItemC
 
     }
 
+    //Intent for each movie to go to the Details Screen
     @Override
     public void onMovieClick(Movies movie, ImageView movieImageView) {
         Intent intent = new Intent(this, MovieDetailsActivity.class);
@@ -175,6 +177,7 @@ public class SingleTheaterMovies extends AppCompatActivity implements MovieItemC
         startActivity(intent, options.toBundle());
     }
 
+    //Show only Cimema One
     private void CONE_Movies() {
 
         MovieList = new ArrayList<>();

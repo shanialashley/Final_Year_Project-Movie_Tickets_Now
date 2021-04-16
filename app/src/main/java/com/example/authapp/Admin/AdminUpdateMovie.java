@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.authapp.Model.Movies;
 import com.example.authapp.R;
@@ -70,6 +71,8 @@ public class AdminUpdateMovie extends AppCompatActivity {
     private String trailer_link;
     private String cover_url;
     private String type;
+    private Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +81,24 @@ public class AdminUpdateMovie extends AppCompatActivity {
 
         mstorageRef = FirebaseStorage.getInstance().getReference().child("Movies");
         referencemovie = FirebaseDatabase.getInstance().getReference().child("Movies");
+        ToolbarInfo();
         init();
+
+    }
+
+    public void ToolbarInfo(){
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        String s = "Update Movies";
+        getSupportActionBar().setTitle(s);
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
     }
 
@@ -189,28 +209,31 @@ public class AdminUpdateMovie extends AppCompatActivity {
 
     public void DisplayByID(){
 
-
-
         id = upd_id.getText().toString().trim();
-        DatabaseReference currentmovie = referencemovie.child(id);
-        currentmovie.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+        if(!id.equals(null) || !id.equals("") || !id.equals(" ") ) {
+            DatabaseReference currentmovie = referencemovie.child(id);
+            currentmovie.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                if(snapshot.exists()){
-                    m  = snapshot.getValue(Movies.class);
-                    DisplayInfo(m);
+                    if (snapshot.exists()) {
 
-                }else{
-                    Toast.makeText(AdminUpdateMovie.this, "ID does not exist", Toast.LENGTH_SHORT).show();
+                            m = snapshot.getValue(Movies.class);
+                            DisplayInfo(m);
+
+                    } else {
+                        Toast.makeText(AdminUpdateMovie.this, "ID does not exist", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
+        }else{
+            Toast.makeText(this, "Enter Movie Key!", Toast.LENGTH_SHORT).show();
+        }
 
     }
 

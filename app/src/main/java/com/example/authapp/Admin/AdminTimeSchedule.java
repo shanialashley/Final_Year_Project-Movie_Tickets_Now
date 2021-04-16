@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.authapp.R;
 
@@ -14,7 +15,8 @@ public class AdminTimeSchedule extends AppCompatActivity {
 
     private Button cc8_B, mt_B, cone_B;
     private EditText id;
-    String key;
+    private String key;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +36,7 @@ public class AdminTimeSchedule extends AppCompatActivity {
 
         id.setText(key);
 
-
+        ToolbarInfo();
 
         cc8_B.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +71,25 @@ public class AdminTimeSchedule extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+    }
+
+    public void ToolbarInfo(){
+
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        String s = "Time Schedule";
+        getSupportActionBar().setTitle(s);
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+
 
     }
 }

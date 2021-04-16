@@ -12,6 +12,7 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,11 +39,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DisplayQRCode extends AppCompatActivity implements SaveQRCClickListener {
-    String title, theater_title, date, time, ticket_type;
-    Button d_qr_return;
+    private String title, theater_title, date, time, ticket_type;
+    private Button d_qr_return;
     int sT, aT, cT;
-    RecyclerView qrc_recycleV;
-    List<QRCode> qr_list;
+    private Toolbar toolbar;
+    private RecyclerView qrc_recycleV;
+    private List<QRCode> qr_list;
 
 
     @Override
@@ -51,6 +53,24 @@ public class DisplayQRCode extends AppCompatActivity implements SaveQRCClickList
         setContentView(R.layout.activity_display_q_r_code);
 
         init();
+
+    }
+
+    public void ToolbarInfo(){
+
+
+        toolbar = findViewById(R.id.toolbar_md);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Please Save Each Ticket!");
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_home_24);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DisplayQRCode.this, Home.class));
+            }
+        });
+
+
 
     }
 
@@ -101,6 +121,7 @@ public class DisplayQRCode extends AppCompatActivity implements SaveQRCClickList
 
     }
 
+    //get bitmap of the ticket
     @Override
     @SuppressLint("ResourceAsColor")
     public Bitmap getBitmapOfTickets(View v){
@@ -111,12 +132,13 @@ public class DisplayQRCode extends AppCompatActivity implements SaveQRCClickList
         if (ticketDrawable != null) {
             v.draw(canvas);
         }else{
-            canvas.drawColor(R.color.green);
+            canvas.drawColor(R.color.blue);
         }
 
         return ticket;
     }
 
+    //change bitmap to image and share to photos and google drive
     @Override
     public void onSave(String ticket_name, View v, QRCode qrCode){
         Bitmap b = getBitmapOfTickets(v);
@@ -149,47 +171,8 @@ public class DisplayQRCode extends AppCompatActivity implements SaveQRCClickList
 
     }
 
-    @Override
-    public void saveToDB(Bitmap bm, QRCode qrCode) {
 
-//        DatabaseReference addR = FirebaseDatabase.getInstance().getReference("QRC_Purchased").child(qrCode.getTitle()).child(qrCode.getId_code());
-//        StorageReference storeR = FirebaseStorage.getInstance().getReference("QRC").child("QRC_Purchased/" + qrCode.getTheater_title() + "/" + qrCode.getId_code());
-//
-//        ByteArrayOutputStream bao = new ByteArrayOutputStream();
-//        bm.compress(Bitmap.CompressFormat.PNG, 100, bao); // bmp is bitmap from user image file
-//            bm.recycle();
-//
-//
-//
-//        byte[] byteArray = bao.toByteArray();
-//
-//        UploadTask uploadTask = storeR.putBytes(byteArray);
-//        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//            @Override
-//            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                Task<Uri> downloadUrl = taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Uri> task) {
-//                        String url = task.getResult().toString();
-//
-//                        qrCode.setQrc_img(url);
-//                        addR.child("qrc_img").setValue(url);
-//
-//                    }
-//                });
-//            }
-//        });
-//
-//
-//        addR.child("theater_title").setValue(qrCode.getTheater_title());
-//        addR.child("title").setValue(qrCode.getTitle());
-//        addR.child("date").setValue(qrCode.getDate());
-//        addR.child("time").setValue(qrCode.getTime());
-//        addR.child("ticket_type").setValue(qrCode.getTicket_type());
-//        addR.child("id_code").setValue(qrCode.getId_code());
-
-    }
-
+    // add qrc to database
     public void Save(Uri uri, QRCode qrCode){
 
         DatabaseReference addR = FirebaseDatabase.getInstance().getReference("QRC_Purchased").child(qrCode.getTitle()).child(qrCode.getId_code());

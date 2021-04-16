@@ -9,10 +9,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.authapp.Admin.AdminLogin;
@@ -29,10 +31,12 @@ public class MainActivity extends AppCompatActivity {
     private EditText username, pwd;
     private Button login;
     private ImageButton showp;
+    private ImageView main_logo;
 
     private FirebaseAuth mAuth;
     private Movies movie;
     private String selectedDate, time, theater_type;
+    private String e, p , screen = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,11 +101,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        main_logo = findViewById(R.id.main_logo);
+        main_logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, Home.class));
+            }
+        });
+
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && requestCode == 20) {
+            screen = getIntent().getExtras().getString("Screen");
+        }
     }
 
     private void userLogin() {
-        String e = username.getText().toString().trim();
-        String p = pwd.getText().toString().trim();
+        e = username.getText().toString().trim();
+        p = pwd.getText().toString().trim();
 
         if(e.isEmpty()){
             username.setError("Email is required!");
@@ -121,32 +143,27 @@ public class MainActivity extends AppCompatActivity {
             pwd.requestFocus();
             return;
         }
-
+        // for firebase to recall your email and password
         mAuth.signInWithEmailAndPassword(e,p).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
 
-//                    Bundle data = ;
-                    String s = getIntent().getExtras().getString("Screen");
+                        if(screen.equals("Select Tickets")){
+                            movie = (Movies) getIntent().getExtras().getSerializable("currentMovie");
+                            selectedDate = getIntent().getExtras().getString("selectedDate");
+                            time = getIntent().getExtras().getString("time");
+                            theater_type = getIntent().getExtras().getString("theater_type");
 
-                    if(s.equals("Select Tickets")) {
-
-                        movie = (Movies) getIntent().getExtras().getSerializable("currentMovie");
-                        selectedDate = getIntent().getExtras().getString("selectedDate");
-                        time = getIntent().getExtras().getString("time");
-                        theater_type = getIntent().getExtras().getString("theater_type");
-
-                        Intent in = new Intent(MainActivity.this, SelectTickets.class);
-                        in.putExtra("currentMovie", movie);
-                        in.putExtra("selectDate", selectedDate);
-                        in.putExtra("time", time);
-                        in.putExtra("theater_type", theater_type);
-                        startActivity(in);
-                    }else{
-                        startActivity(new Intent(MainActivity.this, Home.class));
-                    }
-
+                            Intent in = new Intent(MainActivity.this, SelectTickets.class);
+                            in.putExtra("currentMovie", movie);
+                            in.putExtra("selectDate", selectedDate);
+                            in.putExtra("time", time);
+                            in.putExtra("theater_type", theater_type);
+                            startActivity(in);
+                        }else{
+                            startActivity(new Intent(MainActivity.this, Home.class));
+                        }
 
                 }else{
                     Toast.makeText(MainActivity.this, "Failed to login! Please check your credentials", Toast.LENGTH_LONG).show();
@@ -154,7 +171,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 
 
 

@@ -92,19 +92,6 @@ public class Search extends AppCompatActivity  implements MovieItemClickListener
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        currentuser = mAuth.getCurrentUser();
-        if(currentuser == null) {
-            menu.findItem(R.id.nav_logout).setVisible(false);
-        }else{
-            menu.findItem(R.id.nav_login).setVisible(false);
-        }
-
-    }
-
     public void NavInfo(){
 
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -133,7 +120,57 @@ public class Search extends AppCompatActivity  implements MovieItemClickListener
 
         navigationView.setCheckedItem(R.id.nav_search);
 
+    }
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        currentuser = mAuth.getCurrentUser();
+        if(currentuser == null) {
+            menu.findItem(R.id.nav_logout).setVisible(false);
+            menu.findItem(R.id.nav_admin).setVisible(false);
+        }else{
+            menu.findItem(R.id.nav_login).setVisible(false);
+            String email = currentuser.getEmail();
+            AdminView(email);
+        }
+
+    }
+
+    //Hide Admin View if the user does not have admin privilege
+    private void AdminView(String e) {
+
+        Query q = FirebaseDatabase.getInstance().getReference("Admin")
+                .orderByChild("email").startAt(e);
+        q.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String email = ss.child("email").getValue(String.class);
+                        if (email != null) {
+                            if (!email.equalsIgnoreCase(e)) {
+                                menu.findItem(R.id.nav_admin).setVisible(false);
+
+                            }else{
+                                menu.findItem(R.id.nav_admin).setVisible(true);
+                                Toast.makeText(Search.this, "User has admin privileges!", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+                    }
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 
@@ -184,7 +221,7 @@ public class Search extends AppCompatActivity  implements MovieItemClickListener
         return true;
     }
 
-
+    //Search By Movie Title
     private void SearchDisplay(String title) {
 
         MovieList = new ArrayList<>();
@@ -224,6 +261,7 @@ public class Search extends AppCompatActivity  implements MovieItemClickListener
 
     }
 
+    //Intent to details screen
     @Override
     public void onMovieClick(Movies movie, ImageView movieImageView) {
 

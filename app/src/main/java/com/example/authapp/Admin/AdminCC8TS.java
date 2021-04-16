@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.authapp.R;
 import com.google.firebase.database.DataSnapshot;
@@ -46,6 +47,7 @@ public class AdminCC8TS extends AppCompatActivity {
     private DatabaseReference referenceTime;
     private DatabaseReference scheduleTimes;
     private String timeSid;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,7 @@ public class AdminCC8TS extends AppCompatActivity {
 
         referenceTime = FirebaseDatabase.getInstance().getReference().child("TimeSchedule");
 
+        ToolbarInfo();
         init();
         initList();
 
@@ -62,6 +65,25 @@ public class AdminCC8TS extends AppCompatActivity {
         if(key != null){
             timeS_id.setText(key);
         }
+    }
+
+    public void ToolbarInfo(){
+
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        String s = "Caribbean Cinema 8";
+        getSupportActionBar().setTitle(s);
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+
+
     }
 
     private void init() {

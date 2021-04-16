@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/orange"
+        android:elevation="4dp"
+        android:theme="@style/AdminToolbarColoredBackArrow"
+        android:textAlignment="center"
+        app:menu="@menu/admin_drawer_menu"
+        app:navigationIcon="@drawable/ic_baseline_menu_24"
+        app:titleTextColor="@color/blue">
+
+</androidx.appcompat.widget.Toolbar>

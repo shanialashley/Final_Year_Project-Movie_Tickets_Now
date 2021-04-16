@@ -22,6 +22,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.authapp.Model.Movies;
 import com.example.authapp.R;
@@ -79,6 +80,7 @@ public class AdminAddMovie extends AppCompatActivity {
     private String thumbnailUid;
     private String coverUid;
     AlertDialog.Builder builder;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +90,26 @@ public class AdminAddMovie extends AppCompatActivity {
         referencemovie = FirebaseDatabase.getInstance().getReference().child("Movies");
         mstorageRef = FirebaseStorage.getInstance().getReference().child("Movies");
 
+        ToolbarInfo();
         init();
+
+    }
+
+    public void ToolbarInfo(){
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        String s = "Add Movie";
+        getSupportActionBar().setTitle(s);
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+
 
     }
 

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -22,10 +23,16 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.authapp.Admin.AdminDash;
 import com.example.authapp.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.muddzdev.styleabletoastlibrary.StyleableToast;
 
 public class Theaters extends AppCompatActivity {
@@ -178,6 +185,9 @@ public class Theaters extends AppCompatActivity {
                         startActivity(new Intent(Theaters.this, MainActivity.class).putExtra("Screen", "home"));
                         break;
 
+                    case R.id.nav_admin:
+                        startActivity(new Intent(Theaters.this, AdminDash.class));
+                        break;
 
                 }
 
@@ -199,11 +209,46 @@ public class Theaters extends AppCompatActivity {
         currentuser = mAuth.getCurrentUser();
         if(currentuser == null) {
             menu.findItem(R.id.nav_logout).setVisible(false);
-
+            menu.findItem(R.id.nav_admin).setVisible(false);
         }else{
             menu.findItem(R.id.nav_login).setVisible(false);
-
+            String email = currentuser.getEmail();
+            AdminView(email);
         }
+
+    }
+
+    //Hide Admin View if the user does not have admin privilege
+    private void AdminView(String e) {
+
+        Query q = FirebaseDatabase.getInstance().getReference("Admin")
+                .orderByChild("email").startAt(e).limitToFirst(1);
+        q.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot ss : snapshot.getChildren()) {
+                        String email = ss.child("email").getValue(String.class);
+                        if (email != null) {
+                            if (!email.equalsIgnoreCase(e)) {
+                                menu.findItem(R.id.nav_admin).setVisible(false);
+                            }else{
+                                menu.findItem(R.id.nav_admin).setVisible(true);
+                                Toast.makeText(Theaters.this, "User has admin privileges!", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+                    }
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 

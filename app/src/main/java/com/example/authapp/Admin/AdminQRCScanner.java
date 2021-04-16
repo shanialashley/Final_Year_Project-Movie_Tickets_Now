@@ -100,4 +100,6 @@ public class AdminQRCScanner extends AppCompatActivity {
         }).check();
 
     }
+
+
 }

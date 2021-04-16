@@ -30,7 +30,7 @@
             android:padding="15dp"
             android:text="2:50 PM"
             android:textColor="@color/black"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
 

@@ -29,7 +29,7 @@ public class AdminLogin extends AppCompatActivity {
     private Button login;
     private FirebaseAuth mAuth;
     private DatabaseReference adminDB;
-    Query adminQ;
+    private Query adminQ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +53,7 @@ public class AdminLogin extends AppCompatActivity {
         });
     }
 
+    //Verify and Login
     private void adminLogin() {
         String e = admin_email.getText().toString().trim();
         String id = admin_id.getText().toString().trim();
@@ -90,6 +91,7 @@ public class AdminLogin extends AppCompatActivity {
 
     }
 
+    // check if user is an admin
     private void loginV(String id, String e, String p) {
 
         adminQ = FirebaseDatabase.getInstance().getReference("Admin")
@@ -124,6 +126,7 @@ public class AdminLogin extends AppCompatActivity {
 
     }
 
+    //firebase Login and intent to dashboard
     private void loginAdmin(String e, String p) {
 
         mAuth.signInWithEmailAndPassword(e,p).addOnCompleteListener(new OnCompleteListener<AuthResult>() {

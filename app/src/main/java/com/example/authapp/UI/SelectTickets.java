@@ -139,8 +139,8 @@ public class SelectTickets extends AppCompatActivity {
 
         rating = movie.getRating();
         if(rating.equals("Rating: R")){
-            child_tv.setVisibility(View.GONE);
-            child_tickets.setVisibility(View.GONE);
+            child_tv.setEnabled(false);
+            child_tickets.setEnabled(false);
         }
 
 

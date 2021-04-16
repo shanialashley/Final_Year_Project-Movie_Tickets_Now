@@ -9,12 +9,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.authapp.Model.Movies;
 import com.example.authapp.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 public class MovieDetailsActivity extends AppCompatActivity {
@@ -25,7 +31,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private FloatingActionButton play_fab;
     private Toolbar toolbar;
     Movies movie;
-    String movieTitle;
+    String movieTitle, key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +81,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         String directors = movie.getDirectors();
         String category = movie.getType();
         String trailer = movie.getTrailer_link();
-        String key = getIntent().getExtras().getString("key");
-
-
+        key = getIntent().getExtras().getString("key");
 
 
         movieDThumbnail = findViewById(R.id.details_movie_img);
@@ -144,6 +148,25 @@ public class MovieDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                startActivity(new Intent(MovieDetailsActivity.this, SingleTheaterMovies.class).putExtra("screen", "CONE"));
+
+            }
+        });
+
+        img2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(MovieDetailsActivity.this, SingleTheaterMovies.class).putExtra("screen", "CC8"));
+
+            }
+        });
+
+        img3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(MovieDetailsActivity.this, SingleTheaterMovies.class).putExtra("screen", "MT"));
 
             }
         });
@@ -161,6 +184,97 @@ public class MovieDetailsActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        ShowInTheseTheaters(key);
+    }
+
+    //Display Logo images of Theaters showing this movie
+    public void ShowInTheseTheaters(String key){
+
+        Query CC8_ref = FirebaseDatabase.getInstance().getReference("Movies").orderByKey().startAt(key).limitToFirst(1);
+        CC8_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    for(DataSnapshot ss: snapshot.getChildren()){
+                        String t = ss.child("theaters").child("T_CC8").getValue(String.class);
+                        String cKey = ss.getKey();
+                        if(t != null && cKey.equals(key) ){
+                            if(t.equals("true")) {
+                                img2.setVisibility(View.VISIBLE);
+                            }else{
+                                img2.setVisibility(View.GONE);
+                            }
+                        }
+                    }
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        Query MT_ref = FirebaseDatabase.getInstance().getReference("Movies").orderByKey().startAt(key).limitToFirst(1);
+        MT_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if(snapshot.exists()){
+                    for(DataSnapshot ss: snapshot.getChildren()){
+                        String t = ss.child("theaters").child("T_MT").getValue(String.class);
+                        String cKey = ss.getKey();
+                        if(t != null && cKey.equals(key)){
+                            if(t.equals("true")) {
+                                img3.setVisibility(View.VISIBLE);
+                            }else{
+                                img3.setVisibility(View.GONE);
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        Query CONE_ref = FirebaseDatabase.getInstance().getReference("Movies").orderByKey().startAt(key).limitToFirst(1);
+        CONE_ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if(snapshot.exists()){
+                    for(DataSnapshot ss: snapshot.getChildren()){
+                        String t = ss.child("theaters").child("T_CONE").getValue(String.class);
+                        String cKey = ss.getKey();
+                        if(t != null && cKey.equals(key)){
+                            if(t.equals("true")) {
+                               img1.setVisibility(View.VISIBLE);
+                            }else{
+                                img1.setVisibility(View.GONE);
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
+
+
 }

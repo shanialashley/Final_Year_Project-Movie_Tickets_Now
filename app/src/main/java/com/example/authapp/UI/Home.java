@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -53,10 +54,10 @@ public class Home extends AppCompatActivity implements MovieItemClickListener, N
     private Toolbar toolbar;
     private FirebaseAuth mAuth;
     private FirebaseUser currentuser;
-    Query currentMoviesQ;
-    List<Movies> MovieList;
-    List<String> Moviekey;
-    Menu menu;
+    private Query currentMoviesQ;
+    private List<Movies> MovieList;
+    private List<String> Moviekey;
+    private Menu menu;
 
 
     @Override
@@ -85,38 +86,16 @@ public class Home extends AppCompatActivity implements MovieItemClickListener, N
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        currentuser = mAuth.getCurrentUser();
-        if(currentuser == null) {
-            menu.findItem(R.id.nav_logout).setVisible(false);
-            menu.findItem(R.id.nav_admin).setVisible(false);
-
-        }else{
-            menu.findItem(R.id.nav_login).setVisible(false);
-
-        }
-
-    }
-
     public void NavInfo(){
 
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
 
-
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Movie Tickets Now");
 
-
-
-
-        //Hide or show item in Menu
         menu = navigationView.getMenu();
-
 
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.nav_open, R.string.nav_close);
@@ -131,15 +110,31 @@ public class Home extends AppCompatActivity implements MovieItemClickListener, N
         navigationView.setCheckedItem(R.id.nav_home);
 
 
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
 
+        currentuser = mAuth.getCurrentUser();
+        if(currentuser == null) {
+            menu.findItem(R.id.nav_logout).setVisible(false);
+            menu.findItem(R.id.nav_admin).setVisible(false);
+
+        }else{
+            menu.findItem(R.id.nav_login).setVisible(false);
+            String email = currentuser.getEmail();
+            AdminView(email);
+        }
 
     }
 
+
+    //Hide Admin View if the user does not have admin privilege
     private void AdminView(String e) {
 
         Query q = FirebaseDatabase.getInstance().getReference("Admin")
-                .orderByChild("email").equalTo(e);
+                .orderByChild("email").startAt(e).limitToFirst(1);
         q.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -149,11 +144,13 @@ public class Home extends AppCompatActivity implements MovieItemClickListener, N
                         if (email != null) {
                             if (!email.equalsIgnoreCase(e)) {
                                 menu.findItem(R.id.nav_admin).setVisible(false);
+                            }else{
+                                menu.findItem(R.id.nav_admin).setVisible(true);
+                                Toast.makeText(Home.this, "User has admin privileges!", Toast.LENGTH_SHORT).show();
                             }
 
                         }
                     }
-
                 }
 
 
@@ -166,6 +163,8 @@ public class Home extends AppCompatActivity implements MovieItemClickListener, N
         });
 
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -205,12 +204,12 @@ public class Home extends AppCompatActivity implements MovieItemClickListener, N
                 break;
 
             case R.id.nav_login:
-                startActivity(new Intent(Home.this, MainActivity.class).putExtra("Screen", "home"));
+                startActivity(new Intent(Home.this, MainActivity.class));
                 break;
 
             case R.id.nav_admin:
                 startActivity(new Intent(Home.this, AdminDash.class));
-
+                break;
 
         }
 
@@ -218,6 +217,8 @@ public class Home extends AppCompatActivity implements MovieItemClickListener, N
         return true;
     }
 
+
+    //Slide with Most Anticipated Movies
     public void SlidesInfor(){
 
         Slides_list = new ArrayList<>();
@@ -238,6 +239,7 @@ public class Home extends AppCompatActivity implements MovieItemClickListener, N
         indicator.setupWithViewPager(slider_pager, true);
     }
 
+    //Horizontal RecycleView for Current Movies
     public void CurrentMoviesInfor(){
 
         MovieList = new ArrayList<>();
@@ -274,7 +276,7 @@ public class Home extends AppCompatActivity implements MovieItemClickListener, N
 
 
 
-    //Animation here to do to Details Page
+    //Animation here to go to Details Page
     @Override
     public void onMovieClick(Movies movie, ImageView movieImageView) {
 
@@ -288,14 +290,11 @@ public class Home extends AppCompatActivity implements MovieItemClickListener, N
 
         startActivity(intent, options.toBundle());
 
-       // Toast.makeText(this, "Item Clicked: " + movie.getTitle(), Toast.LENGTH_LONG).show();
-
-
     }
 
 
 
-
+    //Timer for Slides
     class SliderTimer extends TimerTask{
 
 

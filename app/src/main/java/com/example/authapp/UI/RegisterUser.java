@@ -6,6 +6,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ public class RegisterUser extends AppCompatActivity {
     private DatabaseReference adminDb;
     private TextView login;
     private EditText fn, ln, email, pwd1, pwd2;
+    private ImageView user_logo;
     private ProgressBar progressB;
     private Button register;
 
@@ -58,6 +60,14 @@ public class RegisterUser extends AppCompatActivity {
             public void onClick(View v) {
                 Register();
 
+            }
+        });
+
+        user_logo = findViewById(R.id.user_logo);
+        user_logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RegisterUser.this, Home.class));
             }
         });
 

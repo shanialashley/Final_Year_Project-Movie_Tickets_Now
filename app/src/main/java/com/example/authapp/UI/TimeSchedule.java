@@ -76,6 +76,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
     private SimpleDateFormat DateFor;
     private SimpleDateFormat dfs;
     private Movies movie;
+    private Boolean cc8_exist = false, cone_exist = false, mt_exist = false;
 
 
     @Override
@@ -286,13 +287,16 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
                 if(position == 1){
 
-                    CC8View();
+//                    CC8View();
+                    CC8_exist();
                     MTGone();
                     CONEGone();
 
                     DateItemClickListener dateItemClickListener = new DateItemClickListener() {
                         @Override
                         public void onClick(DateOfWeek dOWeek) {
+
+
                             if (dOWeek.getDate_week().equals("Mon") || dOWeek.getDate_week().equals("Tue") ||dOWeek.getDate_week().equals("Wed")
                                     || dOWeek.getDate_week().equals("Thu") || dOWeek.getDate_week().equals("Fri")){
 
@@ -311,22 +315,19 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                     };
 
 
-
-//                    CC8_mf();
-//                    CC8_sat();
-//                    CC8_sunH();
-
                 }
 
                 if(position == 2){
 
-                    MTView();
+                    MT_exist();
                     CC8Gone();
                     CONEGone();
+
 
                     DateItemClickListener dateItemClickListener = new DateItemClickListener() {
                         @Override
                         public void onClick(DateOfWeek dOWeek) {
+
                             if (dOWeek.getDate_week().equals("Mon") || dOWeek.getDate_week().equals("Tue") ||dOWeek.getDate_week().equals("Wed")
                                     || dOWeek.getDate_week().equals("Thu") || dOWeek.getDate_week().equals("Fri")){
 
@@ -344,17 +345,12 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                         }
                     };
 
-//                    MT_mf();
-//                    MT_sat();
-//                    MT_sun();
-
-
-
                 }
 
                 if(position == 3){
 
-                    CONEView();
+//                    CONEView();
+                    CONE_exist();
                     CC8Gone();
                     MTGone();
                     DateItemClickListener dateItemClickListener = new DateItemClickListener() {
@@ -376,12 +372,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                             }
                         }
                     };
-
-//                    CONE_mf();
-//                    CONE_sat();
-//                    CONE_sun();
-
-
                 }
 
             }
@@ -424,6 +414,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
     public void onMonFriClick() {
 
+        CC8_exist();
         CC8_mf();
         MT_mf();
         CONE_mf();
@@ -448,8 +439,65 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
     }
 
+    public void CC8_exist(){
+        CC8View();
+        DatabaseReference cc8 = timeReference.child(movieid).child("CC8");
+        cc8.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    cc8_exist = true;
+                    cc8_img.setVisibility(View.VISIBLE);
+                }else{
+                    cc8_img.setVisibility(View.GONE);
+                    cc8_exist = false;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference cc8_t = timeReference.child(movieid).child("CC8").child("trincity");
+        cc8_t.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    trincity.setVisibility(View.VISIBLE);
+                }else{
+                    trincity.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference cc8_sp = timeReference.child(movieid).child("CC8").child("southpark");
+        cc8_sp.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    southpark.setVisibility(View.VISIBLE);
+                }else{
+                    southpark.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     public void CC8_mf(){
-        cc8_img.setVisibility(View.VISIBLE);
+
+
         DatabaseReference cc8_t_r = timeReference.child(movieid).child("CC8").child("trincity").child("regular").child("mon-fri");
         List<TimeOfMovie> t_r_mf = new ArrayList<>();
         cc8_t_r.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -645,7 +693,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
     }
 
     public void CC8_sat(){
-
         DatabaseReference cc8_t_r = timeReference.child(movieid).child("CC8").child("trincity").child("regular").child("sat");
         List<TimeOfMovie> t_r_sat = new ArrayList<>();
         cc8_t_r.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -840,7 +887,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
     }
 
     public void CC8_sunH(){
-
         DatabaseReference cc8_t_r = timeReference.child(movieid).child("CC8").child("trincity").child("regular").child("sun+hol");
         List<TimeOfMovie> t_r_sun = new ArrayList<>();
         cc8_t_r.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -1034,8 +1080,99 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
     }
 
-    private void MT_mf() {
+    public void MT_exist(){
+        MTView();
+        DatabaseReference mt = timeReference.child(movieid).child("MT");
+        mt.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    mt_img.setVisibility(View.VISIBLE);
+                }else{
+                    mt_img.setVisibility(View.GONE);
 
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference mt_pos = timeReference.child(movieid).child("MT").child("pos");
+        mt_pos.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    ts_pos.setVisibility(View.VISIBLE);
+                }else{
+                    ts_pos.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference mt_chag = timeReference.child(movieid).child("MT").child("chag");
+        mt_chag.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    ts_chag.setVisibility(View.VISIBLE);
+                }else{
+                    ts_chag.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference mt_sdo = timeReference.child(movieid).child("MT").child("sdo");
+        mt_sdo.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    ts_sdo.setVisibility(View.VISIBLE);
+                }else{
+                    ts_sdo.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference mt_tgo = timeReference.child(movieid).child("MT").child("tgo");
+        mt_tgo.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    ts_tgo.setVisibility(View.VISIBLE);
+                }else{
+                    ts_tgo.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+    }
+
+    private void MT_mf() {
+        MT_exist();
         DatabaseReference pos_r = timeReference.child(movieid).child("MT").child("pos").child("regular").child("mon-fri");
         List<TimeOfMovie> pos_r_mf = new ArrayList<>();
         pos_r.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -1044,7 +1181,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                 pos_r_mf.clear();
 
                 if (snapshot.exists()) {
-                    ts_pos.setVisibility(View.VISIBLE);
                     ts_pos_r.setVisibility(View.VISIBLE);
                     ts_pos_r_recycleV.setVisibility(View.VISIBLE);
 
@@ -1053,7 +1189,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                         pos_r_mf.add(new TimeOfMovie(n, "mt_pos_r"));
                     }
                 }else{
-                    ts_pos.setVisibility(View.GONE);
                     ts_pos_r.setVisibility(View.GONE);
                     ts_pos_r_recycleV.setVisibility(View.GONE);
                 }
@@ -1078,7 +1213,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                 pos_3d_mf.clear();
 
                 if (snapshot.exists()) {
-                    ts_pos.setVisibility(View.VISIBLE);
                     ts_pos_3D.setVisibility(View.VISIBLE);
                     ts_pos_3D_recycleV.setVisibility(View.VISIBLE);
 
@@ -1087,7 +1221,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                         pos_3d_mf.add(new TimeOfMovie(n, "mt_pos_3d"));
                     }
                 }else{
-//                    ts_pos.setVisibility(View.GONE);
                     ts_pos_3D.setVisibility(View.GONE);
                     ts_pos_3D_recycleV.setVisibility(View.GONE);
                 }
@@ -1112,7 +1245,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                 chag_r_mf.clear();
 
                 if (snapshot.exists()) {
-                    ts_chag.setVisibility(View.VISIBLE);
                     ts_chag_r.setVisibility(View.VISIBLE);
                     ts_chag_r_recycleV.setVisibility(View.VISIBLE);
 
@@ -1121,7 +1253,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                         chag_r_mf.add(new TimeOfMovie(n, "mt_chag_r"));
                     }
                 }else{
-                    ts_chag.setVisibility(View.GONE);
                     ts_chag_r.setVisibility(View.GONE);
                     ts_chag_r_recycleV.setVisibility(View.GONE);
                 }
@@ -1146,7 +1277,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                 chag_3d_mf.clear();
 
                 if (snapshot.exists()) {
-                    ts_chag.setVisibility(View.VISIBLE);
                     ts_chag_3D.setVisibility(View.VISIBLE);
                     ts_chag_3D_recycleV.setVisibility(View.VISIBLE);
 
@@ -1155,7 +1285,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                         chag_3d_mf.add(new TimeOfMovie(n, "mt_chag_3d"));
                     }
                 }else{
-                    ts_chag.setVisibility(View.GONE);
                     ts_chag_3D.setVisibility(View.GONE);
                     ts_chag_3D_recycleV.setVisibility(View.GONE);
                 }
@@ -1180,7 +1309,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                 sdo_r_mf.clear();
 
                 if (snapshot.exists()) {
-                    ts_sdo.setVisibility(View.VISIBLE);
                     ts_sdo_r.setVisibility(View.VISIBLE);
                     ts_sdo_r_recycleV.setVisibility(View.VISIBLE);
 
@@ -1189,7 +1317,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                         sdo_r_mf.add(new TimeOfMovie(n, "mt_sdo_r"));
                     }
                 }else{
-                    ts_sdo.setVisibility(View.GONE);
                     ts_sdo_r.setVisibility(View.GONE);
                     ts_sdo_r_recycleV.setVisibility(View.GONE);
                 }
@@ -1246,7 +1373,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                 tgo_r_mf.clear();
 
                 if (snapshot.exists()) {
-                    ts_tgo.setVisibility(View.VISIBLE);
                     ts_tgo_r.setVisibility(View.VISIBLE);
                     ts_tgo_r_recycleV.setVisibility(View.VISIBLE);
 
@@ -1255,7 +1381,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                         tgo_r_mf.add(new TimeOfMovie(n, "mt_tgo_r"));
                     }
                 }else{
-                    ts_tgo.setVisibility(View.GONE);
                     ts_tgo_r.setVisibility(View.GONE);
                     ts_tgo_r_recycleV.setVisibility(View.GONE);
                 }
@@ -1309,6 +1434,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
     private void MT_sat() {
 
+        MT_exist();
         DatabaseReference pos_r = timeReference.child(movieid).child("MT").child("pos").child("regular").child("sat");
         List<TimeOfMovie> pos_r_sat = new ArrayList<>();
         pos_r.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -1317,7 +1443,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                 pos_r_sat.clear();
 
                 if (snapshot.exists()) {
-                    ts_pos.setVisibility(View.VISIBLE);
                     ts_pos_r.setVisibility(View.VISIBLE);
                     ts_pos_r_recycleV.setVisibility(View.VISIBLE);
 
@@ -1326,7 +1451,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                         pos_r_sat.add(new TimeOfMovie(n, "mt_pos_r"));
                     }
                 }else{
-                    ts_pos.setVisibility(View.GONE);
                     ts_pos_r.setVisibility(View.GONE);
                     ts_pos_r_recycleV.setVisibility(View.GONE);
                 }
@@ -1383,7 +1507,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                 chag_r_sat.clear();
 
                 if (snapshot.exists()) {
-                    ts_chag.setVisibility(View.VISIBLE);
                     ts_chag_r.setVisibility(View.VISIBLE);
                     ts_chag_r_recycleV.setVisibility(View.VISIBLE);
 
@@ -1392,7 +1515,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                         chag_r_sat.add(new TimeOfMovie(n, "mt_chag_r"));
                     }
                 }else{
-                    ts_chag.setVisibility(View.GONE);
                     ts_chag_r.setVisibility(View.GONE);
                     ts_chag_r_recycleV.setVisibility(View.GONE);
                 }
@@ -1417,7 +1539,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                 chag_3d_sat.clear();
 
                 if (snapshot.exists()) {
-                    ts_chag.setVisibility(View.VISIBLE);
                     ts_chag_3D.setVisibility(View.VISIBLE);
                     ts_chag_3D_recycleV.setVisibility(View.VISIBLE);
 
@@ -1426,7 +1547,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                         chag_3d_sat.add(new TimeOfMovie(n, "mt_chag_3d"));
                     }
                 }else{
-//                    ts_chag.setVisibility(View.GONE);
                     ts_chag_3D.setVisibility(View.GONE);
                     ts_chag_3D_recycleV.setVisibility(View.GONE);
                 }
@@ -1451,7 +1571,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                 sdo_r_sat.clear();
 
                 if (snapshot.exists()) {
-                    ts_sdo.setVisibility(View.VISIBLE);
                     ts_sdo_r.setVisibility(View.VISIBLE);
                     ts_sdo_r_recycleV.setVisibility(View.VISIBLE);
 
@@ -1460,7 +1579,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                         sdo_r_sat.add(new TimeOfMovie(n, "mt_sdo_r"));
                     }
                 }else{
-                    ts_sdo.setVisibility(View.GONE);
                     ts_sdo_r.setVisibility(View.GONE);
                     ts_sdo_r_recycleV.setVisibility(View.GONE);
                 }
@@ -1517,7 +1635,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                 tgo_r_sat.clear();
 
                 if (snapshot.exists()) {
-                    ts_tgo.setVisibility(View.VISIBLE);
                     ts_tgo_r.setVisibility(View.VISIBLE);
                     ts_tgo_r_recycleV.setVisibility(View.VISIBLE);
 
@@ -1526,7 +1643,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                         tgo_r_sat.add(new TimeOfMovie(n, "mt_tgo_r"));
                     }
                 }else{
-                    ts_tgo.setVisibility(View.GONE);
                     ts_tgo_r.setVisibility(View.GONE);
                     ts_tgo_r_recycleV.setVisibility(View.GONE);
                 }
@@ -1588,7 +1704,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                 pos_r_sun.clear();
 
                 if (snapshot.exists()) {
-                    ts_pos.setVisibility(View.VISIBLE);
                     ts_pos_r.setVisibility(View.VISIBLE);
                     ts_pos_r_recycleV.setVisibility(View.VISIBLE);
 
@@ -1597,7 +1712,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                         pos_r_sun.add(new TimeOfMovie(n, "mt_pos_r"));
                     }
                 }else{
-                    ts_pos.setVisibility(View.GONE);
                     ts_pos_r.setVisibility(View.GONE);
                     ts_pos_r_recycleV.setVisibility(View.GONE);
                 }
@@ -1622,7 +1736,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                 pos_3d_sun.clear();
 
                 if (snapshot.exists()) {
-                    ts_pos.setVisibility(View.VISIBLE);
                     ts_pos_3D.setVisibility(View.VISIBLE);
                     ts_pos_3D_recycleV.setVisibility(View.VISIBLE);
 
@@ -1655,7 +1768,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                 chag_r_sun.clear();
 
                 if (snapshot.exists()) {
-                    ts_chag.setVisibility(View.VISIBLE);
                     ts_chag_r.setVisibility(View.VISIBLE);
                     ts_chag_r_recycleV.setVisibility(View.VISIBLE);
 
@@ -1664,7 +1776,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                         chag_r_sun.add(new TimeOfMovie(n, "mt_chag_r"));
                     }
                 }else{
-                    ts_chag.setVisibility(View.GONE);
                     ts_chag_r.setVisibility(View.GONE);
                     ts_chag_r_recycleV.setVisibility(View.GONE);
                 }
@@ -1689,7 +1800,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                 chag_3d_sun.clear();
 
                 if (snapshot.exists()) {
-                    ts_chag.setVisibility(View.VISIBLE);
                     ts_chag_3D.setVisibility(View.VISIBLE);
                     ts_chag_3D_recycleV.setVisibility(View.VISIBLE);
 
@@ -1722,7 +1832,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                 sdo_r_sun.clear();
 
                 if (snapshot.exists()) {
-                    ts_sdo.setVisibility(View.VISIBLE);
                     ts_sdo_r.setVisibility(View.VISIBLE);
                     ts_sdo_r_recycleV.setVisibility(View.VISIBLE);
 
@@ -1731,7 +1840,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                         sdo_r_sun.add(new TimeOfMovie(n, "mt_sdo_r"));
                     }
                 }else{
-                    ts_sdo.setVisibility(View.GONE);
                     ts_sdo_r.setVisibility(View.GONE);
                     ts_sdo_r_recycleV.setVisibility(View.GONE);
                 }
@@ -1756,7 +1864,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                 sdo_3d_sun.clear();
 
                 if (snapshot.exists()) {
-                    ts_sdo.setVisibility(View.VISIBLE);
                     ts_sdo_3D.setVisibility(View.VISIBLE);
                     ts_sdo_3D_recycleV.setVisibility(View.VISIBLE);
 
@@ -1789,7 +1896,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                 tgo_r_sun.clear();
 
                 if (snapshot.exists()) {
-                    ts_tgo.setVisibility(View.VISIBLE);
                     ts_tgo_r.setVisibility(View.VISIBLE);
                     ts_tgo_r_recycleV.setVisibility(View.VISIBLE);
 
@@ -1798,7 +1904,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                         tgo_r_sun.add(new TimeOfMovie(n, "mt_tgo_r"));
                     }
                 }else{
-                    ts_tgo.setVisibility(View.GONE);
                     ts_tgo_r.setVisibility(View.GONE);
                     ts_tgo_r_recycleV.setVisibility(View.GONE);
                 }
@@ -1823,7 +1928,6 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
                 tgo_3d_sun.clear();
 
                 if (snapshot.exists()) {
-                    ts_tgo.setVisibility(View.VISIBLE);
                     ts_tgo_3D.setVisibility(View.VISIBLE);
                     ts_tgo_3D_recycleV.setVisibility(View.VISIBLE);
 
@@ -1851,8 +1955,79 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
 
     }
 
-    public void CONE_mf(){
+    public void CONE_exist(){
+       CONEView();
+        DatabaseReference cone = timeReference.child(movieid).child("CONE");
+        cone.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    cONE_img.setVisibility(View.VISIBLE);
+                }else{
+                    cONE_img.setVisibility(View.GONE);
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference cone_imax= timeReference.child(movieid).child("CONE").child("imax");
+        cone_imax.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    ts_imax.setVisibility(View.VISIBLE);
+                }else{
+                    ts_imax.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference cone_gs = timeReference.child(movieid).child("CONE").child("gemstone");
+        cone_gs.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    ts_gemStone.setVisibility(View.VISIBLE);
+                }else{
+                    ts_gemStone.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference cone_4dx = timeReference.child(movieid).child("CONE").child("4DX");
+        cone_4dx.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    ts_4DX.setVisibility(View.VISIBLE);
+                }else{
+                    ts_4DX.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void CONE_mf(){
+        CONE_exist();
         DatabaseReference gemstone = timeReference.child(movieid).child("CONE").child("gemstone").child("mon-fri");
         List<TimeOfMovie> gs_mf = new ArrayList<>();
         gemstone.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -1952,7 +2127,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
     }
 
     public void CONE_sat(){
-
+        CONE_exist();
         DatabaseReference gemstone = timeReference.child(movieid).child("CONE").child("gemstone").child("sat");
         List<TimeOfMovie> gs_sat = new ArrayList<>();
         gemstone.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -2052,7 +2227,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
     }
 
     public void CONE_sun(){
-
+        CONE_exist();
         DatabaseReference gemstone = timeReference.child(movieid).child("CONE").child("gemstone").child("sun+hol");
         List<TimeOfMovie> gs_sun = new ArrayList<>();
         gemstone.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -2169,7 +2344,7 @@ public class TimeSchedule extends AppCompatActivity implements DateItemClickList
         intent.putExtra("selectDate", selectedDate);
         intent.putExtra("time", timeOfMovie.getT());
         intent.putExtra("theater_type", timeOfMovie.getType());
-        startActivity(intent);
+        startActivityForResult(intent, 20 );
 
     }
 
