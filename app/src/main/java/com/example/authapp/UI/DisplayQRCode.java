@@ -52,6 +52,7 @@ public class DisplayQRCode extends AppCompatActivity implements SaveQRCClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_q_r_code);
 
+        ToolbarInfo();
         init();
 
     }
@@ -59,9 +60,10 @@ public class DisplayQRCode extends AppCompatActivity implements SaveQRCClickList
     public void ToolbarInfo(){
 
 
-        toolbar = findViewById(R.id.toolbar_md);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Please Save Each Ticket!");
+        String s = "Please Click Save Each Ticket!";
+        getSupportActionBar().setTitle(s);
         toolbar.setNavigationIcon(R.drawable.ic_baseline_home_24);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
