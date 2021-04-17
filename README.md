@@ -8,6 +8,8 @@ In order to test the QRC Scanner in the application, your emulator must edit it 
  
 This email and password below could be used to test the admin and the user side of the app. You can also create your own user account but you will not have admin privileges.
 
+admin_id: admin003
+
 Email : movieticketsnow@gmail.com
 
 Pwd: password
@@ -19,5 +21,7 @@ Card Information: 4032038844339774
 Expires: 06/26
 
 CVV: 083
+
+Also for the testing of uploading the thumbnails and cover images on the Admin UI, you would need to have your google drive signed in as well as ensuring the photo gallery is already signed in to the google account so you would get an easy transition when saving your tickets.
 
 
