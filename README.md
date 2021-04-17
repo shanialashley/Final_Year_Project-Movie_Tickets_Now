@@ -6,6 +6,10 @@ In order to test the QRC Scanner in the application, your emulator must edit it 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
  
+This email and password below could be used to test the admin and the user side of the app. You can also create your own user account but you will not have admin privileges.
+
+email : movieticketsnow@gmail.com
+pwd: password
 
 
 
