@@ -11,5 +11,9 @@ This email and password below could be used to test the admin and the user side 
 email : movieticketsnow@gmail.com
 pwd: password
 
+The sandbax credit card information :
+Card Information: 4032038844339774
+Expires: 06/26
+CVV: 083
 
 
